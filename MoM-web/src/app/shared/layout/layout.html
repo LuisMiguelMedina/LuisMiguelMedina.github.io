@@ -15,33 +15,27 @@
       <!-- Navigation -->
       <ul class="navbar-nav text-light" id="accordionSidebar">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+          <a class="nav-link" routerLink="/app/dashboard" routerLinkActive="active">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+          <a class="nav-link" routerLink="/app/profile" routerLinkActive="active">
             <i class="fas fa-user"></i>
             <span>Profile</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/table" routerLinkActive="active">
+          <a class="nav-link" routerLink="/app/table" routerLinkActive="active">
             <i class="fas fa-table"></i>
             <span>Table</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">
-            <i class="far fa-user-circle"></i>
-            <span>Login</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/register" routerLinkActive="active">
-            <i class="fas fa-user-circle"></i>
-            <span>Register</span>
+          <a class="nav-link" (click)="logout()" style="cursor: pointer;">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
           </a>
         </li>
       </ul>

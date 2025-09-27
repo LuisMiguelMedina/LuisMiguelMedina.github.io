@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Auth } from '../../services/auth';
+import { AuthService } from '../../services/auth.service';
 import { LoginRequest } from '../../models/user.model';
 
 @Component({
@@ -21,7 +21,7 @@ export class Login {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private authService: Auth, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   async onSubmit(): Promise<void> {
     if (this.isLoading) return;
@@ -30,11 +30,13 @@ export class Login {
     this.errorMessage = '';
 
     try {
-      await this.authService.login(this.loginData);
-      // Redirect to dashboard on successful login
-      this.router.navigate(['/dashboard']);
+      const response = await this.authService.login(this.loginData);
+      if (!response.success) {
+        this.errorMessage = response.message;
+      }
+      // Firebase auth service handles navigation automatically on success
     } catch (error) {
-      this.errorMessage = error instanceof Error ? error.message : 'Login failed';
+      this.errorMessage = error instanceof Error ? error.message : 'Error de conexión';
     } finally {
       this.isLoading = false;
     }

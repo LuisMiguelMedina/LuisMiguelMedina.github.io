@@ -24,7 +24,9 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-  user: User;
+  user: User | null;
   token: string;
   expiresIn: number;
+  success: boolean;
+  message: string;
 }

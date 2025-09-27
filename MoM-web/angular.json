@@ -31,20 +31,22 @@
             "styles": [
               "src/styles.scss"
             ],
-            "outputPath": "dist/MoM-web"
+            "outputPath": "dist/MoM-web",
+            "index": "src/index.html",
+            "polyfills": []
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "750kB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
                 }
               ],
               "outputHashing": "all"

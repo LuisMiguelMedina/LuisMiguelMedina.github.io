@@ -5,21 +5,30 @@ import { Register } from './components/register/register';
 import { Profile } from './components/profile/profile';
 import { Table } from './components/table/table';
 import { Layout } from './shared/layout/layout';
+import { authGuard, loginGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: Login
+    component: Login,
+    canActivate: [loginGuard]
   },
   {
     path: 'register',
-    component: Register
+    component: Register,
+    canActivate: [loginGuard]
   },
   {
     path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'app',
     component: Layout,
+    canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: Dashboard },
       { path: 'profile', component: Profile },
       { path: 'table', component: Table }
@@ -27,6 +36,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/dashboard'
+    redirectTo: '/login'
   }
 ];
