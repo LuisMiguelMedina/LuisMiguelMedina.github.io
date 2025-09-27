@@ -1,0 +1,97 @@
+<div class="bg-gradient-primary min-vh-100 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-9 col-lg-12 col-xl-10">
+        <div class="card shadow-lg my-5 o-hidden border-0">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-flex">
+                <div class="flex-grow-1 bg-login-image"
+                     style="background-image: url('assets/img/dogs/image3.jpeg'); background-size: cover; background-position: center;">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h4 class="text-dark mb-4">Welcome Back!</h4>
+                  </div>
+
+                  <!-- Login Form -->
+                  <form class="user" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                    <div class="mb-3">
+                      <input
+                        class="form-control form-control-user"
+                        type="email"
+                        id="email"
+                        name="email"
+                        [(ngModel)]="loginData.email"
+                        placeholder="Enter Email Address..."
+                        required>
+                    </div>
+
+                    <div class="mb-3">
+                      <input
+                        class="form-control form-control-user"
+                        type="password"
+                        id="password"
+                        name="password"
+                        [(ngModel)]="loginData.password"
+                        placeholder="Password"
+                        required>
+                    </div>
+
+                    <div class="mb-3">
+                      <div class="custom-checkbox small">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="rememberMe"
+                            name="rememberMe"
+                            [(ngModel)]="loginData.rememberMe">
+                          <label class="form-check-label" for="rememberMe">Remember Me</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      class="btn btn-primary d-block w-100 btn-user"
+                      type="submit"
+                      [disabled]="isLoading || !loginForm.valid">
+                      {{ isLoading ? 'Logging in...' : 'Login' }}
+                    </button>
+
+                    <hr>
+
+                    <!-- Social Login Buttons -->
+                    <button class="btn btn-primary d-block w-100 mb-2 btn-google btn-user" type="button">
+                      <i class="fab fa-google"></i>&nbsp; Login with Google
+                    </button>
+                    <button class="btn btn-primary d-block w-100 btn-facebook btn-user" type="button">
+                      <i class="fab fa-facebook-f"></i>&nbsp; Login with Facebook
+                    </button>
+
+                    <hr>
+                  </form>
+
+                  <!-- Error Message -->
+                  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                    {{ errorMessage }}
+                  </div>
+
+                  <!-- Links -->
+                  <div class="text-center">
+                    <a class="small" href="#">Forgot Password?</a>
+                  </div>
+                  <div class="text-center">
+                    <a class="small" routerLink="/register">Create an Account!</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
