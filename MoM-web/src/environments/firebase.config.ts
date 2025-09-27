@@ -2,6 +2,7 @@
 export const firebaseConfig = {
   apiKey: "AIzaSyD8G8f2Z3CKr2LaRXoBX30BPcY97r5PgQ0",
   authDomain: "multiverseofmadness21-fefd9.firebaseapp.com",
+  databaseURL: "https://multiverseofmadness21-fefd9-default-rtdb.firebaseio.com/",
   projectId: "multiverseofmadness21-fefd9",
   storageBucket: "multiverseofmadness21-fefd9.firebasestorage.app",
   messagingSenderId: "90150896579",

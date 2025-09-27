@@ -1,6 +1,19 @@
 <!-- Page Heading -->
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-  <h3 class="text-dark mb-0">Dashboard</h3>
+  <div>
+    <h3 class="text-dark mb-0">Dashboard</h3>
+    @if (userProfile()) {
+      <small class="text-muted">Bienvenido, {{ userProfile()?.firstName }}!</small>
+    }
+    @if (onlineUsers() > 0) {
+      <div class="mt-1">
+        <small class="text-success">
+          <i class="fas fa-circle me-1"></i>
+          {{ onlineUsers() }} usuarios en línea
+        </small>
+      </div>
+    }
+  </div>
   <button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="button">
     <i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report
   </button>
@@ -18,7 +31,11 @@
               <span>Earnings (monthly)</span>
             </div>
             <div class="text-dark mb-0 fw-bold h5">
-              <span>${{ dashboardData.monthlyEarnings | number:'1.0-0' }}</span>
+              @if (dashboardData()) {
+                <span>${{ dashboardData()?.revenue | number:'1.0-0' }}</span>
+              } @else {
+                <span class="text-muted">Cargando...</span>
+              }
             </div>
           </div>
           <div class="col-auto">
@@ -39,7 +56,11 @@
               <span>Earnings (annual)</span>
             </div>
             <div class="text-dark mb-0 fw-bold h5">
-              <span>${{ dashboardData.annualEarnings | number:'1.0-0' }}</span>
+              @if (dashboardData() && dashboardData()!.revenue) {
+                <span>${{ (dashboardData()!.revenue * 5) | number:'1.0-0' }}</span>
+              } @else {
+                <span class="text-muted">Cargando...</span>
+              }
             </div>
           </div>
           <div class="col-auto">
@@ -62,20 +83,25 @@
             <div class="row g-0 align-items-center">
               <div class="col-auto">
                 <div class="text-dark me-3 mb-0 fw-bold h5">
-                  <span>{{ dashboardData.taskProgress }}%</span>
+                  @if (dashboardData()) {
+                    <span>{{ dashboardData()!.growth }}%</span>
+                  } @else {
+                    <span>--</span>
+                  }
                 </div>
               </div>
               <div class="col">
                 <div class="progress progress-sm">
-                  <div
-                    class="progress-bar bg-info"
-                    role="progressbar"
-                    [style.width.%]="dashboardData.taskProgress"
-                    [attr.aria-valuenow]="dashboardData.taskProgress"
-                    aria-valuemin="0"
-                    aria-valuemax="100">
-                    <span class="visually-hidden">{{ dashboardData.taskProgress }}%</span>
-                  </div>
+                  @if (dashboardData()) {
+                    <div
+                      class="progress-bar bg-info"
+                      [style.width.%]="dashboardData()!.growth"
+                      [attr.aria-valuenow]="dashboardData()!.growth"
+                      aria-valuemin="0"
+                      aria-valuemax="100">
+                      <span class="visually-hidden">{{ dashboardData()!.growth }}%</span>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -98,7 +124,11 @@
               <span>Pending Requests</span>
             </div>
             <div class="text-dark mb-0 fw-bold h5">
-              <span>{{ dashboardData.pendingRequests }}</span>
+              @if (dashboardData()) {
+                <span>{{ dashboardData()!.sessions }}</span>
+              } @else {
+                <span>--</span>
+              }
             </div>
           </div>
           <div class="col-auto">

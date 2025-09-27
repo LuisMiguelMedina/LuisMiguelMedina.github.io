@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
-
-interface DashboardData {
-  monthlyEarnings: number;
-  annualEarnings: number;
-  taskProgress: number;
-  pendingRequests: number;
-}
+import { DatabaseService } from '../../services/database.service';
+import { AuthService } from '../../services/auth.service';
 
 interface Activity {
   timestamp: Date;
@@ -19,47 +14,57 @@ interface Activity {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
-export class Dashboard implements OnInit {
-  dashboardData: DashboardData = {
-    monthlyEarnings: 40000,
-    annualEarnings: 215000,
-    taskProgress: 50,
-    pendingRequests: 18
-  };
+export class Dashboard implements OnInit, OnDestroy {
+  private databaseService = inject(DatabaseService);
+  private authService = inject(AuthService);
 
-  recentActivity: Activity[] = [
-    {
-      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      description: 'A new monthly report is ready to download!'
-    },
-    {
-      timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
-      description: '$290.29 has been deposited into your account!'
-    },
-    {
-      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
-      description: 'New user registration: john.doe@example.com'
-    },
-    {
-      timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
-      description: 'Server maintenance completed successfully'
+  // Access real-time database signals
+  dashboardData = this.databaseService.dashboardData;
+  userProfile = this.databaseService.userProfile;
+  onlineUsers = this.databaseService.onlineUsers;
+  currentUser = this.authService.currentUser;
+
+  // Lazy-loaded activity data to reduce initial memory usage
+  private _recentActivity: Activity[] | null = null;
+
+  get recentActivity(): Activity[] {
+    if (!this._recentActivity) {
+      this._recentActivity = [
+        {
+          timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+          description: 'A new monthly report is ready to download!'
+        },
+        {
+          timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
+          description: '$290.29 has been deposited into your account!'
+        },
+        {
+          timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
+          description: 'New user registration: john.doe@example.com'
+        },
+        {
+          timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+          description: 'Server maintenance completed successfully'
+        }
+      ];
     }
-  ];
-
-  ngOnInit(): void {
-    // Simulate loading dashboard data
-    this.loadDashboardData();
+    return this._recentActivity;
   }
 
-  private loadDashboardData(): void {
-    // In a real app, this would come from a service/API
-    // For now, we'll just simulate some dynamic data
-    setTimeout(() => {
-      this.dashboardData = {
-        ...this.dashboardData,
-        monthlyEarnings: 40000 + Math.floor(Math.random() * 5000),
-        taskProgress: 45 + Math.floor(Math.random() * 30)
-      };
-    }, 1000);
+  ngOnInit(): void {
+    // Database service automatically loads data when user is authenticated
+    // Save user activity (optimized - only save once per session)
+    if (!sessionStorage.getItem('dashboard_visited')) {
+      this.databaseService.saveUserActivity({
+        action: 'viewed_dashboard',
+        page: '/app/dashboard'
+      });
+      sessionStorage.setItem('dashboard_visited', 'true');
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Clear activity data to free memory
+    this._recentActivity = null;
   }
 }

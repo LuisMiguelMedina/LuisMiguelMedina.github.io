@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal, inject, OnDestroy, DestroyRef } from '@angular/core';
 import {
   Auth as FirebaseAuth,
   signInWithEmailAndPassword,
@@ -10,13 +10,19 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User, LoginRequest, RegisterRequest, AuthResponse } from '../models/user.model';
+import { CacheService } from './cache.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private firebaseAuth = inject(FirebaseAuth);
   private router = inject(Router);
+  private cacheService = inject(CacheService);
+  private destroyRef = inject(DestroyRef);
+
+  // Unsubscribe function for auth state
+  private authStateUnsubscribe: (() => void) | null = null;
 
   private currentUserSignal = signal<User | null>(null);
   private isLoggedInSignal = signal<boolean>(false);
@@ -28,10 +34,18 @@ export class AuthService {
   loading = this.loadingSignal.asReadonly();
 
   constructor() {
-    // Listen to Firebase auth state changes
-    onAuthStateChanged(this.firebaseAuth, (firebaseUser) => {
+    // Listen to Firebase auth state changes with cleanup
+    this.authStateUnsubscribe = onAuthStateChanged(this.firebaseAuth, (firebaseUser) => {
       if (firebaseUser) {
-        const user = this.mapFirebaseUserToUser(firebaseUser);
+        // Check cache first to avoid redundant object creation
+        const cacheKey = `user_${firebaseUser.uid}`;
+        let user = this.cacheService.get<User>(cacheKey);
+
+        if (!user) {
+          user = this.mapFirebaseUserToUser(firebaseUser);
+          this.cacheService.set(cacheKey, user, 300000); // Cache for 5 minutes
+        }
+
         this.currentUserSignal.set(user);
         this.isLoggedInSignal.set(true);
       } else {
@@ -39,6 +53,24 @@ export class AuthService {
         this.isLoggedInSignal.set(false);
       }
     });
+
+    // Setup cleanup on service destruction
+    this.destroyRef.onDestroy(() => {
+      this.ngOnDestroy();
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from auth state changes
+    if (this.authStateUnsubscribe) {
+      this.authStateUnsubscribe();
+      this.authStateUnsubscribe = null;
+    }
+
+    // Clear signals
+    this.currentUserSignal.set(null);
+    this.isLoggedInSignal.set(false);
+    this.loadingSignal.set(false);
   }
 
   async login(loginData: LoginRequest): Promise<AuthResponse> {
