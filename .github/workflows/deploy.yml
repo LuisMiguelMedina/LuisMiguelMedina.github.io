@@ -43,7 +43,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: './MoM-web/dist/MoM-web'
+        path: './MoM-web/dist/MoM-web/browser'
 
   deploy:
     environment:
