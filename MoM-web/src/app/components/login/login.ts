@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginRequest } from '../../models/user.model';
 import { Database, ref, set, onValue, off } from '@angular/fire/database';
+import { PermissionsService } from '../../services/permissions.service';
 
 interface AdminCredential {
   username: string;
   password: string;
   name: string;
   active: boolean;
+  level: 1 | 2 | 3;
 }
 
 interface AttemptBlock {
@@ -38,6 +40,7 @@ export class Login implements OnInit, OnDestroy {
   private database = inject(Database);
   private injector = inject(Injector);
   private router = inject(Router);
+  private permissionsService = inject(PermissionsService);
 
   loginData: LoginRequest = {
     email: '',
@@ -116,15 +119,21 @@ export class Login implements OnInit, OnDestroy {
     onValue(this.adminsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        this.admins = Object.values(data).filter((a: any) => a.active !== false) as AdminCredential[];
+        // Asignar nivel por defecto a admins existentes que no tienen level
+        this.admins = Object.values(data)
+          .filter((a: any) => a.active !== false)
+          .map((a: any) => ({
+            ...a,
+            level: a.level || 3 // Nivel 3 por defecto para compatibilidad
+          })) as AdminCredential[];
       } else {
         this.initializeDefaultAdmins();
       }
     }, (error) => {
       console.error('Firebase admins error:', error);
       this.admins = [
-        { username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true },
-        { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true }
+        { username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true, level: 3 },
+        { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
       ];
     });
   }
@@ -142,10 +151,10 @@ export class Login implements OnInit, OnDestroy {
 
   private async initializeDefaultAdmins(): Promise<void> {
     const admins: { [k: string]: AdminCredential } = {
-      admin001: { username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true },
-      admin002: { username: 'admin002', password: 'madness2024', name: 'Admin Sistema', active: true },
-      admin003: { username: 'admin003', password: 'quantum2024', name: 'Admin Backup', active: true },
-      root: { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true }
+      admin001: { username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
+      admin002: { username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
+      admin003: { username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
+      root: { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
     };
     try {
       await set(ref(this.database, FIREBASE_ADMINS_PATH), admins);
@@ -210,12 +219,14 @@ export class Login implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.showError = false;
 
-        sessionStorage.setItem('mom_user', JSON.stringify({
+        // Guardar sesión con nivel de admin usando PermissionsService
+        this.permissionsService.setAdminSession({
           username: validUser.username,
           name: validUser.name,
           role: 'admin',
+          level: validUser.level || 1,
           loginTime: new Date().toISOString()
-        }));
+        });
 
         this.failedAttempts = 0;
         this.isLocked = false;

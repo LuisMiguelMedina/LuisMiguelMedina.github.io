@@ -1,0 +1,182 @@
+/* Dashboard Blue Matrix Styles */
+
+/* Animation for dashboard entrance */
+.matrix-page-header,
+.matrix-card,
+.matrix-chart-container {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.matrix-page-header {
+    animation-delay: 0.1s;
+}
+
+.row:nth-child(2) .matrix-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.row:nth-child(2) .matrix-card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.row:nth-child(2) .matrix-card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.row:nth-child(2) .matrix-card:nth-child(4) {
+    animation-delay: 0.5s;
+}
+
+.row:nth-child(3) .matrix-chart-container {
+    animation-delay: 0.6s;
+}
+
+.row:nth-child(4) .matrix-chart-container {
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card hover effects */
+.matrix-card {
+    cursor: default;
+
+    .card-value {
+        transition: all 0.3s ease;
+    }
+
+    &:hover .card-value {
+        transform: scale(1.05);
+    }
+
+    &:hover .card-icon {
+        opacity: 0.8;
+        color: var(--terminal-cyan-dim);
+    }
+}
+
+/* Progress bar glow */
+.matrix-progress .progress-bar {
+    animation: progressGlow 2s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+}
+
+/* Chart container hover */
+.matrix-chart-container {
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: var(--terminal-cyan-dim);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+}
+
+/* Timeline animation */
+.matrix-timeline .timeline-item {
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(0, 255, 255, 0.02);
+        padding-left: 0.5rem;
+
+        .timeline-icon {
+            border-color: var(--terminal-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .matrix-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+
+        .header-actions {
+            width: 100%;
+
+            .matrix-btn {
+                width: 100%;
+            }
+        }
+    }
+
+    .matrix-card .card-body {
+        padding: 1rem;
+    }
+
+    .matrix-card .card-value {
+        font-size: 1.4rem;
+    }
+}
+
+/* System status indicators */
+.system-status-online {
+    color: var(--terminal-green);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Restricted content overlay */
+.restricted-overlay {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 15, 0.95);
+        z-index: 5;
+    }
+
+    &::after {
+        content: '🔒 RESTRICTED ACCESS';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: var(--font-terminal);
+        color: var(--terminal-red);
+        text-shadow: var(--glow-red);
+        z-index: 6;
+        letter-spacing: 2px;
+    }
+}

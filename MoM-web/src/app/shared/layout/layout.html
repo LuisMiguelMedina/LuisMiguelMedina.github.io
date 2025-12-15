@@ -1,38 +1,43 @@
-<div id="wrapper">
-  <!-- Sidebar -->
-  <nav class="navbar align-items-start p-0 sidebar sidebar-dark accordion bg-gradient-primary navbar-dark">
+<div id="wrapper" class="matrix-dashboard">
+  <!-- Matrix Sidebar -->
+  <nav class="navbar align-items-start p-0 sidebar matrix-sidebar accordion navbar-dark">
     <div class="container-fluid d-flex flex-column p-0">
+      <!-- Brand Logo -->
       <a class="navbar-brand d-flex justify-content-center align-items-center m-0 sidebar-brand" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-terminal"></i>
         </div>
         <div class="mx-3 sidebar-brand-text">
-          <span>MoM Web</span>
+          <span>DIMENSION-2</span>
         </div>
       </a>
       <hr class="my-0 sidebar-divider">
 
-      <!-- Navigation -->
+      <!-- Admin Level Badge -->
+      @if (adminSession()) {
+      <div class="admin-level-badge">
+        <span class="level-indicator level-{{ adminLevel() }}">
+          <i class="fas fa-shield-alt level-icon"></i>
+          LVL {{ adminLevel() }} - {{ getLevelName() }}
+        </span>
+      </div>
+      }
+
+      <!-- Dynamic Navigation based on permissions -->
       <ul class="navbar-nav text-light" id="accordionSidebar">
+        @for (item of menuItems(); track item.path) {
+        @if (item.visible) {
         <li class="nav-item">
-          <a class="nav-link" routerLink="/app/dashboard" routerLinkActive="active">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+          <a class="nav-link" [routerLink]="item.path" routerLinkActive="active">
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/app/profile" routerLinkActive="active">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/app/table" routerLinkActive="active">
-            <i class="fas fa-table"></i>
-            <span>Table</span>
-          </a>
-        </li>
-        <li class="nav-item">
+        }
+        }
+
+        <!-- Logout always visible -->
+        <li class="nav-item mt-3">
           <a class="nav-link" (click)="logout()" style="cursor: pointer;">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
@@ -40,49 +45,61 @@
         </li>
       </ul>
 
-      <div class="text-center d-none d-md-inline">
+      <div class="text-center d-none d-md-inline mt-auto mb-3">
         <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
       </div>
     </div>
   </nav>
 
   <!-- Content Wrapper -->
-  <div class="d-flex flex-column" id="content-wrapper">
+  <div class="d-flex flex-column" id="content-wrapper" style="background: var(--terminal-bg);">
     <div id="content">
-      <!-- Topbar -->
-      <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
+      <!-- Matrix Topbar -->
+      <nav class="navbar navbar-expand shadow mb-4 topbar matrix-topbar">
         <div class="container-fluid">
           <button class="btn btn-link d-md-none me-3 rounded-circle" id="sidebarToggleTop" type="button">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-bars" style="color: var(--terminal-cyan);"></i>
           </button>
 
-          <!-- Search -->
-          <form class="d-none d-sm-inline-block mw-100 ms-md-3 me-auto my-2 my-md-0 navbar-search">
-            <div class="input-group">
-              <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-              <button class="btn btn-primary py-0" type="button">
+          <!-- Functional Search -->
+          <form class="d-none d-sm-inline-block mw-100 ms-md-3 me-auto my-2 my-md-0 navbar-search"
+            (submit)="onSearch($event)">
+            <div class="input-group position-relative">
+              <input class="bg-light form-control border-0 small" type="text" placeholder="Search in page..."
+                [(ngModel)]="searchQuery" name="searchQuery" (input)="onSearchInput()">
+              <button class="btn btn-primary py-0" type="submit">
                 <i class="fas fa-search"></i>
               </button>
+              @if (searchQuery && searchResults.length > 0) {
+              <button class="btn btn-link py-0 ms-1" type="button" (click)="clearSearch()"
+                style="color: var(--terminal-amber);">
+                <i class="fas fa-times"></i>
+              </button>
+              }
             </div>
+            @if (searchQuery && searchResults.length > 0) {
+            <div class="search-results-badge">
+              {{ searchResults.length }} resultados encontrados
+            </div>
+            }
+            @if (searchQuery && searchResults.length === 0 && searchQuery.length >= 2) {
+            <div class="search-results-badge no-results">
+              Sin resultados
+            </div>
+            }
           </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav flex-nowrap ms-auto">
-            <!-- Search Dropdown (mobile) -->
-            <li class="nav-item dropdown d-sm-none no-arrow">
-              <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                <i class="fas fa-search"></i>
-              </a>
-              <div class="dropdown-menu p-3 dropdown-menu-end animated--grow-in">
-                <form class="w-100 me-auto navbar-search">
-                  <div class="input-group">
-                    <input class="bg-light border-0 form-control small" type="text" placeholder="Search for ...">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </div>
-                </form>
-              </div>
+            <!-- Admin Level Indicator (mobile) -->
+            <li class="nav-item d-lg-none mx-1">
+              <span class="nav-link">
+                <span class="badge bg-transparent border"
+                  [style.border-color]="getLevelColor() === 'cyan' ? 'var(--terminal-cyan)' : getLevelColor() === 'amber' ? 'var(--terminal-amber)' : 'var(--terminal-purple)'"
+                  [style.color]="getLevelColor() === 'cyan' ? 'var(--terminal-cyan)' : getLevelColor() === 'amber' ? 'var(--terminal-amber)' : 'var(--terminal-purple)'">
+                  L{{ adminLevel() }}
+                </span>
+              </span>
             </li>
 
             <!-- Alerts Dropdown -->
@@ -93,27 +110,39 @@
                   <i class="fas fa-bell fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                  <h6 class="dropdown-header">Alerts Center</h6>
-                  <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                  <h6 class="dropdown-header">SYSTEM ALERTS</h6>
+                  <a class="dropdown-item text-center small" href="#">Show All Alerts</a>
                 </div>
               </div>
             </li>
 
-            <!-- User Dropdown -->
+            <!-- User Display (no image, just username) -->
             <li class="nav-item mx-1 dropdown no-arrow">
               <div class="nav-item dropdown no-arrow">
-                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                  <span class="d-none d-lg-inline fw-bold me-2 text-gray-600 small">Douglas McGee</span>
-                  <img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg">
+                <a class="dropdown-toggle nav-link user-display" aria-expanded="false" data-bs-toggle="dropdown"
+                  href="#">
+                  @if (adminSession()) {
+                  <span class="username-text">
+                    {{ adminSession()?.username }}
+                  </span>
+                  }
                 </a>
                 <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                  <a class="dropdown-item" routerLink="/profile">
-                    <i class="fas fa-user fa-sm me-2 text-gray-400"></i>
+                  @if (permissionsService.canViewProfile()) {
+                  <a class="dropdown-item" routerLink="/app/profile">
+                    <i class="fas fa-user fa-sm me-2"></i>
                     Profile
                   </a>
+                  }
+                  @if (permissionsService.canAccessSettings()) {
+                  <a class="dropdown-item" routerLink="/app/settings">
+                    <i class="fas fa-cog fa-sm me-2"></i>
+                    Settings
+                  </a>
+                  }
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#" (click)="logout()">
-                    <i class="fas fa-sign-out-alt fa-sm me-2 text-gray-400"></i>
+                  <a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()">
+                    <i class="fas fa-sign-out-alt fa-sm me-2"></i>
                     Logout
                   </a>
                 </div>
@@ -124,20 +153,18 @@
       </nav>
 
       <!-- Page Content -->
-      <div class="container-fluid">
+      <div class="container-fluid" #pageContent>
         <router-outlet></router-outlet>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white sticky-footer">
+    <!-- Matrix Footer -->
+    <footer class="sticky-footer matrix-footer">
       <div class="container my-auto">
         <div class="text-center my-auto">
-          <span>Copyright &copy; MoM Web 2025</span>
+          <span>DIMENSION-2 ADMIN CONSOLE v2.4.1 // © 2025</span>
         </div>
       </div>
     </footer>
   </div>
-  <!-- Memory Monitor Component -->
-  <app-memory-monitor></app-memory-monitor>
 </div>

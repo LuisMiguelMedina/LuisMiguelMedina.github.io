@@ -1,45 +1,43 @@
-<!-- Page Heading -->
-<div class="d-sm-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h3 class="text-dark mb-0">Dashboard</h3>
-    @if (userProfile()) {
-      <small class="text-muted">Bienvenido, {{ userProfile()?.firstName }}!</small>
+<!-- Matrix Dashboard Header -->
+<div class="matrix-page-header">
+  <div class="header-title">
+    <h3>Dashboard</h3>
+    @if (adminSession()) {
+    <div class="welcome-text">> Bienvenido, {{ adminSession()?.name }}</div>
     }
     @if (onlineUsers() > 0) {
-      <div class="mt-1">
-        <small class="text-success">
-          <i class="fas fa-circle me-1"></i>
-          {{ onlineUsers() }} usuarios en línea
-        </small>
-      </div>
+    <div class="online-status">
+      <i class="fas fa-circle"></i>
+      {{ onlineUsers() }} usuarios en línea
+    </div>
     }
   </div>
-  <button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="button">
-    <i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report
-  </button>
+  <div class="header-actions">
+    <button class="matrix-btn" type="button">
+      <i class="fas fa-download"></i>Generate Report
+    </button>
+  </div>
 </div>
 
-<!-- Content Row - Stats Cards -->
-<div class="row">
+<!-- Stats Cards Row -->
+<div class="row mb-4">
   <!-- Earnings (Monthly) Card -->
   <div class="col-md-6 col-xl-3 mb-4">
-    <div class="card shadow py-2 border-left-primary">
+    <div class="matrix-card card-cyan">
       <div class="card-body">
         <div class="row g-0 align-items-center">
           <div class="col me-2">
-            <div class="text-uppercase text-primary mb-1 fw-bold text-xs">
-              <span>Earnings (monthly)</span>
-            </div>
-            <div class="text-dark mb-0 fw-bold h5">
+            <div class="card-label">Earnings (Monthly)</div>
+            <div class="card-value">
               @if (dashboardData()) {
-                <span>${{ dashboardData()?.revenue | number:'1.0-0' }}</span>
+              ${{ dashboardData()?.revenue | number:'1.0-0' }}
               } @else {
-                <span class="text-muted">Cargando...</span>
+              <span style="color: var(--terminal-gray); font-size: 1rem;">Loading...</span>
               }
             </div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            <i class="fas fa-calendar card-icon"></i>
           </div>
         </div>
       </div>
@@ -48,23 +46,21 @@
 
   <!-- Earnings (Annual) Card -->
   <div class="col-md-6 col-xl-3 mb-4">
-    <div class="card shadow py-2 border-left-success">
+    <div class="matrix-card card-green">
       <div class="card-body">
         <div class="row g-0 align-items-center">
           <div class="col me-2">
-            <div class="text-uppercase text-success mb-1 fw-bold text-xs">
-              <span>Earnings (annual)</span>
-            </div>
-            <div class="text-dark mb-0 fw-bold h5">
+            <div class="card-label">Earnings (Annual)</div>
+            <div class="card-value value-green">
               @if (dashboardData() && dashboardData()!.revenue) {
-                <span>${{ (dashboardData()!.revenue * 5) | number:'1.0-0' }}</span>
+              ${{ (dashboardData()!.revenue * 5) | number:'1.0-0' }}
               } @else {
-                <span class="text-muted">Cargando...</span>
+              <span style="color: var(--terminal-gray); font-size: 1rem;">Loading...</span>
               }
             </div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+            <i class="fas fa-dollar-sign card-icon"></i>
           </div>
         </div>
       </div>
@@ -73,66 +69,55 @@
 
   <!-- Tasks Card -->
   <div class="col-md-6 col-xl-3 mb-4">
-    <div class="card shadow py-2 border-left-info">
+    <div class="matrix-card card-amber">
       <div class="card-body">
         <div class="row g-0 align-items-center">
           <div class="col me-2">
-            <div class="text-uppercase text-info mb-1 fw-bold text-xs">
-              <span>Tasks</span>
-            </div>
-            <div class="row g-0 align-items-center">
-              <div class="col-auto">
-                <div class="text-dark me-3 mb-0 fw-bold h5">
-                  @if (dashboardData()) {
-                    <span>{{ dashboardData()!.growth }}%</span>
-                  } @else {
-                    <span>--</span>
-                  }
-                </div>
+            <div class="card-label">Tasks Progress</div>
+            <div class="d-flex align-items-center">
+              <div class="card-value value-amber me-3">
+                @if (dashboardData()) {
+                {{ dashboardData()!.growth }}%
+                } @else {
+                --
+                }
               </div>
-              <div class="col">
-                <div class="progress progress-sm">
+              <div class="flex-grow-1">
+                <div class="matrix-progress progress progress-sm">
                   @if (dashboardData()) {
-                    <div
-                      class="progress-bar bg-info"
-                      [style.width.%]="dashboardData()!.growth"
-                      [attr.aria-valuenow]="dashboardData()!.growth"
-                      aria-valuemin="0"
-                      aria-valuemax="100">
-                      <span class="visually-hidden">{{ dashboardData()!.growth }}%</span>
-                    </div>
+                  <div class="progress-bar" [style.width.%]="dashboardData()!.growth"
+                    [attr.aria-valuenow]="dashboardData()!.growth" aria-valuemin="0" aria-valuemax="100">
+                  </div>
                   }
                 </div>
               </div>
             </div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+            <i class="fas fa-clipboard-list card-icon"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Pending Requests Card -->
+  <!-- Sessions Card -->
   <div class="col-md-6 col-xl-3 mb-4">
-    <div class="card shadow py-2 border-left-warning">
+    <div class="matrix-card card-purple">
       <div class="card-body">
         <div class="row g-0 align-items-center">
           <div class="col me-2">
-            <div class="text-uppercase text-warning mb-1 fw-bold text-xs">
-              <span>Pending Requests</span>
-            </div>
-            <div class="text-dark mb-0 fw-bold h5">
+            <div class="card-label">Active Sessions</div>
+            <div class="card-value value-purple">
               @if (dashboardData()) {
-                <span>{{ dashboardData()!.sessions }}</span>
+              {{ dashboardData()!.sessions }}
               } @else {
-                <span>--</span>
+              --
               }
             </div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-comments fa-2x text-gray-300"></i>
+            <i class="fas fa-users card-icon"></i>
           </div>
         </div>
       </div>
@@ -140,106 +125,150 @@
   </div>
 </div>
 
-<!-- Content Row - Charts and Activity -->
-<div class="row">
+<!-- Charts Row -->
+<div class="row mb-4">
   <!-- Area Chart -->
-  <div class="col-lg-7 col-xl-8">
-    <div class="card shadow mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h6 class="text-primary m-0 fw-bold">Earnings Overview</h6>
-        <div class="dropdown no-arrow">
-          <button class="btn btn-link btn-sm dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
-            <i class="fas fa-ellipsis-v text-gray-400"></i>
+  <div class="col-lg-7 col-xl-8 mb-4">
+    <div class="matrix-chart-container">
+      <div class="chart-header">
+        <h6>Earnings Overview</h6>
+        <div class="dropdown">
+          <button class="matrix-btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" type="button"
+            data-bs-toggle="dropdown">
+            <i class="fas fa-ellipsis-v"></i>
           </button>
-          <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-            <p class="text-center dropdown-header">Chart Options</p>
+          <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="#">View Details</a>
             <a class="dropdown-item" href="#">Export Data</a>
           </div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="chart-area">
-          <div class="d-flex justify-content-center align-items-center" style="height: 320px;">
-            <div class="text-center">
-              <i class="fas fa-chart-area fa-3x text-gray-300 mb-3"></i>
-              <p class="text-gray-500">Chart will be implemented here</p>
-              <small class="text-muted">Using Chart.js or similar library</small>
-            </div>
-          </div>
-        </div>
+      <div class="chart-placeholder">
+        <i class="fas fa-chart-area"></i>
+        <p>[ CHART_AREA: EARNINGS_OVERVIEW ]</p>
+        <small style="color: var(--terminal-gray);">Using Chart.js or similar library</small>
       </div>
     </div>
   </div>
 
   <!-- Pie Chart -->
-  <div class="col-lg-5 col-xl-4">
-    <div class="card shadow mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h6 class="text-primary m-0 fw-bold">Revenue Sources</h6>
-        <div class="dropdown no-arrow">
-          <button class="btn btn-link btn-sm dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
-            <i class="fas fa-ellipsis-v text-gray-400"></i>
+  <div class="col-lg-5 col-xl-4 mb-4">
+    <div class="matrix-chart-container">
+      <div class="chart-header">
+        <h6>Revenue Sources</h6>
+        <div class="dropdown">
+          <button class="matrix-btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" type="button"
+            data-bs-toggle="dropdown">
+            <i class="fas fa-ellipsis-v"></i>
           </button>
-          <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-            <p class="text-center dropdown-header">Chart Options</p>
+          <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="#">View Details</a>
             <a class="dropdown-item" href="#">Export Data</a>
           </div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="chart-pie pt-4 pb-2">
-          <div class="d-flex justify-content-center align-items-center" style="height: 245px;">
-            <div class="text-center">
-              <i class="fas fa-chart-pie fa-3x text-gray-300 mb-3"></i>
-              <p class="text-gray-500">Pie chart placeholder</p>
-              <small class="text-muted">Revenue breakdown by source</small>
-            </div>
-          </div>
-        </div>
-        <div class="mt-4 text-center small">
-          <span class="me-2">
-            <i class="fas fa-circle text-primary"></i> Direct
-          </span>
-          <span class="me-2">
-            <i class="fas fa-circle text-success"></i> Social
-          </span>
-          <span class="me-2">
-            <i class="fas fa-circle text-info"></i> Referral
-          </span>
-        </div>
+      <div class="chart-placeholder" style="min-height: 180px;">
+        <i class="fas fa-chart-pie"></i>
+        <p>[ CHART_PIE: REVENUE_SOURCES ]</p>
       </div>
-    </div>
-
-    <!-- Recent Activity -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="text-primary m-0 fw-bold">Recent Activity</h6>
-      </div>
-      <div class="card-body">
-        <div class="timeline">
-          @for (activity of recentActivity; track activity.timestamp) {
-            <div class="d-flex align-items-center mb-3">
-              <div class="me-3">
-                <div class="bg-primary icon-circle">
-                  <i class="fas fa-file-alt text-white"></i>
-                </div>
-              </div>
-              <div class="flex-grow-1">
-                <div class="small text-gray-500">{{ activity.timestamp | date:'short' }}</div>
-                <p class="mb-0">{{ activity.description }}</p>
-              </div>
-            </div>
-          }
-        </div>
+      <div class="d-flex justify-content-center gap-3 mt-3"
+        style="font-family: var(--font-terminal); font-size: 0.8rem;">
+        <span style="color: var(--terminal-cyan);">
+          <i class="fas fa-circle me-1"></i> Direct
+        </span>
+        <span style="color: var(--terminal-green);">
+          <i class="fas fa-circle me-1"></i> Social
+        </span>
+        <span style="color: var(--terminal-amber);">
+          <i class="fas fa-circle me-1"></i> Referral
+        </span>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Activity Section - Only for Level 2+ -->
+@if (adminLevel() >= 2) {
+<div class="row">
+  <div class="col-lg-6 mb-4">
+    <div class="matrix-chart-container">
+      <div class="chart-header">
+        <h6>Recent Activity</h6>
+      </div>
+      <div class="matrix-timeline">
+        @for (activity of recentActivity; track activity.timestamp) {
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-time">{{ activity.timestamp | date:'short' }}</div>
+            <div class="timeline-text">{{ activity.description }}</div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- System Status - Only for Level 3 -->
+  @if (adminLevel() >= 3) {
+  <div class="col-lg-6 mb-4">
+    <div class="matrix-chart-container">
+      <div class="chart-header">
+        <h6>System Status</h6>
+      </div>
+      <div class="p-3">
+        <div class="d-flex justify-content-between align-items-center mb-3" style="font-family: var(--font-terminal);">
+          <span style="color: var(--terminal-gray);">CPU_USAGE:</span>
+          <span style="color: var(--terminal-green);">42%</span>
+        </div>
+        <div class="matrix-progress progress mb-4" style="height: 8px;">
+          <div class="progress-bar" style="width: 42%;"></div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3" style="font-family: var(--font-terminal);">
+          <span style="color: var(--terminal-gray);">MEMORY_USAGE:</span>
+          <span style="color: var(--terminal-amber);">68%</span>
+        </div>
+        <div class="matrix-progress progress mb-4" style="height: 8px;">
+          <div class="progress-bar"
+            style="width: 68%; background: linear-gradient(90deg, var(--terminal-amber), var(--terminal-red)) !important;">
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3" style="font-family: var(--font-terminal);">
+          <span style="color: var(--terminal-gray);">DISK_USAGE:</span>
+          <span style="color: var(--terminal-cyan);">35%</span>
+        </div>
+        <div class="matrix-progress progress mb-4" style="height: 8px;">
+          <div class="progress-bar" style="width: 35%;"></div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center" style="font-family: var(--font-terminal);">
+          <span style="color: var(--terminal-gray);">NETWORK_STATUS:</span>
+          <span style="color: var(--terminal-green);">
+            <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i> ONLINE
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+} @else {
+<!-- Restricted message for Level 1 -->
+<div class="row">
+  <div class="col-12">
+    <div class="matrix-chart-container text-center" style="padding: 3rem;">
+      <i class="fas fa-lock" style="font-size: 3rem; color: var(--terminal-gray); margin-bottom: 1rem;"></i>
+      <p style="font-family: var(--font-terminal); color: var(--terminal-gray); letter-spacing: 2px;">
+        [ NIVEL DE ACCESO INSUFICIENTE ]
+      </p>
+      <small style="color: var(--terminal-cyan-dim);">
+        Actividades y métricas avanzadas requieren nivel 2 o superior
+      </small>
+    </div>
+  </div>
+</div>
+}

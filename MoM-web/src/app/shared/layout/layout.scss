@@ -1,0 +1,207 @@
+/* Layout Blue Matrix Styles */
+
+/* Wrapper fills the screen */
+#wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: var(--terminal-bg);
+}
+
+/* Content wrapper takes remaining space */
+#content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+#content {
+    flex: 1;
+}
+
+/* Sidebar Toggle Button */
+#sidebarToggle {
+    width: 30px;
+    height: 30px;
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-cyan-dim) !important;
+    color: var(--terminal-cyan);
+
+    &:hover {
+        background: rgba(0, 255, 255, 0.1);
+        border-color: var(--terminal-cyan) !important;
+    }
+
+    &::after {
+        content: '«';
+        font-family: var(--font-terminal);
+        color: var(--terminal-cyan);
+        font-size: 1rem;
+    }
+}
+
+#sidebarToggleTop {
+    color: var(--terminal-cyan) !important;
+
+    &:hover {
+        background: rgba(0, 255, 255, 0.1);
+    }
+}
+
+/* Override sidebar width for matrix theme */
+.matrix-sidebar.sidebar {
+    width: 14rem !important;
+    min-height: 100vh;
+
+    @media (max-width: 767.98px) {
+        width: 0 !important;
+
+        &.toggled {
+            width: 14rem !important;
+        }
+    }
+}
+
+/* Override content wrapper background */
+#content-wrapper {
+    background: var(--terminal-bg) !important;
+}
+
+/* Container fluid styling */
+.container-fluid {
+    padding: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .matrix-sidebar {
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        &.toggled {
+            transform: translateX(0);
+        }
+    }
+
+    #content-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .container-fluid {
+        padding: 1rem;
+    }
+}
+
+/* Topbar height adjustment */
+.matrix-topbar.topbar {
+    height: auto;
+    min-height: 4rem;
+    padding: 0.5rem 0;
+}
+
+/* Footer styling */
+.matrix-footer.sticky-footer {
+    padding: 1rem;
+    margin-top: auto;
+}
+
+/* ============================================
+   SEARCH HIGHLIGHT STYLES
+   ============================================ */
+
+/* Search highlight - applied to matching text */
+:host ::ng-deep .search-highlight,
+.search-highlight {
+    background: var(--terminal-amber) !important;
+    color: var(--terminal-bg) !important;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--terminal-amber), 0 0 20px rgba(255, 170, 0, 0.5);
+    animation: highlightPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes highlightPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px var(--terminal-amber), 0 0 20px rgba(255, 170, 0, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 15px var(--terminal-amber), 0 0 30px rgba(255, 170, 0, 0.7);
+    }
+}
+
+/* Search results badge */
+.search-results-badge {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--terminal-bg-card);
+    border: 1px solid var(--terminal-cyan-dim);
+    border-top: none;
+    padding: 6px 12px;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--terminal-cyan);
+    letter-spacing: 1px;
+    z-index: 1000;
+
+    &.no-results {
+        color: var(--terminal-red);
+        border-color: var(--terminal-red);
+    }
+}
+
+/* ============================================
+   USERNAME DISPLAY STYLES
+   ============================================ */
+
+.user-display {
+    display: flex;
+    align-items: center;
+
+    .username-text {
+        font-family: var(--font-terminal);
+        font-size: 0.9rem;
+        color: var(--terminal-cyan) !important;
+        text-shadow: 0 0 5px var(--terminal-cyan-glow);
+        letter-spacing: 1px;
+        padding: 4px 12px;
+        border: 1px solid var(--terminal-cyan-dim);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--terminal-cyan);
+        }
+    }
+}
+
+/* Search input styling override */
+.navbar-search {
+    position: relative;
+
+    .form-control {
+        background: var(--terminal-bg) !important;
+        border: 1px solid var(--terminal-dark-gray) !important;
+        color: var(--terminal-cyan) !important;
+        font-family: var(--font-mono);
+
+        &::placeholder {
+            color: var(--terminal-gray);
+        }
+
+        &:focus {
+            border-color: var(--terminal-cyan) !important;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2) !important;
+        }
+    }
+}

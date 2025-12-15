@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
 import { DatabaseService } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
+import { PermissionsService } from '../../services/permissions.service';
 
 interface Activity {
   timestamp: Date;
@@ -17,12 +18,15 @@ interface Activity {
 export class Dashboard implements OnInit, OnDestroy {
   private databaseService = inject(DatabaseService);
   private authService = inject(AuthService);
+  permissionsService = inject(PermissionsService);
 
   // Access real-time database signals
   dashboardData = this.databaseService.dashboardData;
   userProfile = this.databaseService.userProfile;
   onlineUsers = this.databaseService.onlineUsers;
   currentUser = this.authService.currentUser;
+  adminSession = this.permissionsService.adminSession;
+  adminLevel = this.permissionsService.adminLevel;
 
   // Lazy-loaded activity data to reduce initial memory usage
   private _recentActivity: Activity[] | null = null;
