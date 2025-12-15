@@ -1,0 +1,131 @@
+/* Login Terminal Styles */
+/* Retro terminal styles are loaded globally via styles.scss */
+
+/* Additional login-specific styles */
+.terminal-page {
+    /* Background gradient for extra depth */
+    background: radial-gradient(ellipse at center, #0f1020 0%, #0a0a0f 100%);
+}
+
+/* System subtitle */
+.system-subtitle {
+    font-family: var(--font-terminal);
+    font-size: 0.9rem;
+    color: var(--terminal-cyan-dim);
+    text-align: center;
+    letter-spacing: 4px;
+    margin-top: -10px;
+    margin-bottom: 24px;
+    opacity: 0.8;
+}
+
+/* Terminal footer */
+.terminal-footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--terminal-dark-gray);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--terminal-gray);
+    letter-spacing: 1px;
+}
+
+/* Attempt block fade out animation */
+.attempt-block.fade-out {
+    animation: blockFadeOut 0.5s ease-out forwards;
+}
+
+@keyframes blockFadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+        box-shadow: 0 0 20px var(--terminal-red);
+        background: var(--terminal-red);
+        border-color: var(--terminal-red);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .terminal-window {
+        margin: 16px;
+        border-radius: 4px;
+    }
+
+    .terminal-body {
+        padding: 16px;
+    }
+
+    .ascii-logo {
+        font-size: 0.25rem;
+        margin-bottom: 8px;
+    }
+
+    .system-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    .attempt-blocks {
+        gap: 4px;
+    }
+
+    .attempt-block {
+        width: 18px;
+        height: 18px;
+    }
+
+    .terminal-input {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .terminal-submit {
+        padding: 12px 16px;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+}
+
+/* Extra visual flair */
+.terminal-window {
+    animation: windowFadeIn 0.8s ease-out;
+}
+
+@keyframes windowFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ASCII logo glow animation */
+.ascii-logo {
+    animation: logoGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+
+    100% {
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 25px rgba(0, 255, 255, 0.4);
+    }
+}

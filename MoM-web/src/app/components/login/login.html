@@ -1,95 +1,89 @@
-<div class="bg-gradient-primary min-vh-100 d-flex align-items-center">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-9 col-lg-12 col-xl-10">
-        <div class="card shadow-lg my-5 o-hidden border-0">
-          <div class="card-body p-0">
-            <div class="row">
-              <div class="col-lg-6 d-none d-lg-flex">
-                <div class="flex-grow-1 bg-login-image"
-                     style="background-image: url('assets/img/dogs/image3.jpeg'); background-size: cover; background-position: center;">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h4 class="text-dark mb-4">Welcome Back!</h4>
-                  </div>
+<div class="terminal-page">
+  <div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="terminal-window" style="max-width: 500px; width: 100%;">
+      <!-- Terminal Header -->
+      <div class="terminal-header">
+        <div class="terminal-controls">
+          <span class="terminal-btn terminal-btn-close"></span>
+          <span class="terminal-btn terminal-btn-minimize"></span>
+          <span class="terminal-btn terminal-btn-maximize"></span>
+        </div>
+        <span class="terminal-title">ADMIN SYSTEM ACCESS</span>
+        <div style="width: 52px;"></div>
+      </div>
 
-                  <!-- Login Form -->
-                  <form class="user" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                    <div class="mb-3">
-                      <input
-                        class="form-control form-control-user"
-                        type="email"
-                        id="email"
-                        name="email"
-                        [(ngModel)]="loginData.email"
-                        placeholder="Enter Email Address..."
-                        required>
-                    </div>
+      <!-- Terminal Body -->
+      <div class="terminal-body">
+        <!-- ASCII Logo usando divs separados para cada línea -->
+        <div class="ascii-logo">
+          <div>██████╗ ██╗███╗ ███╗███████╗███╗ ██╗███████╗██╗ ██████╗ ███╗ ██╗ ██████╗ </div>
+          <div>██╔══██╗██║████╗ ████║██╔════╝████╗ ██║██╔════╝██║██╔═══██╗████╗ ██║ ╚════██╗</div>
+          <div>██║ ██║██║██╔████╔██║█████╗ ██╔██╗ ██║███████╗██║██║ ██║██╔██╗ ██║ █████╔╝</div>
+          <div>██║ ██║██║██║╚██╔╝██║██╔══╝ ██║╚██╗██║╚════██║██║██║ ██║██║╚██╗██║ ██╔═══╝ </div>
+          <div>██████╔╝██║██║ ╚═╝ ██║███████╗██║ ╚████║███████║██║╚██████╔╝██║ ╚████║ ███████╗</div>
+          <div>╚═════╝ ╚═╝╚═╝ ╚═╝╚══════╝╚═╝ ╚═══╝╚══════╝╚═╝ ╚═════╝ ╚═╝ ╚═══╝ ╚══════╝</div>
+        </div>
 
-                    <div class="mb-3">
-                      <input
-                        class="form-control form-control-user"
-                        type="password"
-                        id="password"
-                        name="password"
-                        [(ngModel)]="loginData.password"
-                        placeholder="Password"
-                        required>
-                    </div>
-
-                    <div class="mb-3">
-                      <div class="custom-checkbox small">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="rememberMe"
-                            name="rememberMe"
-                            [(ngModel)]="loginData.rememberMe">
-                          <label class="form-check-label" for="rememberMe">Remember Me</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      class="btn btn-primary d-block w-100 btn-user"
-                      type="submit"
-                      [disabled]="isLoading || !loginForm.valid">
-                      {{ isLoading ? 'Logging in...' : 'Login' }}
-                    </button>
-
-                    <hr>
-
-                    <!-- Social Login Buttons -->
-                    <button class="btn btn-primary d-block w-100 mb-2 btn-google btn-user" type="button">
-                      <i class="fab fa-google"></i>&nbsp; Login with Google
-                    </button>
-                    <button class="btn btn-primary d-block w-100 btn-facebook btn-user" type="button">
-                      <i class="fab fa-facebook-f"></i>&nbsp; Login with Facebook
-                    </button>
-
-                    <hr>
-                  </form>
-
-                  <!-- Error Message -->
-                  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-                    {{ errorMessage }}
-                  </div>
-
-                  <!-- Links -->
-                  <div class="text-center">
-                    <a class="small" href="#">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" routerLink="/register">Create an Account!</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Locked Screen -->
+        @if (isLocked) {
+        <div class="terminal-locked">
+          <div class="locked-icon">🔒</div>
+          <div class="locked-message">SYSTEM LOCKDOWN</div>
+          <div class="locked-submessage">Demasiados intentos de acceso no autorizados</div>
+          <div class="locked-submessage mt-2" style="color: var(--terminal-amber);">
+            Contacte al administrador del sistema
           </div>
+        </div>
+        } @else {
+        <!-- Attempt Counter - Cuadros que desaparecen -->
+        <div class="attempt-counter">
+          <div class="attempt-label">Security Tokens</div>
+          <div class="attempt-blocks">
+            @for (attempt of visibleAttempts; track $index) {
+            <div class="attempt-block active" [class.fade-out]="attempt.fadeOut"></div>
+            }
+          </div>
+        </div>
+
+        <!-- Login Form -->
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <div class="terminal-input-group">
+            <label class="terminal-label" for="username">ADMIN ID</label>
+            <input class="terminal-input terminal-cursor" [class.input-error]="showError" type="text" id="username"
+              name="username" [(ngModel)]="loginData.email" required autocomplete="off">
+          </div>
+
+          <div class="terminal-input-group">
+            <label class="terminal-label" for="password">ACCESS KEY</label>
+            <input class="terminal-input terminal-cursor" [class.input-error]="showError" type="password" id="password"
+              name="password" [(ngModel)]="loginData.password" required autocomplete="off">
+          </div>
+
+          <button class="terminal-submit" type="submit" [disabled]="isLoading || !loginForm.valid">
+            @if (isLoading) {
+            <span class="terminal-loading">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            AUTHENTICATING...
+            } @else {
+            INITIALIZE SESSION
+            }
+          </button>
+        </form>
+
+        <!-- Error Message -->
+        @if (errorMessage) {
+        <div class="terminal-error">
+          {{ errorMessage }}
+        </div>
+        }
+        }
+
+        <!-- Footer -->
+        <div class="terminal-footer">
+          <span>DIMENSION-2 ADMIN CONSOLE v2.4.1</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,557 @@
+/* ============================================
+   MULTIVERSE OF MADNESS - BLUE MATRIX TERMINAL THEME
+   ============================================ */
+
+/* Import Terminal Font */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ============================================
+   CSS VARIABLES - Blue Matrix Palette
+   ============================================ */
+:root {
+  /* Primary Colors */
+  --terminal-bg: #0a0a0f;
+  --terminal-bg-light: #0f1018;
+  --terminal-bg-card: #12121a;
+
+  /* Text Colors - Cyan/Blue Matrix */
+  --terminal-cyan: #00ffff;
+  --terminal-cyan-dim: #00cccc;
+  --terminal-cyan-glow: rgba(0, 255, 255, 0.8);
+  --terminal-blue: #0080ff;
+  --terminal-blue-dim: #0060cc;
+
+  /* Accent Colors */
+  --terminal-amber: #ffaa00;
+  --terminal-green: #00ff00;
+  --terminal-red: #ff3333;
+  --terminal-red-dim: #cc2222;
+  --terminal-purple: #aa00ff;
+
+  /* Neutral Colors */
+  --terminal-white: #f0f0f0;
+  --terminal-gray: #666680;
+  --terminal-dark-gray: #2a2a3a;
+
+  /* Fonts */
+  --font-terminal: 'VT323', 'Courier New', monospace;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+
+  /* Effects */
+  --glow-cyan: 0 0 10px var(--terminal-cyan), 0 0 20px var(--terminal-cyan-glow);
+  --glow-red: 0 0 10px var(--terminal-red), 0 0 20px rgba(255, 51, 51, 0.5);
+  --glow-amber: 0 0 10px var(--terminal-amber), 0 0 20px rgba(255, 170, 0, 0.5);
+
+  /* Borders */
+  --border-terminal: 1px solid var(--terminal-cyan-dim);
+  --border-error: 1px solid var(--terminal-red);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+.terminal-page {
+  min-height: 100vh;
+  background: var(--terminal-bg);
+  font-family: var(--font-terminal);
+  color: var(--terminal-cyan);
+  position: relative;
+  overflow: hidden;
+
+  /* Scanlines Effect */
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px);
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* CRT Flicker Animation */
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 255, 0.02);
+    pointer-events: none;
+    z-index: 999;
+    animation: flicker 0.15s infinite;
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.97;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.98;
+  }
+}
+
+/* ============================================
+   TERMINAL WINDOW COMPONENT
+   ============================================ */
+.terminal-window {
+  background: var(--terminal-bg-card);
+  border: 2px solid var(--terminal-cyan-dim);
+  border-radius: 8px;
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.1),
+    inset 0 0 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-header {
+  background: linear-gradient(180deg, #1a1a2e 0%, #12121a 100%);
+  border-bottom: 1px solid var(--terminal-cyan-dim);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terminal-title {
+  font-family: var(--font-terminal);
+  font-size: 1.1rem;
+  color: var(--terminal-cyan);
+  text-shadow: var(--glow-cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.terminal-btn-close {
+  background: #ff5f56;
+}
+
+.terminal-btn-minimize {
+  background: #ffbd2e;
+}
+
+.terminal-btn-maximize {
+  background: #27ca40;
+}
+
+.terminal-body {
+  padding: 24px;
+  min-height: 200px;
+}
+
+/* ============================================
+   TERMINAL INPUT STYLES
+   ============================================ */
+.terminal-input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.terminal-label {
+  display: block;
+  font-family: var(--font-terminal);
+  font-size: 1.2rem;
+  color: var(--terminal-cyan);
+  margin-bottom: 8px;
+  text-shadow: 0 0 5px var(--terminal-cyan-glow);
+
+  &::before {
+    content: '> ';
+    color: var(--terminal-amber);
+  }
+}
+
+.terminal-input {
+  width: 100%;
+  background: var(--terminal-bg);
+  border: var(--border-terminal);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--terminal-cyan);
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--terminal-gray);
+  }
+
+  &:focus {
+    border-color: var(--terminal-cyan);
+    box-shadow: var(--glow-cyan);
+  }
+
+  &.input-error {
+    border-color: var(--terminal-red);
+    box-shadow: var(--glow-red);
+    animation: shake 0.5s ease-in-out;
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* ============================================
+   TERMINAL BUTTON STYLES
+   ============================================ */
+.terminal-submit {
+  width: 100%;
+  background: transparent;
+  border: 2px solid var(--terminal-cyan);
+  border-radius: 4px;
+  padding: 14px 24px;
+  font-family: var(--font-terminal);
+  font-size: 1.3rem;
+  color: var(--terminal-cyan);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: var(--glow-cyan);
+    text-shadow: var(--glow-cyan);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--terminal-gray);
+    color: var(--terminal-gray);
+  }
+}
+
+/* ============================================
+   ATTEMPT COUNTER DISPLAY
+   ============================================ */
+.attempt-counter {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-dark-gray);
+  border-radius: 4px;
+}
+
+.attempt-label {
+  font-family: var(--font-terminal);
+  font-size: 1rem;
+  color: var(--terminal-gray);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.attempt-blocks {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.attempt-block {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--terminal-cyan-dim);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+
+  &.active {
+    background: var(--terminal-cyan);
+    box-shadow: var(--glow-cyan);
+  }
+
+  &.used {
+    background: var(--terminal-red);
+    border-color: var(--terminal-red);
+    box-shadow: var(--glow-red);
+  }
+}
+
+/* ============================================
+   ERROR MESSAGE STYLES
+   ============================================ */
+.terminal-error {
+  background: rgba(255, 51, 51, 0.1);
+  border: 1px solid var(--terminal-red);
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-family: var(--font-terminal);
+  font-size: 1.1rem;
+  color: var(--terminal-red);
+  text-shadow: var(--glow-red);
+  animation: errorPulse 1s ease-in-out;
+
+  &::before {
+    content: '[ERROR] ';
+    color: var(--terminal-amber);
+  }
+}
+
+@keyframes errorPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.terminal-success {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--terminal-green);
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-family: var(--font-terminal);
+  font-size: 1.1rem;
+  color: var(--terminal-green);
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+
+  &::before {
+    content: '[SUCCESS] ';
+    color: var(--terminal-cyan);
+  }
+}
+
+/* ============================================
+   LOCKED SCREEN
+   ============================================ */
+.terminal-locked {
+  text-align: center;
+  padding: 40px 20px;
+
+  .locked-icon {
+    font-size: 4rem;
+    color: var(--terminal-red);
+    text-shadow: var(--glow-red);
+    margin-bottom: 20px;
+    animation: lockedPulse 2s ease-in-out infinite;
+  }
+
+  .locked-message {
+    font-family: var(--font-terminal);
+    font-size: 1.5rem;
+    color: var(--terminal-red);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .locked-submessage {
+    font-family: var(--font-terminal);
+    font-size: 1rem;
+    color: var(--terminal-gray);
+  }
+}
+
+@keyframes lockedPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* ============================================
+   ASCII ART LOGO
+   ============================================ */
+.ascii-logo {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  line-height: 1.15;
+  color: var(--terminal-cyan);
+  text-shadow: 0 0 5px var(--terminal-cyan-glow);
+  text-align: center;
+  margin-bottom: 16px;
+  opacity: 0.9;
+
+  div {
+    white-space: pre;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.4rem;
+  }
+}
+
+/* ============================================
+   TERMINAL CURSOR FOR INPUTS
+   ============================================ */
+.terminal-cursor {
+  caret-color: var(--terminal-cyan);
+
+  &:focus {
+    animation: cursorGlow 1s ease-in-out infinite;
+  }
+}
+
+@keyframes cursorGlow {
+
+  0%,
+  100% {
+    caret-color: var(--terminal-cyan);
+  }
+
+  50% {
+    caret-color: transparent;
+  }
+}
+
+/* ============================================
+   CURSOR BLINK ANIMATION (for labels)
+   ============================================ */
+.cursor-blink {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  background: var(--terminal-cyan);
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   LOADING ANIMATION
+   ============================================ */
+.terminal-loading {
+  display: inline-flex;
+  gap: 4px;
+
+  span {
+    width: 8px;
+    height: 8px;
+    background: var(--terminal-cyan);
+    border-radius: 50%;
+    animation: loadingDot 1.4s ease-in-out infinite both;
+
+    &:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0s;
+    }
+  }
+}
+
+@keyframes loadingDot {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   MATRIX RAIN BACKGROUND (Optional)
+   ============================================ */
+.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.1;
+  pointer-events: none;
+}
