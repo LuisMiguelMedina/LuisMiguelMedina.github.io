@@ -1,0 +1,133 @@
+<!-- Players/Dimensions Page -->
+<div class="matrix-page-header">
+    <div class="header-title">
+        <h3>Users</h3>
+        <div class="welcome-text">> Sistema de Dimensiones</div>
+    </div>
+</div>
+
+<!-- Dimension Tabs -->
+<div class="dimension-tabs">
+    <button class="dimension-tab dimension-1" [class.active]="selectedDimension() === 1" (click)="selectDimension(1)">
+        <div class="tab-icon">🌍</div>
+        <div class="tab-content">
+            <span class="tab-name">Dimension 1</span>
+            <span class="tab-count">{{ dimension1Players() }} jugadores</span>
+        </div>
+    </button>
+
+    <button class="dimension-tab dimension-2" [class.active]="selectedDimension() === 2" (click)="selectDimension(2)">
+        <div class="tab-icon">🌐</div>
+        <div class="tab-content">
+            <span class="tab-name">Dimension 2</span>
+            <span class="tab-count">{{ dimension2Players() }} jugadores</span>
+        </div>
+    </button>
+</div>
+
+<!-- Main Content Area -->
+<div class="dimension-content" [class.dimension-1-active]="selectedDimension() === 1"
+    [class.dimension-2-active]="selectedDimension() === 2">
+
+    <div class="row">
+        <!-- Players Grid -->
+        <div class="col-lg-8 col-md-7">
+            <div class="players-container">
+                <div class="section-header">
+                    <h5>
+                        <i class="fas fa-users me-2"></i>
+                        Jugadores en {{ currentDimension()?.name }}
+                    </h5>
+                </div>
+
+                @if (loading()) {
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <span>Cargando jugadores...</span>
+                </div>
+                } @else if (currentPlayers().length === 0) {
+                <div class="empty-state">
+                    <i class="fas fa-user-slash"></i>
+                    <p>No hay jugadores en esta dimensión</p>
+                </div>
+                } @else {
+                <div class="players-grid">
+                    @for (player of currentPlayers(); track player.id) {
+                    <div class="player-card" [class.inactive]="player.status === 2">
+                        <div class="player-avatar">
+                            <img [src]="player.image" [alt]="player.name" />
+                            @if (player.status === 2) {
+                            <div class="inactive-overlay">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            }
+                        </div>
+                        <div class="player-info">
+                            <span class="player-name">{{ player.name }}</span>
+                            <span class="player-status" [class.active]="player.status === 1"
+                                [class.inactive]="player.status === 2">
+                                {{ player.status === 1 ? 'ACTIVO' : 'INACTIVO' }}
+                            </span>
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Dimension Status Panel -->
+        <div class="col-lg-4 col-md-5">
+            <div class="dimension-status-panel">
+                <div class="section-header">
+                    <h5>
+                        <i class="fas fa-globe me-2"></i>
+                        Estado del Mundo
+                    </h5>
+                </div>
+
+                <div class="world-visual" [class.world-amber]="selectedDimension() === 1"
+                    [class.world-cyan]="selectedDimension() === 2">
+                    <div class="world-sphere">
+                        <div class="world-glow"></div>
+                        <div class="world-emoji">{{ selectedDimension() === 1 ? '🌍' : '🌐' }}</div>
+                    </div>
+                </div>
+
+                <div class="status-info">
+                    <div class="status-row">
+                        <span class="status-label">NOMBRE:</span>
+                        <span class="status-value">{{ currentDimension()?.name }}</span>
+                    </div>
+                    <div class="status-row">
+                        <span class="status-label">ESTADO:</span>
+                        <span class="status-value" [class]="getStatusClass()">
+                            {{ getStatusText() }}
+                        </span>
+                    </div>
+                    <div class="status-row">
+                        <span class="status-label">DESCRIPCIÓN:</span>
+                        <span class="status-value small">{{ currentDimension()?.description }}</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value">{{ totalPlayers() }}</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-item active">
+                        <span class="stat-value">{{ activePlayers() }}</span>
+                        <span class="stat-label">Activos</span>
+                    </div>
+                    <div class="stat-item inactive">
+                        <span class="stat-value">{{ inactivePlayers() }}</span>
+                        <span class="stat-label">Inactivos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

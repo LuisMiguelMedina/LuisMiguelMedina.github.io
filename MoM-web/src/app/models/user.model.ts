@@ -33,9 +33,9 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<1 | 2 | 3, AdminPermissions> = {
     canViewDashboard: true,
     canViewProfile: true,
     canViewTable: true,
-    canManageUsers: false,
+    canManageUsers: true,
     canAccessSettings: false,
-    categories: ['dashboard', 'profile', 'table']
+    categories: ['dashboard', 'profile', 'table', 'users']
   },
   3: {
     canViewDashboard: true,

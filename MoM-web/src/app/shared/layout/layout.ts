@@ -1,14 +1,8 @@
-import { Component, inject, computed, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PermissionsService } from '../../services/permissions.service';
-
-interface SearchResult {
-  element: HTMLElement;
-  text: string;
-  originalHTML: string;
-}
 
 @Component({
   selector: 'app-layout',
@@ -16,9 +10,7 @@ interface SearchResult {
   templateUrl: './layout.html',
   styleUrl: './layout.scss'
 })
-export class Layout implements AfterViewInit {
-  @ViewChild('pageContent') pageContent!: ElementRef<HTMLElement>;
-
+export class Layout {
   private router = inject(Router);
   permissionsService = inject(PermissionsService);
 
@@ -27,14 +19,10 @@ export class Layout implements AfterViewInit {
   adminLevel = this.permissionsService.adminLevel;
   menuItems = computed(() => this.permissionsService.getMenuItems());
 
-  // Search functionality
+  // Search
   searchQuery = '';
-  searchResults: SearchResult[] = [];
-  private highlightedElements: HTMLElement[] = [];
-
-  ngAfterViewInit(): void {
-    // Component initialized
-  }
+  searchResultCount = 0;
+  private searchTimeout: any = null;
 
   // Helpers para el template
   getLevelName(): string {
@@ -50,122 +38,191 @@ export class Layout implements AfterViewInit {
     this.router.navigate(['/login']);
   }
 
-  // Search methods
+  // Simple search using browser native find
   onSearch(event: Event): void {
     event.preventDefault();
     this.performSearch();
   }
 
+  // Dynamic search as you type (with debounce)
   onSearchInput(): void {
-    if (this.searchQuery.length >= 2) {
-      this.performSearch();
-    } else if (this.searchQuery.length === 0) {
-      this.clearSearch();
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
     }
+
+    this.searchTimeout = setTimeout(() => {
+      if (this.searchQuery.length >= 2) {
+        this.performSearchCSS(); // Only use CSS API for dynamic (no DOM changes)
+      } else {
+        this.clearHighlights();
+      }
+    }, 150);
   }
 
   performSearch(): void {
-    // Clear previous highlights
+    // Clear previous highlights but keep query
     this.clearHighlights();
 
     if (!this.searchQuery || this.searchQuery.length < 2) {
-      this.searchResults = [];
+      this.searchResultCount = 0;
       return;
     }
 
+    // Use CSS Custom Highlight API if available, otherwise fallback to mark elements
+    if ('Highlight' in window && CSS.highlights) {
+      this.highlightWithCSS();
+    } else {
+      this.highlightWithMark();
+    }
+  }
+
+  // CSS-only search for dynamic typing (doesn't modify DOM, so no focus loss)
+  private performSearchCSS(): void {
+    this.clearHighlights();
+
+    if (!this.searchQuery || this.searchQuery.length < 2) {
+      return;
+    }
+
+    if ('Highlight' in window && CSS.highlights) {
+      this.highlightWithCSS();
+    }
+    // If CSS Highlight not available, don't do anything dynamic (wait for Enter)
+  }
+
+  private highlightWithCSS(): void {
     const query = this.searchQuery.toLowerCase().trim();
-    const container = this.pageContent?.nativeElement;
+    const ranges: Range[] = [];
 
-    if (!container) return;
+    // Get text nodes in content area
+    const content = document.getElementById('content');
+    if (!content) return;
 
-    this.searchResults = [];
-
-    // Find all text nodes with matching content
-    const walker = document.createTreeWalker(
-      container,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: (node) => {
-          const text = node.textContent?.toLowerCase() || '';
-          if (text.includes(query) && node.parentElement) {
-            // Exclude script, style, and input elements
-            const tagName = node.parentElement.tagName.toLowerCase();
-            if (['script', 'style', 'input', 'textarea'].includes(tagName)) {
-              return NodeFilter.FILTER_REJECT;
-            }
-            return NodeFilter.FILTER_ACCEPT;
-          }
-          return NodeFilter.FILTER_REJECT;
-        }
-      }
-    );
-
-    const nodesToHighlight: { node: Text; parent: HTMLElement }[] = [];
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
 
     while (walker.nextNode()) {
-      const textNode = walker.currentNode as Text;
-      if (textNode.parentElement) {
-        nodesToHighlight.push({
-          node: textNode,
-          parent: textNode.parentElement
-        });
+      const node = walker.currentNode as Text;
+      const text = node.textContent?.toLowerCase() || '';
+      let startPos = 0;
+
+      while (true) {
+        const index = text.indexOf(query, startPos);
+        if (index === -1) break;
+
+        const range = document.createRange();
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        ranges.push(range);
+        startPos = index + query.length;
       }
     }
 
-    // Highlight matching text
-    nodesToHighlight.forEach(({ node, parent }) => {
-      const text = node.textContent || '';
-      const lowerText = text.toLowerCase();
-      const index = lowerText.indexOf(query);
+    if (ranges.length > 0) {
+      const highlight = new (window as any).Highlight(...ranges);
+      CSS.highlights.set('search-highlight', highlight);
+      this.searchResultCount = ranges.length;
 
-      if (index >= 0) {
-        // Create highlight span
-        const before = text.substring(0, index);
-        const match = text.substring(index, index + query.length);
-        const after = text.substring(index + query.length);
-
-        const span = document.createElement('span');
-        span.className = 'search-highlight';
-        span.textContent = match;
-
-        const fragment = document.createDocumentFragment();
-        if (before) fragment.appendChild(document.createTextNode(before));
-        fragment.appendChild(span);
-        if (after) fragment.appendChild(document.createTextNode(after));
-
-        parent.replaceChild(fragment, node);
-
-        this.highlightedElements.push(span);
-        this.searchResults.push({
-          element: span,
-          text: text.substring(Math.max(0, index - 20), Math.min(text.length, index + query.length + 20)),
-          originalHTML: parent.innerHTML
+      // Scroll to first match
+      if (ranges[0]) {
+        const rect = ranges[0].getBoundingClientRect();
+        window.scrollTo({
+          top: window.scrollY + rect.top - 150,
+          behavior: 'smooth'
         });
       }
-    });
-
-    // Scroll to first result
-    if (this.highlightedElements.length > 0) {
-      this.highlightedElements[0].scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
+    } else {
+      this.searchResultCount = 0;
     }
   }
 
+  private highlightWithMark(): void {
+    const query = this.searchQuery.toLowerCase().trim();
+    const content = document.getElementById('content');
+    if (!content) return;
+
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    const nodesToProcess: { node: Text; indices: number[] }[] = [];
+
+    while (walker.nextNode()) {
+      const node = walker.currentNode as Text;
+      const text = node.textContent?.toLowerCase() || '';
+      const indices: number[] = [];
+      let startPos = 0;
+
+      while (true) {
+        const index = text.indexOf(query, startPos);
+        if (index === -1) break;
+        indices.push(index);
+        startPos = index + query.length;
+      }
+
+      if (indices.length > 0) {
+        nodesToProcess.push({ node, indices });
+      }
+    }
+
+    let count = 0;
+    nodesToProcess.forEach(({ node, indices }) => {
+      const text = node.textContent || '';
+      const parent = node.parentNode;
+      if (!parent) return;
+
+      const fragment = document.createDocumentFragment();
+      let lastIndex = 0;
+
+      indices.forEach(index => {
+        // Add text before match
+        if (index > lastIndex) {
+          fragment.appendChild(document.createTextNode(text.substring(lastIndex, index)));
+        }
+
+        // Add highlighted match
+        const mark = document.createElement('mark');
+        mark.className = 'search-highlight';
+        mark.textContent = text.substring(index, index + query.length);
+        fragment.appendChild(mark);
+
+        lastIndex = index + query.length;
+        count++;
+      });
+
+      // Add remaining text
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+      }
+
+      parent.replaceChild(fragment, node);
+    });
+
+    this.searchResultCount = count;
+
+    // Scroll to first match
+    const firstMark = document.querySelector('.search-highlight');
+    if (firstMark) {
+      firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  // Clear highlights only (keeps query)
+  private clearHighlights(): void {
+    this.searchResultCount = 0;
+
+    // Clear CSS highlights
+    if (CSS.highlights) {
+      CSS.highlights.delete('search-highlight');
+    }
+
+    // Clear mark elements
+    document.querySelectorAll('mark.search-highlight').forEach(mark => {
+      const text = mark.textContent || '';
+      mark.replaceWith(document.createTextNode(text));
+    });
+  }
+
+  // Clear everything (query + highlights) - for X button
   clearSearch(): void {
     this.searchQuery = '';
-    this.searchResults = [];
     this.clearHighlights();
   }
-
-  private clearHighlights(): void {
-    // Remove all highlight spans and restore original text
-    document.querySelectorAll('.search-highlight').forEach(el => {
-      const text = el.textContent || '';
-      const textNode = document.createTextNode(text);
-      el.parentNode?.replaceChild(textNode, el);
-    });
-    this.highlightedElements = [];
-  }
 }
+

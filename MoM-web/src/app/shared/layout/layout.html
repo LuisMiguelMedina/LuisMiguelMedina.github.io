@@ -65,24 +65,24 @@
           <form class="d-none d-sm-inline-block mw-100 ms-md-3 me-auto my-2 my-md-0 navbar-search"
             (submit)="onSearch($event)">
             <div class="input-group position-relative">
-              <input class="bg-light form-control border-0 small" type="text" placeholder="Search in page..."
+              <input class="bg-light form-control border-0 small" type="text" placeholder="Buscar en página..."
                 [(ngModel)]="searchQuery" name="searchQuery" (input)="onSearchInput()">
               <button class="btn btn-primary py-0" type="submit">
                 <i class="fas fa-search"></i>
               </button>
-              @if (searchQuery && searchResults.length > 0) {
+              @if (searchQuery && searchResultCount > 0) {
               <button class="btn btn-link py-0 ms-1" type="button" (click)="clearSearch()"
                 style="color: var(--terminal-amber);">
                 <i class="fas fa-times"></i>
               </button>
               }
             </div>
-            @if (searchQuery && searchResults.length > 0) {
+            @if (searchQuery && searchResultCount > 0) {
             <div class="search-results-badge">
-              {{ searchResults.length }} resultados encontrados
+              {{ searchResultCount }} encontrados
             </div>
             }
-            @if (searchQuery && searchResults.length === 0 && searchQuery.length >= 2) {
+            @if (searchQuery && searchResultCount === 0 && searchQuery.length >= 2) {
             <div class="search-results-badge no-results">
               Sin resultados
             </div>

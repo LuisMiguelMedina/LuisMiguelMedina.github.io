@@ -4,6 +4,7 @@ import { Login } from './components/login/login';
 import { Register } from './components/register/register';
 import { Profile } from './components/profile/profile';
 import { Table } from './components/table/table';
+import { Players } from './components/players/players';
 import { Layout } from './shared/layout/layout';
 import { authGuard, loginGuard } from './guards/auth.guard';
 
@@ -31,7 +32,8 @@ export const routes: Routes = [
       { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: Dashboard },
       { path: 'profile', component: Profile },
-      { path: 'table', component: Table }
+      { path: 'table', component: Table },
+      { path: 'users', component: Players }
     ]
   },
   {
