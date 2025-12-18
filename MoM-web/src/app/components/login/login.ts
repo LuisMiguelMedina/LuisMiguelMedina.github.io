@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, Injector, runInInjectionContext } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, Injector, runInInjectionContext, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -41,6 +41,7 @@ export class Login implements OnInit, OnDestroy {
   private injector = inject(Injector);
   private router = inject(Router);
   private permissionsService = inject(PermissionsService);
+  private cdr = inject(ChangeDetectorRef);
 
   loginData: LoginRequest = {
     email: '',
@@ -109,9 +110,11 @@ export class Login implements OnInit, OnDestroy {
         this.initializeFirebaseConfig();
       }
       this.isInitialized = true;
+      this.cdr.markForCheck();
     }, (error) => {
       console.error('Firebase config error:', error);
       this.isInitialized = true;
+      this.cdr.markForCheck();
     });
 
     // Cargar admins
@@ -129,12 +132,14 @@ export class Login implements OnInit, OnDestroy {
       } else {
         this.initializeDefaultAdmins();
       }
+      this.cdr.markForCheck();
     }, (error) => {
       console.error('Firebase admins error:', error);
       this.admins = [
         { username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true, level: 3 },
         { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
       ];
+      this.cdr.markForCheck();
     });
   }
 
