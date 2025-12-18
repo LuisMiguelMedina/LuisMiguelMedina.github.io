@@ -34,7 +34,7 @@ const LOCAL_CACHE_KEY = 'mom_config_cache';
   selector: 'app-login',
   imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrls: ['./login.scss']
 })
 export class Login implements OnInit, OnDestroy {
   private database = inject(Database);
