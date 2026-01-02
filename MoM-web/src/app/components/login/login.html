@@ -36,11 +36,14 @@
         </div>
         } @else {
         <!-- Attempt Counter - Cuadros que desaparecen -->
-        <div class="attempt-counter">
+        <div class="attempt-counter" [class.warning-level]="visibleAttempts.length <= 5 && visibleAttempts.length > 3"
+          [class.critical-level]="visibleAttempts.length <= 3 && visibleAttempts.length > 0">
           <div class="attempt-label">Security Tokens</div>
           <div class="attempt-blocks">
             @for (attempt of visibleAttempts; track $index) {
-            <div class="attempt-block active" [class.fade-out]="attempt.fadeOut"></div>
+            <div class="attempt-block active" [class.fade-out]="attempt.fadeOut"
+              [class.warning]="visibleAttempts.length <= 5 && visibleAttempts.length > 3"
+              [class.critical]="visibleAttempts.length <= 3"></div>
             }
           </div>
         </div>
@@ -59,9 +62,9 @@
               name="password" [(ngModel)]="loginData.password" required autocomplete="off">
           </div>
 
-          <button class="terminal-submit" type="submit" 
-                  [disabled]="isLoading || !loginForm.valid || visibleAttempts.length === 0"
-                  [class.disabled-locked]="visibleAttempts.length === 0">
+          <button class="terminal-submit" type="submit"
+            [disabled]="isLoading || !loginForm.valid || visibleAttempts.length === 0"
+            [class.disabled-locked]="visibleAttempts.length === 0">
             @if (isLoading) {
             <span class="terminal-loading">
               <span></span>

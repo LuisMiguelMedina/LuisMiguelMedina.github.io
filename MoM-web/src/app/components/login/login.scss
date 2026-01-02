@@ -56,6 +56,58 @@
     }
 }
 
+/* Warning state - 5 or less tokens (yellow) */
+.attempt-block.warning {
+    background: var(--terminal-amber) !important;
+    border-color: var(--terminal-amber) !important;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.6);
+}
+
+.attempt-counter.warning-level .attempt-label {
+    color: var(--terminal-amber) !important;
+}
+
+/* Critical state - 3 or less tokens (red with shake) */
+.attempt-block.critical {
+    background: var(--terminal-red) !important;
+    border-color: var(--terminal-red) !important;
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.8);
+    animation: tokenShake 0.3s ease-in-out infinite;
+}
+
+.attempt-counter.critical-level .attempt-label {
+    color: var(--terminal-red) !important;
+    animation: labelPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes tokenShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-2px);
+    }
+
+    75% {
+        transform: translateX(2px);
+    }
+}
+
+@keyframes labelPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 576px) {
     .terminal-window {
