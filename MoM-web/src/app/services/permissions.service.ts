@@ -147,8 +147,8 @@ export class PermissionsService {
             },
             {
                 path: '/app/table',
-                icon: 'fas fa-table',
-                label: 'Data Table',
+                icon: 'fas fa-terminal',
+                label: 'Logs',
                 visible: perms.canViewTable
             },
             {

@@ -86,7 +86,7 @@ export class Layout {
     const descriptions: Record<string, string> = {
       '/app/dashboard': 'Panel de control principal',
       '/app/profile': 'Tu perfil de usuario',
-      '/app/table': 'Tabla de datos',
+      '/app/table': 'Logs del servidor y consola',
       '/app/users': 'Gestión de jugadores y dimensiones',
       '/app/settings': 'Configuración del sistema'
     };

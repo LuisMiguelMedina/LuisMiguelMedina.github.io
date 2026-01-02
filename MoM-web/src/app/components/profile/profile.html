@@ -1,1 +1,196 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <!-- Header Section -->
+    <div class="profile-header">
+        <div class="agent-avatar">
+            <div class="avatar-ring" [style.border-color]="getLevelColor()">
+                <div class="avatar-inner">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+            </div>
+            <div class="status-indicator online"></div>
+        </div>
+
+        <div class="agent-info">
+            <h1 class="agent-name">{{ adminName() }}</h1>
+            <div class="agent-code">@{{ adminUsername() }}</div>
+            <div class="agent-role" [style.color]="getLevelColor()">
+                <i class="fas fa-shield-alt"></i>
+                {{ adminRole() }}
+            </div>
+        </div>
+
+        <div class="level-badge" [style.background]="getLevelColor()">
+            <span class="level-number">{{ adminLevel() }}</span>
+            <span class="level-label">{{ getLevelName() }}</span>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+        <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="switchTab('overview')">
+            <i class="fas fa-tachometer-alt"></i>
+            Overview
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'info'" (click)="switchTab('info')">
+            <i class="fas fa-id-card"></i>
+            Info
+        </button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    @if (activeTab === 'overview') {
+    <div class="tab-content overview-tab">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value">{{ stats.sessionsTotal }}</span>
+                    <span class="stat-label">Total Sessions</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon clearance">
+                    <i class="fas fa-id-badge"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value">{{ stats.clearanceCode }}</span>
+                    <span class="stat-label">Clearance Code</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon dimension">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value small">{{ stats.assignedDimension }}</span>
+                    <span class="stat-label">Assigned Dimensions</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Panels Row -->
+        <div class="panels-row">
+            <!-- Mission Status Panel -->
+            <div class="panel mission-panel">
+                <div class="panel-header">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span>MISSION STATUS</span>
+                </div>
+                <div class="panel-body">
+                    <div class="mission-status">
+                        <div class="status-dot pulse"></div>
+                        <span>{{ stats.missionStatus }}</span>
+                    </div>
+                    <div class="mission-detail">
+                        <span class="detail-label">Last Access:</span>
+                        <span class="detail-value">{{ stats.lastAccess }}</span>
+                    </div>
+                    <div class="mission-detail">
+                        <span class="detail-label">Connection:</span>
+                        <span class="detail-value success">SECURE</span>
+                    </div>
+                    <div class="mission-detail">
+                        <span class="detail-label">Encryption:</span>
+                        <span class="detail-value">AES-256</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Log Panel -->
+            <div class="panel activity-panel">
+                <div class="panel-header">
+                    <i class="fas fa-list-alt"></i>
+                    <span>ACTIVITY LOG</span>
+                </div>
+                <div class="panel-body">
+                    <div class="activity-list">
+                        @for (log of activityLog; track log.timestamp) {
+                        <div class="activity-item" [class]="log.status">
+                            <span class="activity-time">{{ log.timestamp }}</span>
+                            <span class="activity-action">{{ log.action }}</span>
+                            <span class="activity-status">
+                                @if (log.status === 'success') {
+                                <i class="fas fa-check-circle"></i>
+                                } @else if (log.status === 'warning') {
+                                <i class="fas fa-exclamation-triangle"></i>
+                                } @else {
+                                <i class="fas fa-info-circle"></i>
+                                }
+                            </span>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- INFO TAB -->
+    @if (activeTab === 'info') {
+    <div class="tab-content info-tab">
+        <div class="info-grid">
+            <!-- Codename Card -->
+            <div class="info-card codename-card">
+                <div class="info-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <div class="info-label">CODENAME</div>
+                <div class="info-value large">{{ adminBio.codename }}</div>
+            </div>
+
+            <!-- Origin Card -->
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="info-label">ORIGIN</div>
+                <div class="info-value">{{ adminBio.origin }}</div>
+            </div>
+
+            <!-- Specialty Card -->
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="info-label">SPECIALTY</div>
+                <div class="info-value">{{ adminBio.specialty }}</div>
+            </div>
+        </div>
+
+        <!-- Backstory Panel -->
+        <div class="panel backstory-panel">
+            <div class="panel-header">
+                <i class="fas fa-book"></i>
+                <span>AGENT DOSSIER</span>
+            </div>
+            <div class="panel-body">
+                <p class="backstory-text">{{ adminBio.backstory }}</p>
+                <div class="agent-quote">
+                    <i class="fas fa-quote-left"></i>
+                    {{ adminBio.quote }}
+                    <i class="fas fa-quote-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classification Badge -->
+        <div class="classification-footer">
+            <div class="classification-stamp" [style.border-color]="getLevelColor()" [style.color]="getLevelColor()">
+                <span>CLASSIFIED</span>
+                <span class="level-text">LEVEL {{ adminLevel() }} CLEARANCE REQUIRED</span>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Footer Quote -->
+    <div class="profile-footer">
+        <div class="footer-code">DIMENSION-2 ADMIN CONSOLE // PROFILE MODULE v2.4.1</div>
+    </div>
+</div>

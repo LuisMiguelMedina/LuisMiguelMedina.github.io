@@ -1,11 +1,165 @@
-import { Component } from '@angular/core';
+import { Component, inject, computed, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PermissionsService } from '../../services/permissions.service';
+
+interface AdminStats {
+  sessionsTotal: number;
+  lastAccess: string;
+  clearanceCode: string;
+  assignedDimension: string;
+  missionStatus: string;
+}
+
+interface AdminLog {
+  timestamp: string;
+  action: string;
+  status: 'success' | 'warning' | 'info';
+}
+
+interface AdminBio {
+  codename: string;
+  origin: string;
+  backstory: string;
+  specialty: string;
+  quote: string;
+}
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
-export class Profile {
+export class Profile implements OnInit {
+  permissionsService = inject(PermissionsService);
 
+  adminSession = this.permissionsService.adminSession;
+  adminLevel = this.permissionsService.adminLevel;
+
+  // Computed profile info
+  adminName = computed(() => this.adminSession()?.name || 'Unknown Agent');
+  adminUsername = computed(() => this.adminSession()?.username || 'N/A');
+  adminRole = computed(() => {
+    const level = this.adminLevel();
+    switch (level) {
+      case 3: return 'SUPER ADMIN';
+      case 2: return 'MANAGER';
+      case 1: return 'VIEWER';
+      default: return 'UNDEFINED';
+    }
+  });
+
+  // Tab navigation
+  activeTab: 'overview' | 'info' = 'overview';
+
+  // Narrative stats
+  stats: AdminStats = {
+    sessionsTotal: 0,
+    lastAccess: '',
+    clearanceCode: '',
+    assignedDimension: '',
+    missionStatus: ''
+  };
+
+  // Admin bio/history
+  adminBio: AdminBio = {
+    codename: '',
+    origin: '',
+    backstory: '',
+    specialty: '',
+    quote: ''
+  };
+
+  // Activity log
+  activityLog: AdminLog[] = [];
+
+  ngOnInit(): void {
+    this.generateNarrativeData();
+  }
+
+  switchTab(tab: 'overview' | 'info'): void {
+    this.activeTab = tab;
+  }
+
+  private generateNarrativeData(): void {
+    const level = this.adminLevel();
+    const username = this.adminSession()?.username || 'admin';
+    const name = this.adminSession()?.name || 'Unknown';
+    const loginTime = this.adminSession()?.loginTime || new Date().toISOString();
+
+    // Generate pseudo-random but consistent data based on username
+    const hash = this.hashCode(username);
+
+    this.stats = {
+      sessionsTotal: 100 + (hash % 500),
+      lastAccess: new Date(loginTime).toLocaleString('es-ES'),
+      clearanceCode: `CLR-${level}${hash.toString(16).toUpperCase().slice(0, 4)}`,
+      assignedDimension: level >= 2 ? 'DIMENSION-1 & DIMENSION-2' : 'DIMENSION-1',
+      missionStatus: 'ACTIVE MONITORING'
+    };
+
+    // Generate bio based on level
+    this.adminBio = this.generateBio(level, name, username);
+
+    // Generate activity log
+    this.activityLog = [
+      { timestamp: this.getTimeAgo(0), action: 'Session initialized', status: 'success' },
+      { timestamp: this.getTimeAgo(5), action: 'Security protocols verified', status: 'success' },
+      { timestamp: this.getTimeAgo(15), action: 'Dimension data synced', status: 'info' },
+      { timestamp: this.getTimeAgo(30), action: 'Player database accessed', status: 'info' },
+      { timestamp: this.getTimeAgo(120), action: 'Anomaly scan completed', status: 'warning' },
+      { timestamp: this.getTimeAgo(360), action: 'System backup initiated', status: 'success' }
+    ];
+  }
+
+  private generateBio(level: number, name: string, username: string): AdminBio {
+    const bios: Record<number, AdminBio> = {
+      3: {
+        codename: `OMEGA-${username.toUpperCase()}`,
+        origin: 'Nexus Prime - Central Command',
+        backstory: `${name} fue reclutado por el Consejo Dimensional después de demostrar habilidades excepcionales durante el Incidente Cuántico de 2019. Como Super Admin, tiene acceso total a todas las dimensiones y puede modificar la estructura misma del multiverso. Su misión principal es mantener el equilibrio entre las realidades paralelas y prevenir colapsos dimensionales.`,
+        specialty: 'Manipulación de Reality Anchors y Protocolos de Emergencia Omega',
+        quote: '"El caos es solo orden que aún no hemos comprendido."'
+      },
+      2: {
+        codename: `DELTA-${username.toUpperCase()}`,
+        origin: 'División de Operaciones Especiales',
+        backstory: `${name} ascendió al rango de Manager tras liderar exitosamente la Operación Bifrost. Especializado en coordinación interdimensional, supervisa las operaciones diarias y gestiona los equipos de monitoreo. Su experiencia en navegación cuántica lo convierte en un activo invaluable para el programa.`,
+        specialty: 'Coordinación de Equipos y Análisis Dimensional',
+        quote: '"Entre dimensiones, la comunicación es la clave."'
+      },
+      1: {
+        codename: `GAMMA-${username.toUpperCase()}`,
+        origin: 'Academia de Observadores',
+        backstory: `${name} es un observador en entrenamiento, recientemente asignado al programa DIMENSION-2. Su rol es monitorear las fluctuaciones dimensionales y reportar anomalías al equipo senior. Aunque su acceso es limitado, su potencial ha sido reconocido por los oficiales de alto rango.`,
+        specialty: 'Monitoreo de Señales y Detección de Anomalías',
+        quote: '"Observar es el primer paso para entender."'
+      }
+    };
+
+    return bios[level] || bios[1];
+  }
+
+  getLevelColor(): string {
+    return this.permissionsService.getLevelColor();
+  }
+
+  getLevelName(): string {
+    return this.permissionsService.getLevelName();
+  }
+
+  private hashCode(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash);
+  }
+
+  private getTimeAgo(minutes: number): string {
+    const date = new Date(Date.now() - minutes * 60000);
+    return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  }
 }
