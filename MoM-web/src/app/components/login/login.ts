@@ -230,6 +230,15 @@ export class Login implements OnInit, OnDestroy {
   }
 
   async onSubmit(): Promise<void> {
+    // Bloquear si no hay tokens disponibles
+    if (this.visibleAttempts.length === 0) {
+      this.isLocked = true;
+      this.errorMessage = 'SYSTEM LOCKDOWN - No security tokens remaining';
+      this.showError = true;
+      this.cdr.markForCheck();
+      return;
+    }
+
     if (this.isLoading || this.isLocked) return;
 
     // Permitir login incluso si Firebase no ha respondido

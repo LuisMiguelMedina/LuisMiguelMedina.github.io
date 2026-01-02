@@ -59,7 +59,9 @@
               name="password" [(ngModel)]="loginData.password" required autocomplete="off">
           </div>
 
-          <button class="terminal-submit" type="submit" [disabled]="isLoading || !loginForm.valid">
+          <button class="terminal-submit" type="submit" 
+                  [disabled]="isLoading || !loginForm.valid || visibleAttempts.length === 0"
+                  [class.disabled-locked]="visibleAttempts.length === 0">
             @if (isLoading) {
             <span class="terminal-loading">
               <span></span>
