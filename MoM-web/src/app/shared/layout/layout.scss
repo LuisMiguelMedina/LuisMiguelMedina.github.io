@@ -205,3 +205,109 @@
         }
     }
 }
+
+/* ============================================
+   SEARCH SUGGESTIONS DROPDOWN
+   ============================================ */
+
+.search-suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-cyan-dim);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+    z-index: 1050;
+    animation: dropdownFadeIn 0.2s ease-out;
+    overflow: hidden;
+
+    .suggestions-header {
+        padding: 8px 12px;
+        font-family: var(--font-terminal);
+        font-size: 0.7rem;
+        color: var(--terminal-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid var(--terminal-dark-gray);
+
+        i {
+            margin-right: 6px;
+            color: var(--terminal-cyan-dim);
+        }
+    }
+
+    .suggestion-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid var(--terminal-dark-gray);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background: rgba(0, 255, 255, 0.1);
+
+            .suggestion-label {
+                color: var(--terminal-cyan);
+                text-shadow: 0 0 8px var(--terminal-cyan-glow);
+            }
+
+            .suggestion-arrow {
+                transform: translateX(3px);
+                color: var(--terminal-cyan);
+            }
+        }
+
+        >i:first-child {
+            width: 24px;
+            font-size: 0.9rem;
+            color: var(--terminal-cyan-dim);
+        }
+
+        .suggestion-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 8px;
+        }
+
+        .suggestion-label {
+            font-family: var(--font-terminal);
+            font-size: 0.9rem;
+            color: var(--terminal-text);
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-desc {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--terminal-gray);
+            margin-top: 2px;
+        }
+
+        .suggestion-arrow {
+            color: var(--terminal-dark-gray);
+            font-size: 0.7rem;
+            transition: all 0.2s ease;
+        }
+    }
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

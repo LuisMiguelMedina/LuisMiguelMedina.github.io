@@ -45,9 +45,6 @@
         </li>
       </ul>
 
-      <div class="text-center d-none d-md-inline mt-auto mb-3">
-        <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-      </div>
     </div>
   </nav>
 
@@ -61,12 +58,13 @@
             <i class="fas fa-bars" style="color: var(--terminal-cyan);"></i>
           </button>
 
-          <!-- Functional Search -->
-          <form class="d-none d-sm-inline-block mw-100 ms-md-3 me-auto my-2 my-md-0 navbar-search"
+          <!-- Functional Search with Autocomplete -->
+          <form class="d-none d-sm-inline-block mw-100 ms-md-3 me-auto my-2 my-md-0 navbar-search position-relative"
             (submit)="onSearch($event)">
             <div class="input-group position-relative">
-              <input class="bg-light form-control border-0 small" type="text" placeholder="Buscar en página..."
-                [(ngModel)]="searchQuery" name="searchQuery" (input)="onSearchInput()">
+              <input class="bg-light form-control border-0 small" type="text"
+                placeholder="Buscar sección o en página..." [(ngModel)]="searchQuery" name="searchQuery"
+                (input)="onSearchInput()" (focus)="onSearchFocus()" (blur)="hideSuggestions()">
               <button class="btn btn-primary py-0" type="submit">
                 <i class="fas fa-search"></i>
               </button>
@@ -77,12 +75,32 @@
               </button>
               }
             </div>
-            @if (searchQuery && searchResultCount > 0) {
-            <div class="search-results-badge">
-              {{ searchResultCount }} encontrados
+
+            <!-- Search Suggestions Dropdown -->
+            @if (showSuggestions && searchSuggestions.length > 0) {
+            <div class="search-suggestions-dropdown">
+              <div class="suggestions-header">
+                <i class="fas fa-compass"></i> Ir a sección
+              </div>
+              @for (suggestion of searchSuggestions; track suggestion.path) {
+              <div class="suggestion-item" (mousedown)="navigateToSuggestion(suggestion)">
+                <i [class]="suggestion.icon"></i>
+                <div class="suggestion-content">
+                  <span class="suggestion-label">{{ suggestion.label }}</span>
+                  <span class="suggestion-desc">{{ suggestion.description }}</span>
+                </div>
+                <i class="fas fa-chevron-right suggestion-arrow"></i>
+              </div>
+              }
             </div>
             }
-            @if (searchQuery && searchResultCount === 0 && searchQuery.length >= 2) {
+
+            @if (searchQuery && searchResultCount > 0) {
+            <div class="search-results-badge">
+              {{ searchResultCount }} encontrados en página
+            </div>
+            }
+            @if (searchQuery && searchResultCount === 0 && searchQuery.length >= 2 && !showSuggestions) {
             <div class="search-results-badge no-results">
               Sin resultados
             </div>
@@ -116,37 +134,15 @@
               </div>
             </li>
 
-            <!-- User Display (no image, just username) -->
-            <li class="nav-item mx-1 dropdown no-arrow">
-              <div class="nav-item dropdown no-arrow">
-                <a class="dropdown-toggle nav-link user-display" aria-expanded="false" data-bs-toggle="dropdown"
-                  href="#">
-                  @if (adminSession()) {
-                  <span class="username-text">
-                    {{ adminSession()?.username }}
-                  </span>
-                  }
-                </a>
-                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                  @if (permissionsService.canViewProfile()) {
-                  <a class="dropdown-item" routerLink="/app/profile">
-                    <i class="fas fa-user fa-sm me-2"></i>
-                    Profile
-                  </a>
-                  }
-                  @if (permissionsService.canAccessSettings()) {
-                  <a class="dropdown-item" routerLink="/app/settings">
-                    <i class="fas fa-cog fa-sm me-2"></i>
-                    Settings
-                  </a>
-                  }
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()">
-                    <i class="fas fa-sign-out-alt fa-sm me-2"></i>
-                    Logout
-                  </a>
-                </div>
-              </div>
+            <!-- User Display - Click to go to Profile -->
+            <li class="nav-item mx-1">
+              <a class="nav-link user-display" routerLink="/app/profile" style="cursor: pointer;">
+                @if (adminSession()) {
+                <span class="username-text">
+                  {{ adminSession()?.username }}
+                </span>
+                }
+              </a>
             </li>
           </ul>
         </div>

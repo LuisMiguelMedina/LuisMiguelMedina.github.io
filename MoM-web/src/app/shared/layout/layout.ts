@@ -4,6 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PermissionsService } from '../../services/permissions.service';
 
+interface SearchSuggestion {
+  path: string;
+  icon: string;
+  label: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, FormsModule],
@@ -22,6 +29,8 @@ export class Layout {
   // Search
   searchQuery = '';
   searchResultCount = 0;
+  showSuggestions = false;
+  searchSuggestions: SearchSuggestion[] = [];
   private searchTimeout: any = null;
 
   // Helpers para el template
@@ -41,6 +50,7 @@ export class Layout {
   // Simple search using browser native find
   onSearch(event: Event): void {
     event.preventDefault();
+    this.showSuggestions = false;
     this.performSearch();
   }
 
@@ -51,12 +61,71 @@ export class Layout {
     }
 
     this.searchTimeout = setTimeout(() => {
+      this.updateSuggestions();
+
       if (this.searchQuery.length >= 2) {
-        this.performSearchCSS(); // Only use CSS API for dynamic (no DOM changes)
+        this.performSearchCSS();
       } else {
         this.clearHighlights();
       }
-    }, 150);
+    }, 100);
+  }
+
+  // Update suggestions based on query
+  private updateSuggestions(): void {
+    if (this.searchQuery.length < 1) {
+      this.searchSuggestions = [];
+      this.showSuggestions = false;
+      return;
+    }
+
+    const query = this.searchQuery.toLowerCase().trim();
+    const visibleItems = this.menuItems().filter(item => item.visible);
+
+    // Descriptions for each section
+    const descriptions: Record<string, string> = {
+      '/app/dashboard': 'Panel de control principal',
+      '/app/profile': 'Tu perfil de usuario',
+      '/app/table': 'Tabla de datos',
+      '/app/users': 'Gestión de jugadores y dimensiones',
+      '/app/settings': 'Configuración del sistema'
+    };
+
+    this.searchSuggestions = visibleItems
+      .filter(item =>
+        item.label.toLowerCase().includes(query) ||
+        (descriptions[item.path] || '').toLowerCase().includes(query)
+      )
+      .map(item => ({
+        path: item.path,
+        icon: item.icon,
+        label: item.label,
+        description: descriptions[item.path] || ''
+      }));
+
+    this.showSuggestions = this.searchSuggestions.length > 0;
+  }
+
+  // Navigate to a suggestion
+  navigateToSuggestion(suggestion: SearchSuggestion): void {
+    this.router.navigate([suggestion.path]);
+    this.searchQuery = '';
+    this.showSuggestions = false;
+    this.clearHighlights();
+  }
+
+  // Hide suggestions when clicking outside
+  hideSuggestions(): void {
+    setTimeout(() => {
+      this.showSuggestions = false;
+    }, 200);
+  }
+
+  // Show suggestions on focus if there's a query
+  onSearchFocus(): void {
+    if (this.searchQuery.length >= 1) {
+      this.updateSuggestions();
+    }
   }
 
   performSearch(): void {

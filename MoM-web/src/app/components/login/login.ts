@@ -280,11 +280,7 @@ export class Login implements OnInit, OnDestroy {
           loginTime: new Date().toISOString()
         });
 
-        this.failedAttempts = 0;
-        this.isLocked = false;
-        await this.saveConfig();
-        this.updateVisibleAttempts();
-
+        // No reiniciar tokens - solo navegar al dashboard
         this.router.navigate(['/app/dashboard']);
       } else {
         this.failedAttempts++;
