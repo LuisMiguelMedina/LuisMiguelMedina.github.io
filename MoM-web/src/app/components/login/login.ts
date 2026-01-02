@@ -65,23 +65,29 @@ export class Login implements OnInit, OnDestroy {
   constructor() {
     // Cargar desde cache local inmediatamente para mostrar datos al instante
     this.loadFromLocalCache();
+
+    // Si no hay cache, mostrar tokens por defecto inmediatamente
+    if (this.visibleAttempts.length === 0) {
+      this.updateVisibleAttempts();
+    }
+
+    // Cargar admins de fallback para respuesta inmediata
+    this.admins = [
+      { username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
+      { username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
+      { username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
+      { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
+    ];
+
+    // Marcar como inicializado inmediatamente para permitir login sin esperar Firebase
+    this.isInitialized = true;
   }
 
   ngOnInit(): void {
-    // Sincronizar con Firebase en segundo plano con timeout
+    // Sincronizar con Firebase en segundo plano (no bloquea UI)
     runInInjectionContext(this.injector, () => {
       this.loadFromFirebase();
     });
-
-    // Timeout de seguridad - marcar como inicializado después de 3 segundos
-    // para permitir login incluso si Firebase tarda
-    setTimeout(() => {
-      if (!this.isInitialized) {
-        console.warn('Firebase timeout - using cached/fallback data');
-        this.isInitialized = true;
-        this.cdr.markForCheck();
-      }
-    }, 3000);
   }
 
   ngOnDestroy(): void {
@@ -216,8 +222,10 @@ export class Login implements OnInit, OnDestroy {
   private async removeOneAttempt(): Promise<void> {
     if (this.visibleAttempts.length > 0) {
       this.visibleAttempts[this.visibleAttempts.length - 1].fadeOut = true;
-      await this.delay(500);
+      this.cdr.markForCheck();
+      await this.delay(200); // Reducido de 500ms para respuesta más rápida
       this.visibleAttempts.pop();
+      this.cdr.markForCheck();
     }
   }
 
