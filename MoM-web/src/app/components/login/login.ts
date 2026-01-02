@@ -68,10 +68,20 @@ export class Login implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Sincronizar con Firebase en segundo plano
+    // Sincronizar con Firebase en segundo plano con timeout
     runInInjectionContext(this.injector, () => {
       this.loadFromFirebase();
     });
+
+    // Timeout de seguridad - marcar como inicializado después de 3 segundos
+    // para permitir login incluso si Firebase tarda
+    setTimeout(() => {
+      if (!this.isInitialized) {
+        console.warn('Firebase timeout - using cached/fallback data');
+        this.isInitialized = true;
+        this.cdr.markForCheck();
+      }
+    }, 3000);
   }
 
   ngOnDestroy(): void {
@@ -188,10 +198,18 @@ export class Login implements OnInit, OnDestroy {
     // Guardar en cache local PRIMERO para carga instantánea
     localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(config));
 
+    // Guardar en Firebase en segundo plano (no bloquea UI)
+    // Con timeout de 2 segundos para evitar esperas largas
+    const savePromise = set(ref(this.database, FIREBASE_CONFIG_PATH), config);
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Firebase save timeout')), 2000)
+    );
+
     try {
-      await set(ref(this.database, FIREBASE_CONFIG_PATH), config);
+      await Promise.race([savePromise, timeoutPromise]);
     } catch (e: any) {
-      console.error('Save config error:', e);
+      console.warn('Save config warning:', e.message || e);
+      // No bloquear el flujo si Firebase falla
     }
   }
 
@@ -204,13 +222,25 @@ export class Login implements OnInit, OnDestroy {
   }
 
   async onSubmit(): Promise<void> {
-    if (this.isLoading || this.isLocked || !this.isInitialized) return;
+    if (this.isLoading || this.isLocked) return;
+
+    // Permitir login incluso si Firebase no ha respondido
+    // usando datos en cache local
+    if (!this.isInitialized && this.admins.length === 0) {
+      // Usar admins de fallback si no hay datos
+      this.admins = [
+        { username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
+        { username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
+        { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
+      ];
+    }
 
     this.isLoading = true;
     this.errorMessage = '';
     this.showError = false;
 
-    await this.delay(800 + Math.random() * 700);
+    // Delay reducido para mejor UX
+    await this.delay(300 + Math.random() * 200);
 
     try {
       const username = this.loginData.email.toLowerCase().trim();
@@ -264,10 +294,13 @@ export class Login implements OnInit, OnDestroy {
         setTimeout(() => { this.showError = false; }, 2000);
       }
     } catch (error) {
+      console.error('Login error:', error);
       this.errorMessage = 'CONNECTION ERROR - System unavailable';
       this.showError = true;
+      setTimeout(() => { this.showError = false; }, 3000);
     } finally {
       this.isLoading = false;
+      this.cdr.markForCheck();
     }
   }
 
