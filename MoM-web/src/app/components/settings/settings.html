@@ -1,0 +1,261 @@
+<div class="settings-container">
+    <!-- Header -->
+    <div class="settings-header">
+        <div class="header-info">
+            <h1><i class="fas fa-cog me-2"></i>Settings</h1>
+            <p class="header-subtitle">Configure Dimension-2 Server parameters</p>
+        </div>
+        <div class="header-actions">
+            <button class="settings-btn secondary" (click)="resetToDefaults()" [disabled]="isSaving">
+                <i class="fas fa-undo"></i>
+                Reset
+            </button>
+            <button class="settings-btn primary" (click)="saveSettings()" [disabled]="isSaving">
+                @if (isSaving) {
+                <i class="fas fa-spinner fa-spin"></i>
+                Saving...
+                } @else {
+                <i class="fas fa-save"></i>
+                Save Changes
+                }
+            </button>
+        </div>
+    </div>
+
+    @if (saveSuccess) {
+    <div class="save-notification">
+        <i class="fas fa-check-circle"></i>
+        Settings saved successfully
+    </div>
+    }
+
+    <!-- Tabs -->
+    <div class="settings-tabs">
+        <button class="tab-btn" [class.active]="activeTab === 'server'" (click)="switchTab('server')">
+            <i class="fas fa-server"></i>
+            Server
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'notifications'" (click)="switchTab('notifications')">
+            <i class="fas fa-bell"></i>
+            Notifications
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'security'" (click)="switchTab('security')">
+            <i class="fas fa-shield-alt"></i>
+            Security
+        </button>
+        @if (adminLevel() >= 3) {
+        <button class="tab-btn" [class.active]="activeTab === 'advanced'" (click)="switchTab('advanced')">
+            <i class="fas fa-flask"></i>
+            Advanced
+        </button>
+        }
+    </div>
+
+    <!-- Server Tab -->
+    @if (activeTab === 'server') {
+    <div class="settings-panel">
+        <div class="panel-section">
+            <h3 class="section-title">General Settings</h3>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Server Name</label>
+                    <span class="setting-desc">Display name for the server</span>
+                </div>
+                <input type="text" class="setting-input" [(ngModel)]="serverSettings.serverName">
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Max Agents</label>
+                    <span class="setting-desc">Maximum number of registered agents</span>
+                </div>
+                <input type="number" class="setting-input small" [(ngModel)]="serverSettings.maxAgents" min="1"
+                    max="1000">
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Auto-Save Interval</label>
+                    <span class="setting-desc">Seconds between automatic saves</span>
+                </div>
+                <select class="setting-select" [(ngModel)]="serverSettings.autoSaveInterval">
+                    <option [value]="60">1 minute</option>
+                    <option [value]="300">5 minutes</option>
+                    <option [value]="600">10 minutes</option>
+                    <option [value]="1800">30 minutes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="section-title">Dimension Control</h3>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Dimension Sync</label>
+                    <span class="setting-desc">Enable synchronization between dimensions</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="serverSettings.dimensionSyncEnabled">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Anomaly Detection Level</label>
+                    <span class="setting-desc">Sensitivity of anomaly detection system</span>
+                </div>
+                <select class="setting-select" [(ngModel)]="serverSettings.anomalyDetectionLevel">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Containment Protocol</label>
+                    <span class="setting-desc">Enable automatic containment for anomalies</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="serverSettings.containmentProtocol">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Notifications Tab -->
+    @if (activeTab === 'notifications') {
+    <div class="settings-panel">
+        <div class="panel-section">
+            <h3 class="section-title">Alert Preferences</h3>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Email Alerts</label>
+                    <span class="setting-desc">Receive alerts via email</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="notificationSettings.emailAlerts">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Anomaly Alerts</label>
+                    <span class="setting-desc">Notify on dimensional anomalies</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="notificationSettings.anomalyAlerts">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Security Alerts</label>
+                    <span class="setting-desc">Notify on security events</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="notificationSettings.securityAlerts">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Performance Alerts</label>
+                    <span class="setting-desc">Notify on performance issues</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="notificationSettings.performanceAlerts">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Security Tab -->
+    @if (activeTab === 'security') {
+    <div class="settings-panel">
+        <div class="panel-section">
+            <h3 class="section-title">Security Configuration</h3>
+
+            <div class="security-info">
+                <div class="security-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>QUANTUM-256 Encryption</span>
+                </div>
+                <p>All connections are secured with quantum-resistant encryption</p>
+            </div>
+
+            <div class="setting-item readonly">
+                <div class="setting-info">
+                    <label>Encryption Protocol</label>
+                    <span class="setting-desc">Current encryption standard</span>
+                </div>
+                <span class="setting-value">QUANTUM-256</span>
+            </div>
+
+            <div class="setting-item readonly">
+                <div class="setting-info">
+                    <label>Firewall Status</label>
+                    <span class="setting-desc">Dimensional firewall state</span>
+                </div>
+                <span class="setting-value status-active">
+                    <i class="fas fa-check-circle"></i> ACTIVE
+                </span>
+            </div>
+
+            <div class="setting-item readonly">
+                <div class="setting-info">
+                    <label>Last Security Audit</label>
+                    <span class="setting-desc">Most recent comprehensive scan</span>
+                </div>
+                <span class="setting-value">6 hours ago</span>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Advanced Tab (Level 3 only) -->
+    @if (activeTab === 'advanced' && adminLevel() >= 3) {
+    <div class="settings-panel">
+        <div class="panel-section danger-zone">
+            <h3 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Advanced Settings
+            </h3>
+            <p class="danger-warning">These settings can affect server stability. Proceed with caution.</p>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Debug Mode</label>
+                    <span class="setting-desc">Enable verbose logging and diagnostics</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" [(ngModel)]="serverSettings.debugMode">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <label>Maintenance Mode</label>
+                    <span class="setting-desc">Put server in maintenance mode</span>
+                </div>
+                <label class="toggle-switch danger">
+                    <input type="checkbox" [(ngModel)]="serverSettings.maintenanceMode">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    }
+</div>

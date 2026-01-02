@@ -5,6 +5,7 @@ import { Register } from './components/register/register';
 import { Profile } from './components/profile/profile';
 import { Table } from './components/table/table';
 import { Players } from './components/players/players';
+import { Settings } from './components/settings/settings';
 import { Layout } from './shared/layout/layout';
 import { authGuard, loginGuard } from './guards/auth.guard';
 
@@ -33,7 +34,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'profile', component: Profile },
       { path: 'table', component: Table },
-      { path: 'users', component: Players }
+      { path: 'users', component: Players },
+      { path: 'settings', component: Settings }
     ]
   },
   {
