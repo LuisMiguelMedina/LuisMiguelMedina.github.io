@@ -26,7 +26,8 @@
                 "input": "public"
               },
               "src/CNAME",
-              "src/.nojekyll"
+              "src/.nojekyll",
+              "src/favicon.ico"
             ],
             "styles": [
               "src/styles.scss"
