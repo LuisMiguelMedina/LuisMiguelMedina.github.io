@@ -592,3 +592,139 @@
         opacity: 0.8;
     }
 }
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .agent-avatar .avatar-ring {
+        width: 80px;
+        height: 80px;
+    }
+
+    .agent-avatar .avatar-inner {
+        width: 65px;
+        height: 65px;
+
+        i {
+            font-size: 2rem;
+        }
+    }
+
+    .agent-info {
+        text-align: center;
+    }
+
+    .agent-info .agent-name {
+        font-size: 1.5rem;
+    }
+
+    .agent-info .agent-code {
+        font-size: 0.8rem;
+    }
+
+    .level-badge {
+        padding: 0.75rem 1.25rem;
+
+        .level-number {
+            font-size: 2rem;
+        }
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .panels-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .tab-navigation {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .tab-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-card {
+        padding: 1rem;
+    }
+
+    .backstory-panel .backstory-text {
+        font-size: 0.85rem;
+        text-align: left;
+    }
+
+    .backstory-panel .agent-quote {
+        font-size: 0.85rem;
+    }
+
+    .classification-stamp {
+        padding: 0.75rem 1.5rem;
+
+        span:first-child {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .level-text {
+            font-size: 0.6rem;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-header {
+        padding: 1rem;
+    }
+
+    .agent-info .agent-name {
+        font-size: 1.3rem;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .activity-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+
+        .activity-time {
+            font-size: 0.7rem;
+        }
+    }
+
+    .mission-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}

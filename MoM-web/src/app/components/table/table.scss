@@ -341,23 +341,113 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .logs-container {
+        padding: 1rem;
+    }
+
     .logs-header {
         flex-direction: column;
         gap: 1rem;
+        padding: 1rem;
         text-align: center;
 
         .header-info {
             flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .server-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.4rem;
+        }
+
+        .server-name {
+            font-size: 1.2rem;
+        }
+
+        .server-status {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .log-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .console-window {
+        border-radius: 6px;
+    }
+
+    .console-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        .console-title {
+            order: 1;
+            width: 100%;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .console-stats {
+            order: 2;
+            width: 100%;
+            text-align: center;
         }
     }
 
     .console-body {
-        height: 400px;
+        height: 350px;
         font-size: 0.75rem;
+        padding: 0.75rem;
     }
 
     .log-entry {
         white-space: normal;
         word-break: break-word;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+
+        .log-time {
+            width: 100%;
+            font-size: 0.65rem;
+        }
+    }
+
+    .logs-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+
+        .stat-item {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .console-body {
+        height: 300px;
+        font-size: 0.7rem;
+    }
+
+    .log-entry {
+        padding: 0.25rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logs-footer .stat-item {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.75rem;
     }
 }

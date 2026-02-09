@@ -1,6 +1,14 @@
 <div id="wrapper" class="matrix-dashboard">
+  <!-- Mobile Toggle Button -->
+  <button class="mobile-menu-toggle" (click)="toggleSidebar()" [class.active]="sidebarOpen()">
+    <i class="fas" [class.fa-bars]="!sidebarOpen()" [class.fa-times]="sidebarOpen()"></i>
+  </button>
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" [class.active]="sidebarOpen()" (click)="closeSidebar()"></div>
+
   <!-- Matrix Sidebar -->
-  <nav class="navbar align-items-start p-0 sidebar matrix-sidebar accordion navbar-dark">
+  <nav class="navbar align-items-start p-0 sidebar matrix-sidebar accordion navbar-dark" [class.open]="sidebarOpen()">
     <div class="container-fluid d-flex flex-column p-0">
       <!-- Brand Logo -->
       <a class="navbar-brand d-flex justify-content-center align-items-center m-0 sidebar-brand" href="#">

@@ -52,13 +52,73 @@
 .matrix-sidebar.sidebar {
     width: 14rem !important;
     min-height: 100vh;
+    transition: transform 0.3s ease;
 
     @media (max-width: 767.98px) {
-        width: 0 !important;
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 14rem !important;
+        transform: translateX(-100%);
 
-        &.toggled {
-            width: 14rem !important;
+        &.open {
+            transform: translateX(0);
         }
+    }
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    width: 44px;
+    height: 44px;
+    background: var(--terminal-bg-card);
+    border: 2px solid var(--terminal-cyan-dim);
+    border-radius: 8px;
+    color: var(--terminal-cyan);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background: rgba(0, 255, 255, 0.1);
+        border-color: var(--terminal-cyan);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    &.active {
+        background: var(--terminal-cyan);
+        color: var(--terminal-bg);
+    }
+
+    @media (max-width: 767.98px) {
+        display: flex;
+    }
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.active {
+        display: block;
+        opacity: 1;
     }
 }
 
@@ -74,25 +134,13 @@
 
 /* Responsive adjustments */
 @media (max-width: 767.98px) {
-    .matrix-sidebar {
-        position: fixed;
-        z-index: 1050;
-        left: 0;
-        top: 0;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-
-        &.toggled {
-            transform: translateX(0);
-        }
-    }
-
     #content-wrapper {
         margin-left: 0 !important;
     }
 
     .container-fluid {
         padding: 1rem;
+        padding-top: 4.5rem; /* Space for mobile menu button */
     }
 }
 
