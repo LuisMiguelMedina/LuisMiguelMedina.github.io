@@ -70,6 +70,11 @@
                 <h3 class="persona-nombre">{{ persona.nombre }}</h3>
                 <p class="persona-puesto">{{ persona.puesto }}</p>
                 
+                <div class="variante-badge" [class]="'variante-' + persona.variante.toLowerCase()">
+                    <i class="fas fa-dna"></i>
+                    Zarek {{ persona.variante }}
+                </div>
+                
                 <div class="info-row">
                     <i class="fas fa-building"></i>
                     <span>{{ persona.departamento }}</span>

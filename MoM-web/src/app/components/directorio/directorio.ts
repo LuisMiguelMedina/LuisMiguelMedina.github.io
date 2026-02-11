@@ -14,6 +14,7 @@ interface Personal {
   ubicacion: string;
   especialidad: string;
   fechaIngreso: string;
+  variante: 'Original' | 'Ultra' | 'Anomalo' | 'Externo';
 }
 
 @Component({
@@ -30,119 +31,156 @@ export class Directorio {
 
   personal: Personal[] = [
     {
-      id: 'DIR-001',
+      id: 'ZRK-001',
       uuid: 'KTH-M2-0021',
       nombre: 'Katherine M.2',
-      puesto: 'Subdirectora Asistente',
+      puesto: 'Subdirectora Asistente - Golden 21',
       departamento: 'Operaciones Dimensionales',
       nivel: 2,
       estado: 'activo',
       imagen: '/assets/img/avatars/katherine.png',
-      ubicacion: 'Ciudadela Zarek - Sector Alpha',
+      ubicacion: 'Central Nexus - Sector Alpha',
       especialidad: 'Comando Táctico / Ingeniería de Combate',
-      fechaIngreso: '2025-03-15'
+      fechaIngreso: 'Ciclo 20.3',
+      variante: 'Ultra'
     },
     {
-      id: 'DIR-002',
-      uuid: 'VCT-D1-0003',
-      nombre: 'Victor Domínguez',
-      puesto: 'Ingeniero Senior',
-      departamento: 'Ingeniería Táctica',
-      nivel: 3,
+      id: 'ZRK-002',
+      uuid: 'MQN-E1-0002',
+      nombre: 'Aldric Everett',
+      puesto: 'Maquinista Senior',
+      departamento: 'Los Maquinistas',
+      nivel: 4,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar1.jpg',
-      ubicacion: 'Ciudadela Zarek - Laboratorios',
-      especialidad: 'Sistemas de Contención',
-      fechaIngreso: '2024-08-22'
+      ubicacion: 'Central Nexus - Governance Hall',
+      especialidad: 'Filosofía Fundacional / Administración',
+      fechaIngreso: 'Ciclo 12.1',
+      variante: 'Original'
     },
     {
-      id: 'DIR-003',
-      uuid: 'MRA-S2-0015',
-      nombre: 'María Santos',
-      puesto: 'Analista de Anomalías',
-      departamento: 'Investigación',
+      id: 'ZRK-003',
+      uuid: 'NVA-S3-0089',
+      nombre: 'Nova Synthesis',
+      puesto: 'Investigadora Cosmológica',
+      departamento: 'Applied Cosmology Division',
+      nivel: 3,
+      estado: 'activo',
+      imagen: '/assets/img/avatars/avatar2.jpg',
+      ubicacion: 'The Observatory',
+      especialidad: 'Monitoreo Aeónico / Paths',
+      fechaIngreso: 'Ciclo 18.7',
+      variante: 'Original'
+    },
+    {
+      id: 'ZRK-004',
+      uuid: 'VLX-U2-0156',
+      nombre: 'Velix Wanderer',
+      puesto: 'Explorador Dimensional',
+      departamento: 'Operaciones Dimensionales',
       nivel: 2,
       estado: 'en-mision',
-      imagen: '/assets/img/avatars/avatar2.jpg',
-      ubicacion: 'Dimensión 1 - Misión de Campo',
-      especialidad: 'Análisis Dimensional',
-      fechaIngreso: '2025-01-10'
+      imagen: '/assets/img/avatars/avatar3.jpg',
+      ubicacion: 'Dimensión 21-E - Campo',
+      especialidad: 'Reconocimiento / The Spark',
+      fechaIngreso: 'Ciclo 19.2',
+      variante: 'Ultra'
     },
     {
-      id: 'DIR-004',
-      uuid: 'RCH-A1-0028',
-      nombre: 'Ricardo Hernández',
-      puesto: 'Técnico de Sistemas',
+      id: 'ZRK-005',
+      uuid: 'SYN-A1-0203',
+      nombre: 'Sylas Unit-7',
+      puesto: 'Técnico de Mantenimiento Sintético',
       departamento: 'Ingeniería Sintética',
       nivel: 1,
       estado: 'activo',
-      imagen: '/assets/img/avatars/avatar3.jpg',
-      ubicacion: 'Ciudadela Zarek - Centro de Datos',
-      especialidad: 'Mantenimiento de IA',
-      fechaIngreso: '2025-06-01'
+      imagen: '/assets/img/avatars/avatar4.jpg',
+      ubicacion: 'Research Quarters - Lab 7',
+      especialidad: 'Reparación de Chasis Sintéticos',
+      fechaIngreso: 'Ciclo 21.1',
+      variante: 'Externo'
     },
     {
-      id: 'DIR-005',
-      uuid: 'ELN-C3-0007',
-      nombre: 'Elena Castillo',
-      puesto: 'Coordinadora de Operaciones',
-      departamento: 'Operaciones Dimensionales',
+      id: 'ZRK-006',
+      uuid: 'ARX-O3-0045',
+      nombre: 'Arx Theorum',
+      puesto: 'Archivista Senior',
+      departamento: 'The Archives',
       nivel: 3,
       estado: 'activo',
-      imagen: '/assets/img/avatars/avatar4.jpg',
-      ubicacion: 'Ciudadela Zarek - Centro de Mando',
-      especialidad: 'Logística Multidimensional',
-      fechaIngreso: '2024-04-15'
-    },
-    {
-      id: 'DIR-006',
-      uuid: 'JRG-M1-0042',
-      nombre: 'Jorge Méndez',
-      puesto: 'Especialista en Seguridad',
-      departamento: 'Seguridad',
-      nivel: 2,
-      estado: 'licencia',
       imagen: '/assets/img/avatars/avatar5.jpg',
-      ubicacion: 'Fuera de Servicio',
-      especialidad: 'Protocolos de Contención',
-      fechaIngreso: '2024-11-30'
+      ubicacion: 'The Archives - Unified Knowledge',
+      especialidad: 'Síntesis de Conocimiento Multiversal',
+      fechaIngreso: 'Ciclo 15.5',
+      variante: 'Original'
     },
     {
-      id: 'DIR-007',
-      uuid: 'ANA-R4-0001',
-      nombre: 'Ana Rodríguez',
-      puesto: 'Directora de Proyecto',
-      departamento: 'Dirección',
-      nivel: 4,
-      estado: 'activo',
-      imagen: '/assets/img/avatars/avatar6.jpg',
-      ubicacion: 'Ciudadela Zarek - Torre de Comando',
-      especialidad: 'Gestión Estratégica',
-      fechaIngreso: '2023-01-01'
-    },
-    {
-      id: 'DIR-008',
-      uuid: 'DGO-T2-0019',
-      nombre: 'Diego Torres',
-      puesto: 'Piloto Dimensional',
+      id: 'ZRK-007',
+      uuid: 'FLX-N2-0312',
+      nombre: 'Flux Anomaly',
+      puesto: 'Especialista en Contención',
       departamento: 'Operaciones Dimensionales',
       nivel: 2,
       estado: 'en-mision',
+      imagen: '/assets/img/avatars/avatar6.jpg',
+      ubicacion: 'Frontera D1-D2 - Misión CONTAIN-BETA',
+      especialidad: 'Barreras de Energía / Fisuras',
+      fechaIngreso: 'Ciclo 20.8',
+      variante: 'Anomalo'
+    },
+    {
+      id: 'ZRK-008',
+      uuid: 'GNS-S4-0008',
+      nombre: 'Dr. Meridian Vast',
+      puesto: 'Miembro de Genius Society',
+      departamento: 'Genius Society',
+      nivel: 4,
+      estado: 'activo',
       imagen: '/assets/img/avatars/avatar7.jpg',
-      ubicacion: 'Tránsito Dimensional',
+      ubicacion: 'Central Nexus - Nous Communion',
+      especialidad: 'Consulta con Nous / Erudition',
+      fechaIngreso: 'Ciclo 10.2',
+      variante: 'Original'
+    },
+    {
+      id: 'ZRK-009',
+      uuid: 'TRN-U2-0178',
+      nombre: 'Transit Nomad',
+      puesto: 'Piloto del Central Nexus',
+      departamento: 'División de Tránsito',
+      nivel: 2,
+      estado: 'activo',
+      imagen: '/assets/img/avatars/avatar1.jpg',
+      ubicacion: 'Central Nexus - Portal Hub',
       especialidad: 'Navegación Interdimensional',
-      fechaIngreso: '2024-09-12'
+      fechaIngreso: 'Ciclo 19.9',
+      variante: 'Ultra'
+    },
+    {
+      id: 'ZRK-010',
+      uuid: 'SPK-A1-0401',
+      nombre: 'Cipher Glitch',
+      puesto: 'Analista de Anomalías',
+      departamento: 'Applied Cosmology Division',
+      nivel: 1,
+      estado: 'activo',
+      imagen: '/assets/img/avatars/avatar2.jpg',
+      ubicacion: 'The Observatory - Monitoring',
+      especialidad: 'Detección de Stellarons',
+      fechaIngreso: 'Ciclo 21.4',
+      variante: 'Anomalo'
     }
   ];
 
   departamentos = [
     'todos',
     'Operaciones Dimensionales',
-    'Ingeniería Táctica',
-    'Investigación',
+    'Los Maquinistas',
+    'Applied Cosmology Division',
     'Ingeniería Sintética',
-    'Seguridad',
-    'Dirección'
+    'The Archives',
+    'Genius Society',
+    'División de Tránsito'
   ];
 
   get personalFiltrado(): Personal[] {

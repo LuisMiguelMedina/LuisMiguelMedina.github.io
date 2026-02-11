@@ -22,63 +22,83 @@ interface Anuncio {
 export class Anuncios {
   anuncios: Anuncio[] = [
     {
-      id: 'ANN-2026-0047',
-      titulo: 'Actualización del Protocolo de Contención Delta',
-      contenido: 'Se ha actualizado el protocolo de contención para anomalías de clase Delta. Todos los agentes deben revisar el manual actualizado antes del próximo ciclo operativo. Los cambios incluyen nuevas directrices para la manipulación de artefactos dimensionales y procedimientos de evacuación mejorados.',
-      tipo: 'operativo',
-      autor: 'Comando Central',
+      id: 'ZRK-2026-0051',
+      titulo: 'Detección de Firma Antimateria en Sector Gamma-7',
+      contenido: 'Los sensores del Observatory han registrado fluctuaciones de antimateria consistentes con actividad de la Antimatter Legion en las proximidades del Sector Gamma-7. Se recomienda a todos los Pathstriders en misión evitar tránsito por esa región. Los Maquinistas han elevado el nivel de alerta dimensional a AMARILLO.',
+      tipo: 'urgente',
+      autor: 'The Observatory',
       fecha: '2026-02-11',
       prioridad: 'alta',
       leido: false
     },
     {
-      id: 'ANN-2026-0046',
-      titulo: 'Mantenimiento Programado - Sistemas de Comunicación',
-      contenido: 'El sistema de comunicaciones interdimensional estará en mantenimiento el día 15 de febrero entre las 02:00 y 06:00 UTC. Durante este período, las comunicaciones con la Dimensión 1 estarán limitadas. Utilice canales de respaldo para emergencias.',
-      tipo: 'mantenimiento',
-      autor: 'División de Ingeniería',
+      id: 'ZRK-2026-0050',
+      titulo: 'Actualización del Registry Aeónico - Clase S',
+      contenido: 'La Applied Cosmology Division ha actualizado el expediente EON-003 (Nous). Se confirma estabilidad en los parámetros de comunicación con la Genius Society. Los investigadores Nivel 3+ pueden acceder al documento completo en la sección de Artículos Clasificados.',
+      tipo: 'operativo',
+      autor: 'Applied Cosmology Division',
       fecha: '2026-02-10',
       prioridad: 'media',
       leido: true
     },
     {
-      id: 'ANN-2026-0045',
-      titulo: 'Golden 21 - Fase 2 (Echo) Iniciada',
-      contenido: 'La Fase 2 del Proyecto Golden 21 ha comenzado oficialmente. Todos los miembros asignados deben reportarse a sus estaciones designadas. La subdirectora asistente Katherine M.2 será responsable de la coordinación táctica durante esta fase.',
+      id: 'ZRK-2026-0049',
+      titulo: 'Golden 21 - Fase 2 (Echo) en Progreso',
+      contenido: 'La reconstrucción del fragmento dimensional 21-E avanza según lo proyectado. Katherine M.2 reporta un 67% de progreso en la instalación de anclas de realidad. Se requiere personal adicional de Ingeniería Táctica para la siguiente etapa. Los Zarek Ultra con experiencia en estabilización dimensional deben contactar a la subdirectora asistente.',
       tipo: 'urgente',
-      autor: 'Dirección de Proyectos',
+      autor: 'Los Maquinistas Everett',
       fecha: '2026-02-09',
       prioridad: 'alta',
       leido: true
     },
     {
-      id: 'ANN-2026-0044',
-      titulo: 'Recordatorio: Evaluaciones de Desempeño Q1',
-      contenido: 'Las evaluaciones de desempeño del primer trimestre están programadas para la última semana de marzo. Los supervisores deben completar los formularios de evaluación preliminar antes del 20 de marzo.',
-      tipo: 'info',
-      autor: 'Recursos Humanos',
+      id: 'ZRK-2026-0048',
+      titulo: 'Calibración de The Spark - Ultras Residentes',
+      contenido: 'La División de Ingeniería Sintética realizará calibraciones de mana azul para todos los Zarek Ultra residentes durante el Ciclo 21.8. Los portadores del Spark deben presentarse en el Sector Medical para evaluación de integridad arcana. Esto es obligatorio para personal en servicio activo.',
+      tipo: 'mantenimiento',
+      autor: 'División de Ingeniería Sintética',
       fecha: '2026-02-08',
-      prioridad: 'baja',
-      leido: true
-    },
-    {
-      id: 'ANN-2026-0043',
-      titulo: 'Nueva Biblioteca de Artefactos Disponible',
-      contenido: 'Se ha habilitado acceso a la nueva biblioteca de artefactos clasificados en la sección de Artículos. Personal con nivel 3 o superior puede acceder a documentación extendida sobre anomalías catalogadas.',
-      tipo: 'info',
-      autor: 'Archivos Centrales',
-      fecha: '2026-02-07',
       prioridad: 'media',
       leido: true
     },
     {
-      id: 'ANN-2026-0042',
-      titulo: 'Alerta de Seguridad - Intentos de Intrusión Detectados',
-      contenido: 'Se han detectado múltiples intentos de acceso no autorizado al sistema de intranet. Se recomienda a todos los usuarios actualizar sus credenciales y activar la autenticación de dos factores si aún no lo han hecho.',
+      id: 'ZRK-2026-0047',
+      titulo: 'Nuevo Zareks Interdimensionales - Protocolo de Integración',
+      contenido: 'Se han registrado 3 nuevos Zareks provenientes de dimensiones externas durante el último ciclo. Los Maquinistas recuerdan a todo el personal que los recién llegados deben completar el programa de orientación antes de acceder a áreas clasificadas. La diversidad dimensional fortalece nuestra misión de Erudition.',
+      tipo: 'info',
+      autor: 'Los Maquinistas Everett',
+      fecha: '2026-02-07',
+      prioridad: 'baja',
+      leido: true
+    },
+    {
+      id: 'ZRK-2026-0046',
+      titulo: 'Alerta: Actividad Stellaron Detectada',
+      contenido: 'El Observatory ha detectado patrones de energía consistentes con presencia de Stellaron en la Dimensión 21-C. Se desconoce si hay relación con los Stellaron Hunters. Se recomienda precaución extrema. Personal asignado a esa región debe reportar cualquier anomalía inmediatamente.',
       tipo: 'urgente',
-      autor: 'Seguridad',
+      autor: 'Genius Society - Inteligencia',
       fecha: '2026-02-06',
       prioridad: 'alta',
+      leido: true
+    },
+    {
+      id: 'ZRK-2026-0045',
+      titulo: 'Mantenimiento: Portales del Central Nexus',
+      contenido: 'Los portales interdimensionales del Central Nexus estarán en mantenimiento preventivo del 14 al 16 de febrero. El tránsito hacia dimensiones externas estará limitado. Los Ultras con capacidad de viaje personal no se ven afectados. Planifique sus desplazamientos con anticipación.',
+      tipo: 'mantenimiento',
+      autor: 'División de Tránsito Dimensional',
+      fecha: '2026-02-05',
+      prioridad: 'media',
+      leido: true
+    },
+    {
+      id: 'ZRK-2026-0044',
+      titulo: 'Recordatorio: Doctrina del Fundador',
+      contenido: '"A través de infinitas realidades, el genio encuentra un camino. Aquí, encuentra un hogar." — Everett Zarek. Los Maquinistas invitan a todo el personal a la lectura mensual de los textos fundacionales en el Archivo Central. La asistencia es voluntaria pero recomendada para nuevos integrantes.',
+      tipo: 'info',
+      autor: 'Archivos Centrales',
+      fecha: '2026-02-04',
+      prioridad: 'baja',
       leido: true
     }
   ];
