@@ -133,28 +133,28 @@ export class Profile implements OnInit {
   private generateBio(level: number, name: string, username: string): AdminBio {
     const bios: Record<number, AdminBio> = {
       4: {
-        codename: `OMEGA-${username.toUpperCase()}`,
+        codename: `${username.toUpperCase()}`,
         origin: 'Nexus Prime - Comando Central',
         backstory: `${name} fue reclutado por el Consejo Dimensional después de demostrar habilidades excepcionales durante el Incidente Cuántico de 2019. Como Director, tiene acceso total a todas las dimensiones y puede modificar la estructura misma del multiverso. Su misión principal es mantener el equilibrio entre las realidades paralelas y prevenir colapsos dimensionales.`,
         specialty: 'Manipulación de Anclajes de Realidad y Protocolos de Emergencia Omega',
         quote: '"El caos es solo orden que aún no hemos comprendido."'
       },
       3: {
-        codename: `SIGMA-${username.toUpperCase()}`,
+        codename: `${username.toUpperCase()}`,
         origin: 'Ciudadela Zarek - División de Archivos',
         backstory: `${name} obtuvo acceso al rango de Comandante tras demostrar aptitud excepcional en gestión de información clasificada. Con acceso a los archivos más delicados de la organización, supervisa la integridad documental y coordina las operaciones de inteligencia dimensional.`,
         specialty: 'Gestión de Archivos Clasificados y Análisis de Inteligencia',
         quote: '"La información es el arma más poderosa del multiverso."'
       },
       2: {
-        codename: `DELTA-${username.toUpperCase()}`,
+        codename: `${username.toUpperCase()}`,
         origin: 'División de Operaciones Especiales',
         backstory: `${name} ascendió al rango de Operador tras liderar exitosamente la Operación "QuantumLocked". Especializado en coordinación interdimensional, supervisa las operaciones diarias y gestiona los equipos de monitoreo. Su experiencia en navegación cuántica lo convierte en un activo invaluable para el programa.`,
         specialty: 'Coordinación de Equipos y Análisis Dimensional',
         quote: '"El deber es universal"'
       },
       1: {
-        codename: `GAMMA-${username.toUpperCase()}`,
+        codename: `${username.toUpperCase()}`,
         origin: 'Academia de Observadores',
         backstory: `${name} es un observador en entrenamiento, recientemente asignado al programa DIMENSION-2. Su rol es monitorear las fluctuaciones dimensionales y reportar anomalías al equipo senior. Aunque su acceso es limitado, su potencial ha sido reconocido por los oficiales de alto rango.`,
         specialty: 'Monitoreo de Señales y Detección de Anomalías',
