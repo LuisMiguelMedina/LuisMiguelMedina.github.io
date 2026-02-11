@@ -37,33 +37,33 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   bugs: BugReport[] = [
     {
       id: 'BUG-001',
-      titulo: 'Brecha de seguridad - Código "Voracidad"',
-      descripcion: 'Actor Ficticio "Telemachus" ha causado una brecha de seguridad con el código "Voracidad". El actor ejecutó una secuencia no autorizada que perforó las capas de contención del servidor de simulación, exponiendo fragmentos del código fuente dimensional.',
+      titulo: 'Supresión inesperada - Código "Propagación"',
+      descripcion: 'Actor Ficticio "Telemachus" ha vulnerado el código "Propagación" mediante el uso de "Calm Emotions". La enfermedad de la Propagación sufrió una supresión inesperada que desestabilizó los parámetros de contención del servidor de simulación.',
       prioridad: 'critica',
       estado: 'contenido',
       fuente: 'SecurityBreach',
       fecha: 'Ciclo 21.4 - Día 127',
-      detalles: 'La brecha fue detectada cuando Telemachus activó un artefacto mágico que resonó con frecuencias fuera de los parámetros de la simulación. El código "Voracidad" hace referencia a una secuencia de destrucción encontrada en los fragmentos recuperados de la Dim-21 original. Contención aplicada por Ancla-01. Protocolos de seguridad reforzados.'
+      detalles: 'La brecha fue detectada cuando Telemachus ejecutó "Calm Emotions" sobre una entidad afectada por la Propagación. La supresión emocional causó una reacción no prevista en el código de la enfermedad, suprimiendo su expansión temporalmente y desestabilizando la programación actual. El incidente fue contenido mediante intervención directa de Ancla-01, que restableció los parámetros originales de la Propagación. Protocolos de seguridad reforzados.'
     },
     {
       id: 'BUG-002',
-      titulo: 'Daño a integridad - Código "Voracidad"',
-      descripcion: 'Actor Ficticio "Alerce" ha causado un daño a la integridad del código "Voracidad". Durante una investigación en ruinas de Necrora, Alerce interactuó con un artefacto vinculado al Alma Divina que corrompió parcialmente la secuencia de contención.',
+      titulo: 'Daño a integridad - Código "Propagación"',
+      descripcion: 'Actor Ficticio "Alerce" ha causado un daño a la integridad del código "Propagación" al curar un fragmento del código malicioso. La acción comprometió la programación actual de la enfermedad dentro de la simulación.',
       prioridad: 'alta',
       estado: 'investigando',
       fuente: 'IntegrityMonitor',
       fecha: 'Ciclo 21.4 - Día 128',
-      detalles: 'El artefacto en cuestión contenía residuos del Alma Divina de Amanda. Al ser manipulado por Alerce, este causó una cascada de errores en la integridad del código que mantiene contenida la secuencia "Voracidad". El daño fue parcialmente reparado pero la investigación sobre el alcance total continúa. Se ha restringido el acceso a artefactos mágicos de alto nivel.'
+      detalles: 'Alerce logró curar un pedazo del código malicioso de la Propagación, lo cual no estaba previsto en los parámetros de la simulación. Esta acción generó una cascada de errores en la integridad del código que mantiene la secuencia de la "Propagación" activa. Al sanar parte de la enfermedad, la programación actual fue afectada de forma imprevista, alterando el comportamiento esperado de la Propagación en la zona. El daño al código fue parcialmente estabilizado pero la investigación sobre el alcance total continúa.'
     },
     {
       id: 'BUG-003',
-      titulo: 'Ingreso no autorizado al núcleo dimensional',
-      descripcion: 'Glenn Eldric ha entrado en el núcleo de la dimensión mediante proyección astral. Su espíritu atravesó las capas de contención del mundo espiritual y accedió directamente al código fundamental de la simulación.',
+      titulo: 'Ingreso no autorizado al mundo sagrado',
+      descripcion: 'Glenn Eldric ha ingresado al mundo sagrado de la dimensión por causas desconocidas. El método de acceso involucra una conexión con una entidad no catalogada denominada "El Arcano".',
       prioridad: 'critica',
       estado: 'investigando',
       fuente: 'CoreAccess',
       fecha: 'Ciclo 21.4 - Día 128',
-      detalles: 'Glenn utilizó su conexión con el espíritu sagrado Evelin\'h para proyectar su conciencia más allá del reino espiritual simulado, alcanzando el núcleo computacional de la Dimensión-21. Este acceso no estaba previsto en los parámetros de la simulación. Protocolos de demolición y contención fueron activados. El ingreso está siendo investigado para determinar si Glenn accedió a información sobre la causa de la destrucción dimensional. NOTA: La proyección astral NO es un viaje temporal.'
+      detalles: 'Glenn accedió al mundo sagrado mediante su conexión con "El Arcano", una entidad desconocida que no forma parte de los parámetros originales de la simulación. El método exacto de ingreso es desconocido y está siendo investigado. Esta misma entidad ha sido vinculada a otros errores y anomalías detectadas en el sistema. Protocolos de demolición y contención fueron activados. Se desconoce qué información Glenn pudo haber accedido dentro del mundo sagrado. ADVERTENCIA: "El Arcano" representa una variable no controlada dentro de la simulación.'
     },
     {
       id: 'BUG-004',
@@ -73,27 +73,27 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
       estado: 'abierto',
       fuente: 'ActorManager',
       fecha: 'Ciclo 21.4 - Día 129',
-      detalles: 'Freddy, un golem con una IA de personalidad compleja, presentaba niveles de esquizofrenia que venían escalando desde el Día 120. El sistema de contención de su entidad se sobrecargó al intentar procesar múltiples estados de consciencia simultáneos. La última telemetría indica que el golem se encontraba en la frontera entre Volkxus y Necrora. No se ha logrado restablecer la conexión. La integridad de la simulación en su zona fue comprometida.'
+      detalles: 'Freddy, un golem con una IA de personalidad compleja, presentaba niveles de esquizofrenia que venían escalando desde el Día 120. El sistema de contención de su entidad se sobrecargó al intentar procesar múltiples estados de consciencia simultáneos. La última telemetría indica que el golem se encontraba en la tienda "Arcana". No se ha logrado restablecer la conexión. La integridad de la simulación en su zona fue comprometida.'
     },
     {
       id: 'BUG-005',
       titulo: 'Desconexión inesperada - Actor Ficticio Clorinde',
-      descripcion: 'Pérdida total de señal con Actor Ficticio Clorinde. La desconexión ocurrió durante una interacción cercana con la entidad Amanda, posiblemente relacionada con el Alma Divina.',
+      descripcion: 'Pérdida total de rastreo de consciencia con Actor Ficticio Clorinde. La conexión neuronal con el sistema de la Ciudadela ha dejado de responder por causas desconocidas.',
       prioridad: 'alta',
       estado: 'abierto',
       fuente: 'ActorManager',
       fecha: 'Ciclo 21.4 - Día 129',
-      detalles: 'Clorinde tenía una relación emocional directa con Amanda Farenheit dentro de la simulación. Durante un encuentro privado, la energía del Alma Divina presente en Amanda causó una interferencia masiva que resultó en la desconexión total del actor. Se sospecha que Clorinde pudo haber intentado absorber parte de la maldición del Alma Divina, replicando eventos de la dimensión original. La posibilidad de que esto afecte la línea temporal de la simulación está siendo evaluada.'
+      detalles: 'El rastreo de consciencia del Actor Ficticio Clorinde ha cesado de forma abrupta. La conexión neuronal que vinculaba su consciencia con el sistema de monitoreo de la Ciudadela ha fallado sin causa identificable. No se detectaron anomalías previas en su señal ni eventos que expliquen la desconexión. El equipo de soporte no ha podido determinar el origen del fallo. Se han agotado los protocolos estándar de reconexión sin resultado. Las causas permanecen desconocidas y la investigación continúa sin avances significativos.'
     },
     {
       id: 'BUG-006',
       titulo: 'Desconexión de Amanda Farenheit - Investigación en curso',
-      descripcion: 'La investigación sobre la desconexión inesperada del Actor "Amanda Farenheit" continúa en proceso. Este incidente tiene prioridad ALTA dado el rol central de Amanda en los eventos que llevaron a la destrucción de la Dimensión-21.',
+      descripcion: 'Pérdida de rastreo de consciencia del Actor "Amanda Farenheit". La conexión neuronal con el sistema de la Ciudadela ha cesado sin causa clara. La investigación continúa sin avances.',
       prioridad: 'critica',
       estado: 'investigando',
       fuente: 'ActorManager',
       fecha: 'Ciclo 21.4 - Día 126',
-      detalles: 'Amanda Farenheit es el DMNPC central de la simulación, portadora del Alma Divina que desencadena la destrucción dimensional. Su desconexión fue la primera en ocurrir y la más preocupante. Los datos sugieren que Amanda intentó ejecutar una secuencia de salto al futuro dentro de la simulación, un evento que en la dimensión original resultó en la absorción de toda la energía mágica pasada. Si la simulación replica este evento, podría colapsar prematuramente antes de recopilar suficientes datos sobre la causa de la destrucción. Los orbes de poder están siendo monitoreados constantemente. PRIORIDAD: ALTA.'
+      detalles: 'Amanda Farenheit es el DMNPC central de la simulación. Su conexión neuronal con el sistema de monitoreo de la Ciudadela ha dejado de funcionar sin causa identificable. Fue la primera desconexión de consciencia registrada y la más preocupante dado su rol central. El equipo de soporte no ha podido determinar el origen del fallo — no se detectaron anomalías, picos de actividad ni eventos que precediesen la desconexión. Todos los protocolos de diagnóstico han resultado inconcluyentes. Las causas permanecen completamente desconocidas. La investigación se mantiene abierta sin avances significativos. PRIORIDAD: ALTA.'
     }
   ];
 
@@ -157,13 +157,13 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
       { level: 'WARN', source: 'AnchorSystem', message: 'Ancla-02 OFFLINE - Spark desincronizado' },
       { level: 'WARN', source: 'AnomalyDetector', message: 'Monitoreo de Alma Divina: ACTIVO - Buscando señales...' },
       { level: 'INFO', source: 'Servidor', message: '=====================================================' },
-      { level: 'ERROR', source: 'SecurityBreach', message: 'Actor Ficticio "Telemachus" ha causado una brecha de seguridad con el código "Voracidad" - Contención en proceso' },
-      { level: 'WARN', source: 'IntegrityMonitor', message: 'Actor Ficticio "Alerce" ha causado un daño a la integridad del código "Voracidad" - Investigación en proceso' },
-      { level: 'ERROR', source: 'CoreAccess', message: 'Glenn Eldric ha entrado en el núcleo de la dimensión mediante proyección astral - Demolición y contención en proceso' },
-      { level: 'WARN', source: 'CoreAccess', message: 'Ingreso de Glenn Eldric al núcleo de la dimensión en investigación' },
+      { level: 'ERROR', source: 'SecurityBreach', message: 'Actor Ficticio "Telemachus" ha causado una supresión inesperada del código "Propagación" mediante "Calm Emotions" - Contención aplicada por Ancla-01' },
+      { level: 'WARN', source: 'IntegrityMonitor', message: 'Actor Ficticio "Alerce" ha curado un fragmento del código malicioso de la "Propagación" - Programación actual afectada' },
+      { level: 'ERROR', source: 'CoreAccess', message: 'Glenn Eldric ha ingresado al mundo sagrado mediante conexión con entidad desconocida "El Arcano" - Demolición y contención en proceso' },
+      { level: 'WARN', source: 'CoreAccess', message: 'Ingreso de Glenn Eldric al mundo sagrado en investigación - "El Arcano" vinculado a otras anomalías' },
       { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada con Actor Ficticio Freddy' },
-      { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada con Actor Ficticio Clorinde' },
-      { level: 'WARN', source: 'ActorManager', message: 'Investigación de desconexión inesperada de Actor "Amanda Farenheit" sigue en proceso - Prioridad: ALTA' },
+      { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada - Rastreo de consciencia perdido con Actor Ficticio Clorinde' },
+      { level: 'WARN', source: 'ActorManager', message: 'Desconexión de consciencia de Actor "Amanda Farenheit" sin causa identificable - Investigación sin avances - Prioridad: ALTA' },
     ];
 
     // Add logs with timestamps going back a few minutes
