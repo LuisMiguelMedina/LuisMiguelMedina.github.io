@@ -43,8 +43,7 @@
         <div class="file-grid">
             @for (file of currentFolder(); track file.id) {
             <div class="file-item" [class.folder]="file.type === 'folder'" 
-                 (dblclick)="file.type === 'folder' ? navigateToFolder(file) : openFile(file)"
-                 (click)="file.type === 'file' ? openFile(file) : null">
+                 (click)="file.type === 'folder' ? navigateToFolder(file) : openFile(file)">
                 <div class="file-icon">
                     <i [class]="getFileIcon(file)"></i>
                 </div>
