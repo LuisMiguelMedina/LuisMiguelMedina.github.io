@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PermissionsService } from '../../services/permissions.service';
 
 interface DimensionStatus {
@@ -28,7 +28,7 @@ interface RecentEvent {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, DecimalPipe, DatePipe],
+  imports: [CommonModule, DatePipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
