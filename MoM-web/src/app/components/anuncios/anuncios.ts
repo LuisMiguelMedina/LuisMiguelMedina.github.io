@@ -74,7 +74,7 @@ export class Anuncios {
     {
       id: 'ZRK-2026-0046',
       titulo: 'Alerta: Fluctuación Energética Detectada',
-      contenido: 'El Observatorio ha detectado patrones de energía anómalos en la Dimensión 21-C. El origen de estas fluctuaciones aún está siendo investigado por la División de Cosmología Aplicada. Se recomienda precaución extrema. Personal asignado a esa región debe reportar cualquier anomalía inmediatamente.',
+      contenido: 'El Observatorio ha detectado patrones de energía anómalos en la Dimensión ZRA-69. El origen de estas fluctuaciones aún está siendo investigado por la División de Cosmología Aplicada. Se recomienda precaución extrema. Personal asignado a esa región debe reportar cualquier anomalía inmediatamente.',
       tipo: 'urgente',
       autor: 'Sociedad de Genios - Inteligencia',
       fecha: '2026-02-06',
