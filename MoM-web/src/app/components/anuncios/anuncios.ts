@@ -24,7 +24,7 @@ export class Anuncios {
     {
       id: 'ZRK-2026-0051',
       titulo: 'Detección de Firma Antimateria en Sector Gamma-7',
-      contenido: 'Los sensores del Observatorio han registrado fluctuaciones de antimateria consistentes con actividad de la Legión Antimateria en las proximidades del Sector Gamma-7. Se recomienda a todos los Caminantes de Sendas en misión evitar tránsito por esa región. Los Maquinistas han elevado el nivel de alerta dimensional a AMARILLO.',
+      contenido: 'Los sensores del Observatorio han registrado fluctuaciones de antimateria consistentes con actividad de la Legión Antimateria en las proximidades del Sector Gamma-7. Se recomienda a todo el personal en misión evitar tránsito por esa región. Los Maquinistas han elevado el nivel de alerta dimensional a AMARILLO.',
       tipo: 'urgente',
       autor: 'El Observatorio',
       fecha: '2026-02-11',

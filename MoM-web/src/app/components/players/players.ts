@@ -69,4 +69,9 @@ export class Players {
             default: return '';
         }
     }
+
+    onImageError(event: Event): void {
+        const img = event.target as HTMLImageElement;
+        img.src = '/favicon.ico';
+    }
 }

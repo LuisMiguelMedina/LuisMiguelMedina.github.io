@@ -38,11 +38,12 @@ export class Dashboard implements OnInit, OnDestroy {
   adminSession = this.permissionsService.adminSession;
   adminLevel = this.permissionsService.adminLevel;
 
-  // Server Stats
-  serverUptime = '38,352 days';
-  serverGenesis = 'January 1, 1921';
-  totalAgents = 2847;
-  activeAgents = 7;
+  // Server Stats - Simulated Universe
+  serverUptime = '129 días';
+  serverGenesis = '1 de Enero, 1921';
+  simulationDate = '10 de Mayo, 1921';
+  totalAgents = 4;
+  activeAgents = 4;
 
   // Dimension Status
   dimensions: DimensionStatus[] = [
@@ -92,32 +93,32 @@ export class Dashboard implements OnInit, OnDestroy {
   private generateMetrics(): void {
     this.metrics = [
       {
-        label: 'Server Uptime',
+        label: 'Tiempo de Simulación',
         value: this.serverUptime,
         icon: 'fas fa-hourglass-half',
         color: 'cyan',
-        subtext: `Since ${this.serverGenesis}`
+        subtext: `Fecha actual: ${this.simulationDate}`
       },
       {
-        label: 'Registered Agents',
-        value: this.totalAgents.toLocaleString(),
+        label: 'Agentes Activos',
+        value: this.activeAgents.toString(),
         icon: 'fas fa-users',
         color: 'green',
-        subtext: `${this.activeAgents} currently active`
+        subtext: `${this.totalAgents} asignados al proyecto`
       },
       {
-        label: 'Multiverse Bridges',
-        value: '13',
+        label: 'Puentes Multiversales',
+        value: '2',
         icon: 'fas fa-network-wired',
         color: 'purple',
-        subtext: 'Parallel instances connected'
+        subtext: 'Dimensiones conectadas'
       },
       {
-        label: 'Reality Anchors',
-        value: '4 / 4',
+        label: 'Anclas de Realidad',
+        value: '1 / 2',
         icon: 'fas fa-anchor',
         color: 'amber',
-        subtext: 'All anchors operational'
+        subtext: '1 operacional, 1 inactivo'
       }
     ];
   }
@@ -127,38 +128,38 @@ export class Dashboard implements OnInit, OnDestroy {
       {
         timestamp: new Date(Date.now() - 2 * 60000),
         type: 'success',
-        source: 'AutoSave',
-        message: 'World checkpoint created successfully'
+        source: 'SimulaciónCore',
+        message: 'Checkpoint de simulación creado - Día 129'
       },
       {
         timestamp: new Date(Date.now() - 15 * 60000),
         type: 'info',
-        source: 'DimensionSync',
-        message: 'Dimension-1 synchronized with archive'
+        source: 'AnálisisTemporal',
+        message: 'Analizando eventos previos a la destrucción...'
       },
       {
         timestamp: new Date(Date.now() - 45 * 60000),
         type: 'warning',
-        source: 'AnomalyDetector',
-        message: 'Minor temporal drift detected in sector 7'
+        source: 'DetectorAnomalías',
+        message: 'Divergencia temporal detectada en línea base'
       },
       {
         timestamp: new Date(Date.now() - 2 * 60 * 60000),
         type: 'info',
-        source: 'AdminModule',
-        message: 'Administrator session started'
+        source: 'ProyectoGolden21',
+        message: 'Sesión de observación iniciada'
       },
       {
         timestamp: new Date(Date.now() - 6 * 60 * 60000),
         type: 'success',
-        source: 'Security',
-        message: 'Daily security scan completed - No threats'
+        source: 'Ancla-01',
+        message: 'Ancla de realidad estable - Integridad 97%'
       },
       {
         timestamp: new Date(Date.now() - 24 * 60 * 60000),
         type: 'error',
-        source: 'Security',
-        message: 'Unauthorized access attempt blocked'
+        source: 'Ancla-02',
+        message: 'Ancla secundaria fuera de línea - Requiere recalibración'
       }
     ];
   }

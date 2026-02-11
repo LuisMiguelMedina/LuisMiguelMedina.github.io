@@ -189,6 +189,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        background: rgba(20, 20, 40, 0.8);
+
+        // Fallback styling for favicon
+        &[src*="favicon"] {
+            object-fit: contain;
+            padding: 12px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1a 100%);
+        }
     }
 
     .inactive-overlay {

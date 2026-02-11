@@ -55,7 +55,7 @@
                     @for (player of currentPlayers(); track player.id) {
                     <div class="player-card" [class.inactive]="player.status === 2">
                         <div class="player-avatar">
-                            <img [src]="player.image" [alt]="player.name" />
+                            <img [src]="player.image" [alt]="player.name" (error)="onImageError($event)" />
                             @if (player.status === 2) {
                             <div class="inactive-overlay">
                                 <i class="fas fa-times"></i>

@@ -22,12 +22,12 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   autoScroll = true;
   private logInterval: any;
 
-  // Server stats - established since 1921
-  serverUptime = '38,352 days';
+  // Server stats - Simulation of destroyed universe
+  serverUptime = '129 días';
   memoryUsage = '1.2GB / 4GB';
   tps = '19.8';
-  playersOnline = '7/100';
-  dimensionAge = 'Est. 1921';
+  playersOnline = '4/4';
+  simulationDate = '10 de Mayo, 1921';
 
   ngOnInit(): void {
     this.generateHistoricalLogs();
@@ -53,26 +53,25 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   private generateHistoricalLogs(): void {
-    // Show logs as if server has been running and this is a recent session
+    // Logs for simulating a destroyed universe to analyze its destruction
     const historicalLogs: Omit<LogEntry, 'timestamp'>[] = [
-      { level: 'INFO', source: 'Server', message: '===================================================' },
-      { level: 'INFO', source: 'Server', message: 'DIMENSION-2 SERVER - Session Resumed' },
-      { level: 'INFO', source: 'Server', message: 'Original Genesis: January 1, 1921 00:00:00 UTC' },
-      { level: 'INFO', source: 'Server', message: 'Total Runtime: 38,352 days (105+ years)' },
-      { level: 'INFO', source: 'Server', message: '===================================================' },
-      { level: 'INFO', source: 'DimensionCore', message: 'Dimension-1 [OVERWORLD] - Status: STABLE since 1921' },
-      { level: 'INFO', source: 'DimensionCore', message: 'Dimension-2 [THE_MADNESS] - Status: CONTAINED' },
-      { level: 'DEBUG', source: 'RealityAnchor', message: 'Anchor integrity: 97.3% - Minor dimensional drift detected' },
-      { level: 'WARN', source: 'TemporalWatch', message: 'Timeline variance +0.003ms from prime reality' },
-      { level: 'INFO', source: 'PlayerRegistry', message: 'Loading player database... 2,847 registered agents' },
-      { level: 'INFO', source: 'PlayerRegistry', message: 'Active agents this session: 7' },
-      { level: 'INFO', source: 'Security', message: 'Encryption: QUANTUM-256 (upgraded from AES-256 in 2019)' },
-      { level: 'INFO', source: 'Network', message: 'Multiverse bridge: CONNECTED to 13 parallel instances' },
-      { level: 'DEBUG', source: 'Watchdog', message: 'Memory defrag completed - Freed 847MB' },
-      { level: 'INFO', source: 'EventLog', message: 'Last major incident: Amanda\'s Quantic Travels' },
-      { level: 'INFO', source: 'EventLog', message: 'Days since last containment breach: 2,191' },
-      { level: 'INFO', source: 'AdminModule', message: 'Console ready - Welcome back, Administrator' },
-      { level: 'INFO', source: 'Server', message: '---------------------------------------------------' },
+      { level: 'INFO', source: 'Servidor', message: '===================================================' },
+      { level: 'INFO', source: 'Servidor', message: 'PROYECTO GOLDEN 21 - Simulación de Dimensión 21' },
+      { level: 'INFO', source: 'Servidor', message: 'Objetivo: Reconstruir eventos que llevaron a la destrucción' },
+      { level: 'INFO', source: 'Servidor', message: 'Génesis de Simulación: 1 de Enero, 1921' },
+      { level: 'INFO', source: 'Servidor', message: 'Fecha Actual Simulada: 10 de Mayo, 1921 (Día 129)' },
+      { level: 'INFO', source: 'Servidor', message: '===================================================' },
+      { level: 'INFO', source: 'SimulaciónCore', message: 'Universo simulado inicializado correctamente' },
+      { level: 'INFO', source: 'SimulaciónCore', message: 'Parámetros de realidad cargados desde fragmento recuperado' },
+      { level: 'DEBUG', source: 'AnclaRealidad', message: 'Ancla-01: Integridad 97% - Operacional' },
+      { level: 'WARN', source: 'AnclaRealidad', message: 'Ancla-02: Fuera de línea - Requiere recalibración del Spark' },
+      { level: 'INFO', source: 'RegistroAgentes', message: 'Agentes asignados al proyecto: 4' },
+      { level: 'INFO', source: 'RegistroAgentes', message: 'Líder del proyecto: Katherine M.2' },
+      { level: 'INFO', source: 'AnálisisTemporal', message: 'Buscando puntos de divergencia críticos...' },
+      { level: 'WARN', source: 'DetectorAnomalías', message: 'Eventos pre-destrucción detectados en línea temporal' },
+      { level: 'INFO', source: 'Archivos', message: 'Datos históricos del universo destruido: 33% reconstruidos' },
+      { level: 'INFO', source: 'ProyectoGolden21', message: 'Fase actual: Observación y mapeo de causalidad' },
+      { level: 'INFO', source: 'Servidor', message: '---------------------------------------------------' },
     ];
 
     // Add logs with timestamps going back a few minutes
@@ -101,64 +100,64 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   private generateRandomLog(): LogEntry {
     const logTypes = [
       {
-        level: 'INFO' as const, source: 'AutoSave', messages: [
-          'World saved. Chunks: 4,721 | Entities: 1,847',
-          'Backing up dimension-1 to archive-1921...',
-          'Player data synchronized',
-          'Checkpoint created: CP-' + Math.floor(Math.random() * 99999)
+        level: 'INFO' as const, source: 'SimulaciónCore', messages: [
+          'Checkpoint de simulación guardado - Día 129',
+          'Procesando eventos históricos del universo destruido...',
+          'Datos de simulación sincronizados con fragmento dimensional',
+          'Verificando integridad de línea temporal: OK'
         ]
       },
       {
-        level: 'INFO' as const, source: 'PlayerTracker', messages: [
-          'Agent OMEGA-ADMIN001 accessed sector 7G',
-          'Dimension transfer: Agent moved D1 -> D2',
-          'Player activity spike in zone ALPHA-12',
-          'New session started by authorized personnel'
+        level: 'INFO' as const, source: 'AnálisisTemporal', messages: [
+          'Analizando cadena de eventos pre-destrucción',
+          'Mapeando puntos de divergencia en línea temporal',
+          'Correlacionando datos con registros de Los Archivos',
+          'Identificando actores clave en colapso dimensional'
         ]
       },
       {
-        level: 'DEBUG' as const, source: 'Performance', messages: [
-          `Memory: ${(Math.random() * 1.5 + 0.8).toFixed(1)}GB/4GB | TPS: ${(19 + Math.random()).toFixed(1)}`,
-          `Entity count: ${Math.floor(1500 + Math.random() * 500)}`,
-          `Tick: ${Math.floor(40 + Math.random() * 10)}ms | Stable`,
-          'Garbage collection: 147ms'
+        level: 'DEBUG' as const, source: 'Rendimiento', messages: [
+          `Memoria: ${(Math.random() * 1.5 + 0.8).toFixed(1)}GB/4GB | TPS: ${(19 + Math.random()).toFixed(1)}`,
+          `Entidades simuladas: ${Math.floor(1500 + Math.random() * 500)}`,
+          `Tick: ${Math.floor(40 + Math.random() * 10)}ms | Estable`,
+          'Optimización de recursos completada'
         ]
       },
       {
-        level: 'WARN' as const, source: 'AnomalyDetector', messages: [
-          'Minor reality fluctuation in sector 9',
-          'Temporal echo detected - non-critical',
-          'Dimensional membrane stress: 12% above normal',
-          'Pattern match: Similar to 1987 incident (contained)'
+        level: 'WARN' as const, source: 'DetectorAnomalías', messages: [
+          'Patrón de destrucción detectado - Analizando causas',
+          'Fluctuación en membrana dimensional de simulación',
+          'Evento crítico aproximándose en línea temporal simulada',
+          'Similitud con patrones de Legión Antimateria: 67%'
         ]
       },
       {
-        level: 'INFO' as const, source: 'DimensionSync', messages: [
-          'Inter-dimension heartbeat: 847ms',
-          'Reality anchor pulse confirmed',
-          'Parallel instance #7 synchronized',
-          'Madness containment: HOLDING'
+        level: 'INFO' as const, source: 'ProyectoGolden21', messages: [
+          'Progreso de reconstrucción: 33%',
+          'Katherine M.2 supervisando simulación',
+          'Nuevos datos extraídos del fragmento dimensional',
+          'Hipótesis de destrucción actualizada'
         ]
       },
       {
-        level: 'INFO' as const, source: 'Chronicle', messages: [
-          'Day 38,352 of continuous operation',
-          'Historical data archived successfully',
-          'Genesis timestamp verified: 1921-01-01',
-          '105th anniversary protocols active'
+        level: 'INFO' as const, source: 'AnclaRealidad', messages: [
+          'Ancla-01: Pulso de estabilidad confirmado',
+          'Integridad de simulación: 97%',
+          'Conteniendo desviaciones de realidad',
+          'Ancla-02 pendiente de reparación por Ultra'
         ]
       },
       {
-        level: 'ERROR' as const, source: 'Security', messages: [
-          'Unauthorized access attempt blocked - Origin: Unknown',
-          'Firewall triggered: Intrusion from void space'
+        level: 'ERROR' as const, source: 'Ancla-02', messages: [
+          'Ancla secundaria sin respuesta',
+          'Requiere calibración del Spark para reactivación'
         ]
       },
       {
-        level: 'INFO' as const, source: 'Network', messages: [
-          'Ping to parallel dimension: 23ms',
-          'Multiverse bridge stable',
-          'Data packet received from archive node'
+        level: 'INFO' as const, source: 'Archivos', messages: [
+          'Registros históricos indexados correctamente',
+          'Comparando con eventos conocidos de otras dimensiones',
+          'Documentación de hallazgos en progreso'
         ]
       }
     ];
