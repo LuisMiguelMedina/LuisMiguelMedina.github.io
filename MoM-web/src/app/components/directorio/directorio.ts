@@ -36,7 +36,7 @@ export class Directorio {
       id: 'ZRK-001',
       uuid: 'KTH-M2-0021',
       nombre: 'Katherine M.2',
-      puesto: 'Asistente del GPM - Golden 21',
+      puesto: 'Supervisor de Operaciones',
       departamento: 'Operaciones Dimensionales',
       nivel: 2,
       estado: 'activo',
