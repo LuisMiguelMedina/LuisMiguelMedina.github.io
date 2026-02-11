@@ -36,8 +36,12 @@ export class PermissionsService {
     // Helpers para verificar permisos específicos
     canViewDashboard = computed(() => this.permissions().canViewDashboard);
     canViewProfile = computed(() => this.permissions().canViewProfile);
-    canViewTable = computed(() => this.permissions().canViewTable);
-    canManageUsers = computed(() => this.permissions().canManageUsers);
+    canViewLogs = computed(() => this.permissions().canViewLogs);
+    canViewMonitoreo = computed(() => this.permissions().canViewMonitoreo);
+    canViewArticulos = computed(() => this.permissions().canViewArticulos);
+    canViewAnuncios = computed(() => this.permissions().canViewAnuncios);
+    canViewDirectorio = computed(() => this.permissions().canViewDirectorio);
+    canViewMisiones = computed(() => this.permissions().canViewMisiones);
     canAccessSettings = computed(() => this.permissions().canAccessSettings);
 
     constructor() {
@@ -97,15 +101,15 @@ export class PermissionsService {
         const level = this.adminLevelSignal();
         switch (level) {
             case 1:
-                return 'Observer';
+                return 'APM';
             case 2:
-                return 'Operator';
+                return 'PM';
             case 3:
-                return 'Commander';
+                return 'Senior PM';
             case 4:
-                return 'Director';
+                return 'GPM';
             default:
-                return 'Unknown';
+                return 'Desconocido';
         }
     }
 
@@ -147,31 +151,55 @@ export class PermissionsService {
             {
                 path: '/app/dashboard',
                 icon: 'fas fa-tachometer-alt',
-                label: 'Dashboard',
+                label: 'Panel',
                 visible: perms.canViewDashboard
+            },
+            {
+                path: '/app/anuncios',
+                icon: 'fas fa-bullhorn',
+                label: 'Anuncios',
+                visible: perms.canViewAnuncios
             },
             {
                 path: '/app/profile',
                 icon: 'fas fa-user',
-                label: 'Profile',
+                label: 'Perfil',
                 visible: perms.canViewProfile
             },
             {
-                path: '/app/table',
-                icon: 'fas fa-terminal',
-                label: 'Logs',
-                visible: perms.canViewTable
+                path: '/app/directorio',
+                icon: 'fas fa-address-book',
+                label: 'Directorio',
+                visible: perms.canViewDirectorio
             },
             {
-                path: '/app/users',
-                icon: 'fas fa-users',
-                label: 'Users',
-                visible: perms.canManageUsers
+                path: '/app/logs',
+                icon: 'fas fa-terminal',
+                label: 'Registros',
+                visible: perms.canViewLogs
+            },
+            {
+                path: '/app/monitoreo',
+                icon: 'fas fa-satellite-dish',
+                label: 'Monitoreo',
+                visible: perms.canViewMonitoreo
+            },
+            {
+                path: '/app/misiones',
+                icon: 'fas fa-crosshairs',
+                label: 'Misiones',
+                visible: perms.canViewMisiones
+            },
+            {
+                path: '/app/articulos',
+                icon: 'fas fa-folder-open',
+                label: 'Artículos',
+                visible: perms.canViewArticulos
             },
             {
                 path: '/app/settings',
                 icon: 'fas fa-cog',
-                label: 'Settings',
+                label: 'Configuración',
                 visible: perms.canAccessSettings
             }
         ];

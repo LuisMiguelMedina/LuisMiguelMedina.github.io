@@ -1,9 +1,9 @@
 <!-- Dashboard Header -->
 <div class="matrix-page-header">
   <div class="header-title">
-    <h3><i class="fas fa-server me-2"></i>Server Analysis</h3>
+    <h3><i class="fas fa-server me-2"></i>Análisis del Servidor</h3>
     @if (adminSession()) {
-    <div class="welcome-text">> DIMENSION-2 CONTROL CENTER</div>
+    <div class="welcome-text">> CENTRO DE CONTROL DIMENSION-2</div>
     }
   </div>
   <div class="header-stats">
@@ -29,19 +29,19 @@
       <i class="fas fa-infinity"></i>
     </div>
     <div class="genesis-info">
-      <div class="genesis-label">SERVER GENESIS</div>
+      <div class="genesis-label">INICIO DEL SERVIDOR</div>
       <div class="genesis-date">{{ serverGenesis }}</div>
     </div>
     <div class="genesis-divider"></div>
     <div class="genesis-info">
-      <div class="genesis-label">TOTAL RUNTIME</div>
+      <div class="genesis-label">TIEMPO TOTAL</div>
       <div class="genesis-date">{{ serverUptime }}</div>
     </div>
     <div class="genesis-divider"></div>
     <div class="genesis-info">
-      <div class="genesis-label">STATUS</div>
+      <div class="genesis-label">ESTADO</div>
       <div class="genesis-date">
-        <span class="status-online"><i class="fas fa-circle"></i> OPERATIONAL</span>
+        <span class="status-online"><i class="fas fa-circle"></i> OPERATIVO</span>
       </div>
     </div>
   </div>
@@ -76,7 +76,7 @@
   <div class="col-12">
     <div class="matrix-chart-container">
       <div class="chart-header">
-        <h6><i class="fas fa-globe-americas me-2"></i>Dimension Status</h6>
+        <h6><i class="fas fa-globe-americas me-2"></i>Estado de Dimensiones</h6>
       </div>
       <div class="dimension-grid">
         @for (dim of dimensions; track dim.id) {
@@ -87,7 +87,7 @@
           </div>
           <div class="dimension-body">
             <div class="integrity-row">
-              <span class="integrity-label">Integrity:</span>
+              <span class="integrity-label">Integridad:</span>
               <span class="integrity-value">{{ dim.integrity.toFixed(1) }}%</span>
             </div>
             <div class="integrity-bar">
@@ -95,7 +95,7 @@
             </div>
             <div class="sync-info">
               <i class="fas fa-sync-alt"></i>
-              Last sync: {{ dim.lastSync }}
+              Última sync: {{ dim.lastSync }}
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@
   <div class="col-lg-7 mb-4">
     <div class="matrix-chart-container">
       <div class="chart-header">
-        <h6><i class="fas fa-history me-2"></i>Recent Events</h6>
+        <h6><i class="fas fa-history me-2"></i>Eventos Recientes</h6>
       </div>
       <div class="events-list">
         @for (event of recentEvents; track event.timestamp) {
@@ -137,12 +137,12 @@
   <div class="col-lg-5 mb-4">
     <div class="matrix-chart-container">
       <div class="chart-header">
-        <h6><i class="fas fa-microchip me-2"></i>System Resources</h6>
+        <h6><i class="fas fa-microchip me-2"></i>Recursos del Sistema</h6>
       </div>
       <div class="p-3">
         <div class="resource-item">
           <div class="resource-header">
-            <span class="resource-label">CPU_USAGE:</span>
+            <span class="resource-label">USO_CPU:</span>
             <span class="resource-value green">42%</span>
           </div>
           <div class="matrix-progress progress">
@@ -152,7 +152,7 @@
 
         <div class="resource-item">
           <div class="resource-header">
-            <span class="resource-label">MEMORY_USAGE:</span>
+            <span class="resource-label">USO_MEMORIA:</span>
             <span class="resource-value amber">{{ ((memoryUsed / memoryTotal) * 100).toFixed(0) }}%</span>
           </div>
           <div class="matrix-progress progress">
@@ -162,7 +162,7 @@
 
         <div class="resource-item">
           <div class="resource-header">
-            <span class="resource-label">DISK_USAGE:</span>
+            <span class="resource-label">USO_DISCO:</span>
             <span class="resource-value cyan">35%</span>
           </div>
           <div class="matrix-progress progress">
@@ -172,18 +172,18 @@
 
         <div class="resource-item">
           <div class="resource-header">
-            <span class="resource-label">REALITY_ANCHORS:</span>
+            <span class="resource-label">ANCLAJES_REALIDAD:</span>
             <span class="resource-value green">
-              <i class="fas fa-check-circle me-1"></i>4/4 ACTIVE
+              <i class="fas fa-check-circle me-1"></i>4/4 ACTIVOS
             </span>
           </div>
         </div>
 
         <div class="resource-item">
           <div class="resource-header">
-            <span class="resource-label">CONTAINMENT_FIELD:</span>
+            <span class="resource-label">CAMPO_CONTENCION:</span>
             <span class="resource-value amber">
-              <i class="fas fa-shield-alt me-1"></i>HOLDING
+              <i class="fas fa-shield-alt me-1"></i>ESTABLE
             </span>
           </div>
         </div>

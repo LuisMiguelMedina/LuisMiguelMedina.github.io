@@ -29,16 +29,16 @@
     <div class="tab-navigation">
         <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="switchTab('overview')">
             <i class="fas fa-tachometer-alt"></i>
-            Overview
+            Resumen
         </button>
         <button class="tab-btn" [class.active]="activeTab === 'info'" (click)="switchTab('info')">
             <i class="fas fa-id-card"></i>
-            Info
+            Información
         </button>
         @if (isKTH01()) {
         <button class="tab-btn hr-tab" [class.active]="activeTab === 'hr'" (click)="switchTab('hr')">
             <i class="fas fa-file-alt"></i>
-            HR File
+            Expediente
         </button>
         }
     </div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="stat-content">
                     <span class="stat-value">{{ stats.sessionsTotal }}</span>
-                    <span class="stat-label">Total Sessions</span>
+                    <span class="stat-label">Sesiones Totales</span>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
                 </div>
                 <div class="stat-content">
                     <span class="stat-value">{{ stats.clearanceCode }}</span>
-                    <span class="stat-label">Clearance Code</span>
+                    <span class="stat-label">Código de Acceso</span>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
                 </div>
                 <div class="stat-content">
                     <span class="stat-value small">{{ stats.assignedDimension }}</span>
-                    <span class="stat-label">Assigned Dimensions</span>
+                    <span class="stat-label">Dimensiones Asignadas</span>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
             <div class="panel mission-panel">
                 <div class="panel-header">
                     <i class="fas fa-satellite-dish"></i>
-                    <span>MISSION STATUS</span>
+                    <span>ESTADO DE MISIÓN</span>
                 </div>
                 <div class="panel-body">
                     <div class="mission-status">
@@ -93,15 +93,15 @@
                         <span>{{ stats.missionStatus }}</span>
                     </div>
                     <div class="mission-detail">
-                        <span class="detail-label">Last Access:</span>
+                        <span class="detail-label">Último Acceso:</span>
                         <span class="detail-value">{{ stats.lastAccess }}</span>
                     </div>
                     <div class="mission-detail">
-                        <span class="detail-label">Connection:</span>
-                        <span class="detail-value success">SECURE</span>
+                        <span class="detail-label">Conexión:</span>
+                        <span class="detail-value success">SEGURA</span>
                     </div>
                     <div class="mission-detail">
-                        <span class="detail-label">Encryption:</span>
+                        <span class="detail-label">Encriptación:</span>
                         <span class="detail-value">AES-256</span>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
             <div class="panel activity-panel">
                 <div class="panel-header">
                     <i class="fas fa-list-alt"></i>
-                    <span>ACTIVITY LOG</span>
+                    <span>REGISTRO DE ACTIVIDAD</span>
                 </div>
                 <div class="panel-body">
                     <div class="activity-list">
@@ -146,7 +146,7 @@
                 <div class="info-icon">
                     <i class="fas fa-fingerprint"></i>
                 </div>
-                <div class="info-label">CODENAME</div>
+                <div class="info-label">NOMBRE CLAVE</div>
                 <div class="info-value large">{{ adminBio.codename }}</div>
             </div>
 
@@ -155,7 +155,7 @@
                 <div class="info-icon">
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
-                <div class="info-label">ORIGIN</div>
+                <div class="info-label">ORIGEN</div>
                 <div class="info-value">{{ adminBio.origin }}</div>
             </div>
 
@@ -164,7 +164,7 @@
                 <div class="info-icon">
                     <i class="fas fa-star"></i>
                 </div>
-                <div class="info-label">SPECIALTY</div>
+                <div class="info-label">ESPECIALIDAD</div>
                 <div class="info-value">{{ adminBio.specialty }}</div>
             </div>
         </div>
@@ -173,7 +173,7 @@
         <div class="panel backstory-panel">
             <div class="panel-header">
                 <i class="fas fa-book"></i>
-                <span>AGENT DOSSIER</span>
+                <span>EXPEDIENTE DEL AGENTE</span>
             </div>
             <div class="panel-body">
                 <p class="backstory-text">{{ adminBio.backstory }}</p>
@@ -188,8 +188,8 @@
         <!-- Classification Badge -->
         <div class="classification-footer">
             <div class="classification-stamp" [style.border-color]="getLevelColor()" [style.color]="getLevelColor()">
-                <span>CLASSIFIED</span>
-                <span class="level-text">LEVEL {{ adminLevel() }} CLEARANCE REQUIRED</span>
+                <span>CLASIFICADO</span>
+                <span class="level-text">REQUIERE NIVEL {{ adminLevel() }} DE ACCESO</span>
             </div>
         </div>
     </div>
@@ -377,6 +377,6 @@
 
     <!-- Footer Quote -->
     <div class="profile-footer">
-        <div class="footer-code">DIMENSION-2 ADMIN CONSOLE // PROFILE MODULE v2.4.1</div>
+        <div class="footer-code">CONSOLA ADMIN DIMENSION-2 // MÓDULO PERFIL v2.4.1</div>
     </div>
 </div>

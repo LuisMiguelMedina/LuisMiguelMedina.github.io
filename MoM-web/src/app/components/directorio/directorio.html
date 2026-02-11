@@ -1,0 +1,116 @@
+<div class="directorio-container">
+    <!-- Header -->
+    <div class="directorio-header">
+        <div class="header-info">
+            <div class="header-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="header-text">
+                <h1>Directorio de Personal</h1>
+                <p class="header-subtitle">Proyecto Golden 21 — Ciudadela Zarek</p>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="stat-badge">
+                <span class="stat-value">{{ personal.length }}</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-badge activo">
+                <span class="stat-value">{{ totalActivos }}</span>
+                <span class="stat-label">Activos</span>
+            </div>
+            <div class="stat-badge mision">
+                <span class="stat-value">{{ totalEnMision }}</span>
+                <span class="stat-label">En Misión</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de Búsqueda y Filtros -->
+    <div class="filtros-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" 
+                   placeholder="Buscar por nombre, puesto o UUID..." 
+                   [(ngModel)]="busqueda">
+        </div>
+        <div class="filter-group">
+            <select [(ngModel)]="filtroDepartamento" class="filter-select">
+                <option value="todos">Todos los departamentos</option>
+                @for (dept of departamentos.slice(1); track dept) {
+                <option [value]="dept">{{ dept }}</option>
+                }
+            </select>
+            <select [(ngModel)]="filtroNivel" class="filter-select">
+                <option value="todos">Todos los niveles</option>
+                <option value="1">Nivel 1 - APM</option>
+                <option value="2">Nivel 2 - PM</option>
+                <option value="3">Nivel 3 - Senior PM</option>
+                <option value="4">Nivel 4 - GPM</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Grid de Personal -->
+    <div class="personal-grid">
+        @for (persona of personalFiltrado; track persona.id) {
+        <div class="persona-card" [class]="'estado-' + persona.estado">
+            <div class="card-header">
+                <div class="avatar-container">
+                    <img [src]="persona.imagen" [alt]="persona.nombre" 
+                         (error)="$event.target.src='/assets/img/avatars/avatar1.jpg'">
+                    <div class="estado-indicator" [class]="persona.estado"></div>
+                </div>
+                <div class="nivel-badge" [style.background]="getNivelColor(persona.nivel)">
+                    {{ getNivelLabel(persona.nivel) }}
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <h3 class="persona-nombre">{{ persona.nombre }}</h3>
+                <p class="persona-puesto">{{ persona.puesto }}</p>
+                
+                <div class="info-row">
+                    <i class="fas fa-building"></i>
+                    <span>{{ persona.departamento }}</span>
+                </div>
+                
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ persona.ubicacion }}</span>
+                </div>
+                
+                <div class="info-row">
+                    <i class="fas fa-star"></i>
+                    <span>{{ persona.especialidad }}</span>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <span class="uuid-badge">
+                    <i class="fas fa-fingerprint"></i>
+                    {{ persona.uuid }}
+                </span>
+                <span class="estado-badge" [class]="persona.estado">
+                    {{ getEstadoLabel(persona.estado) }}
+                </span>
+            </div>
+        </div>
+        }
+    </div>
+
+    @if (personalFiltrado.length === 0) {
+    <div class="empty-state">
+        <i class="fas fa-user-slash"></i>
+        <p>No se encontró personal con los criterios especificados</p>
+    </div>
+    }
+
+    <!-- Footer -->
+    <div class="directorio-footer">
+        <div class="footer-info">
+            <i class="fas fa-shield-alt"></i>
+            <span>Información clasificada — Nivel 2 o superior requerido para acceso completo</span>
+        </div>
+    </div>
+</div>

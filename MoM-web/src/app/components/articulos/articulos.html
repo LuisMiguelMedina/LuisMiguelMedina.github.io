@@ -1,0 +1,99 @@
+<div class="articulos-container">
+    <!-- Header -->
+    <div class="articulos-header">
+        <div class="header-title">
+            <i class="fas fa-folder-open"></i>
+            <h1>Archivo de Documentos</h1>
+        </div>
+        <div class="header-info">
+            <span class="classification-badge">
+                <i class="fas fa-shield-alt"></i>
+                NIVEL 3+ REQUERIDO
+            </span>
+        </div>
+    </div>
+
+    @if (viewMode() === 'explorer') {
+    <!-- Explorer View -->
+    <div class="explorer-view">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-bar">
+            <div class="breadcrumb">
+                @for (segment of currentPath(); track segment; let i = $index) {
+                <button class="breadcrumb-item" (click)="navigateToPath(i)">
+                    @if (i === 0) {
+                    <i class="fas fa-home"></i>
+                    }
+                    {{ segment }}
+                </button>
+                @if (i < currentPath().length - 1) {
+                <i class="fas fa-chevron-right separator"></i>
+                }
+                }
+            </div>
+            @if (currentPath().length > 1) {
+            <button class="back-btn" (click)="navigateUp()">
+                <i class="fas fa-arrow-left"></i>
+                Atrás
+            </button>
+            }
+        </div>
+
+        <!-- File Grid -->
+        <div class="file-grid">
+            @for (file of currentFolder(); track file.id) {
+            <div class="file-item" [class.folder]="file.type === 'folder'" 
+                 (dblclick)="file.type === 'folder' ? navigateToFolder(file) : openFile(file)"
+                 (click)="file.type === 'file' ? openFile(file) : null">
+                <div class="file-icon">
+                    <i [class]="getFileIcon(file)"></i>
+                </div>
+                <div class="file-info">
+                    <span class="file-name">{{ file.name }}</span>
+                    @if (file.type === 'file') {
+                    <span class="file-meta">{{ file.lastModified }} • {{ file.size }}</span>
+                    }
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-folder">
+                <i class="fas fa-folder-open"></i>
+                <p>Esta carpeta está vacía</p>
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+    @if (viewMode() === 'reader') {
+    <!-- Reader View (Obsidian-like) -->
+    <div class="reader-view">
+        <!-- Reader Header -->
+        <div class="reader-header">
+            <button class="close-reader" (click)="closeReader()">
+                <i class="fas fa-arrow-left"></i>
+                Volver al explorador
+            </button>
+            <div class="document-title">
+                <i class="fas fa-file-alt"></i>
+                <span>{{ selectedFile()?.name }}</span>
+            </div>
+            <div class="document-meta">
+                <span><i class="fas fa-clock"></i> {{ selectedFile()?.lastModified }}</span>
+                <span><i class="fas fa-hdd"></i> {{ selectedFile()?.size }}</span>
+            </div>
+        </div>
+
+        <!-- Markdown Content -->
+        <div class="markdown-content" [innerHTML]="renderedContent()"></div>
+
+        <!-- Reader Footer -->
+        <div class="reader-footer">
+            <div class="footer-stamp">
+                <i class="fas fa-lock"></i>
+                DOCUMENTO CLASIFICADO - CIUDADELA ZAREK
+            </div>
+        </div>
+    </div>
+    }
+</div>

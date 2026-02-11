@@ -6,12 +6,12 @@
                 <i class="fas fa-server"></i>
             </div>
             <div class="server-details">
-                <h1 class="server-name">DIMENSION-2 SERVER</h1>
+                <h1 class="server-name">SERVIDOR DIMENSIÓN-2</h1>
                 <div class="server-status">
                     <span class="status-dot online"></span>
-                    <span>ONLINE</span>
+                    <span>EN LÍNEA</span>
                     <span class="divider">|</span>
-                    <span class="genesis">Genesis: {{ dimensionAge }}</span>
+                    <span class="genesis">Génesis: {{ dimensionAge }}</span>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
             </button>
             <button class="log-btn danger" (click)="clearLogs()">
                 <i class="fas fa-trash"></i>
-                Clear
+                Limpiar
             </button>
         </div>
     </div>
@@ -38,7 +38,7 @@
             </div>
             <span class="console-title">dimension2_server.log</span>
             <div class="console-stats">
-                <span>{{ logs.length }} lines | Runtime: {{ serverUptime }}</span>
+                <span>{{ logs.length }} líneas | Ejecución: {{ serverUptime }}</span>
             </div>
         </div>
 
@@ -62,7 +62,7 @@
     <div class="logs-footer">
         <div class="stat-item uptime">
             <i class="fas fa-hourglass-half"></i>
-            <span>Uptime: {{ serverUptime }}</span>
+            <span>Tiempo activo: {{ serverUptime }}</span>
         </div>
         <div class="stat-item">
             <i class="fas fa-calendar-alt"></i>
@@ -70,7 +70,7 @@
         </div>
         <div class="stat-item">
             <i class="fas fa-memory"></i>
-            <span>Memory: {{ memoryUsage }}</span>
+            <span>Memoria: {{ memoryUsage }}</span>
         </div>
         <div class="stat-item">
             <i class="fas fa-chart-line"></i>
@@ -78,7 +78,7 @@
         </div>
         <div class="stat-item">
             <i class="fas fa-users"></i>
-            <span>Agents: {{ playersOnline }}</span>
+            <span>Agentes: {{ playersOnline }}</span>
         </div>
     </div>
 </div>

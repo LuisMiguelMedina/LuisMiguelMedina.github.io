@@ -8,7 +8,7 @@
           <span class="terminal-btn terminal-btn-minimize"></span>
           <span class="terminal-btn terminal-btn-maximize"></span>
         </div>
-        <span class="terminal-title">ADMIN SYSTEM ACCESS</span>
+        <span class="terminal-title">ACCESO AL SISTEMA</span>
         <div style="width: 52px;"></div>
       </div>
 
@@ -38,7 +38,7 @@
         <!-- Attempt Counter - Cuadros que desaparecen -->
         <div class="attempt-counter" [class.warning-level]="visibleAttempts.length <= 5 && visibleAttempts.length > 3"
           [class.critical-level]="visibleAttempts.length <= 3 && visibleAttempts.length > 0">
-          <div class="attempt-label">Security Tokens</div>
+          <div class="attempt-label">Tokens de Seguridad</div>
           <div class="attempt-blocks">
             @for (attempt of visibleAttempts; track $index) {
             <div class="attempt-block active" [class.fade-out]="attempt.fadeOut"
@@ -51,13 +51,13 @@
         <!-- Login Form -->
         <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
           <div class="terminal-input-group">
-            <label class="terminal-label" for="username">ADMIN ID</label>
+            <label class="terminal-label" for="username">ID DE ADMIN</label>
             <input class="terminal-input terminal-cursor" [class.input-error]="showError" type="text" id="username"
               name="username" [(ngModel)]="loginData.email" required autocomplete="off">
           </div>
 
           <div class="terminal-input-group">
-            <label class="terminal-label" for="password">ACCESS KEY</label>
+            <label class="terminal-label" for="password">CLAVE DE ACCESO</label>
             <input class="terminal-input terminal-cursor" [class.input-error]="showError" type="password" id="password"
               name="password" [(ngModel)]="loginData.password" required autocomplete="off">
           </div>
@@ -71,9 +71,9 @@
               <span></span>
               <span></span>
             </span>
-            AUTHENTICATING...
+            AUTENTICANDO...
             } @else {
-            INITIALIZE SESSION
+            INICIAR SESIÓN
             }
           </button>
         </form>
@@ -88,7 +88,7 @@
 
         <!-- Footer -->
         <div class="terminal-footer">
-          <span>DIMENSION-2 ADMIN CONSOLE v2.4.1</span>
+          <span>CONSOLA ADMIN DIMENSION-2 v2.4.1</span>
         </div>
       </div>
     </div>

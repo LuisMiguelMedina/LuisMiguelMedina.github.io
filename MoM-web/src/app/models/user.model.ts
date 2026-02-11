@@ -14,8 +14,12 @@ export interface User {
 export interface AdminPermissions {
   canViewDashboard: boolean;
   canViewProfile: boolean;
-  canViewTable: boolean;
-  canManageUsers: boolean;
+  canViewLogs: boolean;
+  canViewMonitoreo: boolean;
+  canViewArticulos: boolean;
+  canViewAnuncios: boolean;
+  canViewDirectorio: boolean;
+  canViewMisiones: boolean;
   canAccessSettings: boolean;
   categories: string[];
 }
@@ -23,35 +27,51 @@ export interface AdminPermissions {
 export const ADMIN_LEVEL_PERMISSIONS: Record<1 | 2 | 3 | 4, AdminPermissions> = {
   1: {
     canViewDashboard: true,
-    canViewProfile: false,
-    canViewTable: false,
-    canManageUsers: false,
+    canViewProfile: true,
+    canViewLogs: true,
+    canViewMonitoreo: false,
+    canViewArticulos: false,
+    canViewAnuncios: true,
+    canViewDirectorio: false,
+    canViewMisiones: false,
     canAccessSettings: false,
-    categories: ['dashboard']
+    categories: ['dashboard', 'profile', 'logs', 'anuncios']
   },
   2: {
     canViewDashboard: true,
     canViewProfile: true,
-    canViewTable: true,
-    canManageUsers: false,
+    canViewLogs: true,
+    canViewMonitoreo: true,
+    canViewArticulos: false,
+    canViewAnuncios: true,
+    canViewDirectorio: true,
+    canViewMisiones: false,
     canAccessSettings: false,
-    categories: ['dashboard', 'profile', 'table']
+    categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'anuncios', 'directorio']
   },
   3: {
     canViewDashboard: true,
     canViewProfile: true,
-    canViewTable: true,
-    canManageUsers: true,
+    canViewLogs: true,
+    canViewMonitoreo: true,
+    canViewArticulos: true,
+    canViewAnuncios: true,
+    canViewDirectorio: true,
+    canViewMisiones: true,
     canAccessSettings: false,
-    categories: ['dashboard', 'profile', 'table', 'users']
+    categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'articulos', 'anuncios', 'directorio', 'misiones']
   },
   4: {
     canViewDashboard: true,
     canViewProfile: true,
-    canViewTable: true,
-    canManageUsers: true,
+    canViewLogs: true,
+    canViewMonitoreo: true,
+    canViewArticulos: true,
+    canViewAnuncios: true,
+    canViewDirectorio: true,
+    canViewMisiones: true,
     canAccessSettings: true,
-    categories: ['dashboard', 'profile', 'table', 'users', 'settings']
+    categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'articulos', 'anuncios', 'directorio', 'misiones', 'settings']
   }
 };
 

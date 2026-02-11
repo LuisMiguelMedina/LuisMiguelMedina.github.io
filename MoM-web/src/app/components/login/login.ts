@@ -235,7 +235,7 @@ export class Login implements OnInit, OnDestroy {
     // Bloquear si no hay tokens disponibles
     if (this.visibleAttempts.length === 0) {
       this.isLocked = true;
-      this.errorMessage = 'SYSTEM LOCKDOWN - No security tokens remaining';
+      this.errorMessage = 'BLOQUEO DEL SISTEMA - No quedan tokens de seguridad';
       this.showError = true;
       this.cdr.markForCheck();
       return;
@@ -297,21 +297,21 @@ export class Login implements OnInit, OnDestroy {
         await this.removeOneAttempt();
 
         const msgs = [
-          'ACCESS DENIED - Invalid credentials',
-          'AUTHENTICATION FAILURE - Verify admin ID',
-          'IDENTITY NOT RECOGNIZED - Access rejected',
-          'SECURITY ALERT - Unauthorized attempt logged'
+          'ACCESO DENEGADO - Credenciales inv\u00e1lidas',
+          'FALLO DE AUTENTICACI\u00d3N - Verifique su ID',
+          'IDENTIDAD NO RECONOCIDA - Acceso rechazado',
+          'ALERTA DE SEGURIDAD - Intento no autorizado registrado'
         ];
 
         this.errorMessage = this.isLocked
-          ? 'SYSTEM LOCKDOWN - Maximum attempts exceeded'
+          ? 'BLOQUEO DEL SISTEMA - M\u00e1ximo de intentos excedido'
           : msgs[Math.floor(Math.random() * msgs.length)];
 
         setTimeout(() => { this.showError = false; }, 2000);
       }
     } catch (error) {
       console.error('Login error:', error);
-      this.errorMessage = 'CONNECTION ERROR - System unavailable';
+      this.errorMessage = 'ERROR DE CONEXI\u00d3N - Sistema no disponible';
       this.showError = true;
       setTimeout(() => { this.showError = false; }, 3000);
     } finally {

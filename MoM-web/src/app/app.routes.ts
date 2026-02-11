@@ -33,8 +33,24 @@ export const routes: Routes = [
       { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: Dashboard },
       { path: 'profile', component: Profile },
-      { path: 'table', component: Table },
-      { path: 'users', component: Players },
+      { path: 'logs', component: Table },
+      { path: 'monitoreo', component: Players },
+      { 
+        path: 'anuncios', 
+        loadComponent: () => import('./components/anuncios/anuncios').then(m => m.Anuncios)
+      },
+      { 
+        path: 'directorio', 
+        loadComponent: () => import('./components/directorio/directorio').then(m => m.Directorio)
+      },
+      { 
+        path: 'misiones', 
+        loadComponent: () => import('./components/misiones/misiones').then(m => m.Misiones)
+      },
+      { 
+        path: 'articulos', 
+        loadComponent: () => import('./components/articulos/articulos').then(m => m.Articulos)
+      },
       { path: 'settings', component: Settings }
     ]
   },

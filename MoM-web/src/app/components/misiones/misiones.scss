@@ -1,0 +1,458 @@
+.misiones-container {
+    padding: 1.5rem;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+}
+
+.misiones-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(155, 89, 182, 0.05);
+    border: 1px solid rgba(155, 89, 182, 0.2);
+    border-radius: 8px;
+
+    .header-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(155, 89, 182, 0.1);
+        border: 2px solid rgba(155, 89, 182, 0.3);
+        border-radius: 12px;
+        
+        i {
+            font-size: 1.8rem;
+            color: #9b59b6;
+        }
+    }
+
+    .header-text {
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #9b59b6;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-subtitle {
+            margin: 0.25rem 0 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+    }
+
+    .header-stats {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .stat-badge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        &.activa {
+            border-color: rgba(0, 255, 255, 0.3);
+            .stat-value { color: #00ffff; }
+        }
+
+        &.pendiente {
+            border-color: rgba(255, 193, 7, 0.3);
+            .stat-value { color: #ffc107; }
+        }
+
+        &.completada {
+            border-color: rgba(144, 238, 144, 0.3);
+            .stat-value { color: #90ee90; }
+        }
+    }
+}
+
+.filtros-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+
+    .filtro-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+            background: rgba(155, 89, 182, 0.15);
+            border-color: rgba(155, 89, 182, 0.5);
+            color: #9b59b6;
+        }
+
+        &.activa.active {
+            background: rgba(0, 255, 255, 0.15);
+            border-color: rgba(0, 255, 255, 0.5);
+            color: #00ffff;
+        }
+
+        &.pendiente.active {
+            background: rgba(255, 193, 7, 0.15);
+            border-color: rgba(255, 193, 7, 0.5);
+            color: #ffc107;
+        }
+
+        &.completada.active {
+            background: rgba(144, 238, 144, 0.15);
+            border-color: rgba(144, 238, 144, 0.5);
+            color: #90ee90;
+        }
+    }
+}
+
+.misiones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.mision-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: rgba(155, 89, 182, 0.4);
+    }
+
+    &.prioridad-critica {
+        border-left: 4px solid #ff6b6b;
+    }
+
+    &.prioridad-alta {
+        border-left: 4px solid #ffc107;
+    }
+
+    &.prioridad-media {
+        border-left: 4px solid #4a90d9;
+    }
+
+    &.prioridad-baja {
+        border-left: 4px solid #90ee90;
+    }
+
+    .mision-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        background: rgba(155, 89, 182, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mision-tipo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #9b59b6;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+
+    .mision-badges {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .clasificacion-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &.confidencial {
+            background: rgba(74, 144, 217, 0.2);
+            color: #4a90d9;
+        }
+
+        &.secreto {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        &.alto-secreto {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+    }
+
+    .prioridad-badge {
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 700;
+
+        &.critica {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        &.alta {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        &.media {
+            background: rgba(74, 144, 217, 0.2);
+            color: #4a90d9;
+        }
+
+        &.baja {
+            background: rgba(144, 238, 144, 0.2);
+            color: #90ee90;
+        }
+    }
+
+    .mision-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        padding: 1.25rem;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .mision-info {
+        .mision-codigo {
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: rgba(155, 89, 182, 0.8);
+            background: rgba(155, 89, 182, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .mision-nombre {
+            margin: 0 0 1rem;
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .mision-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+
+            i {
+                color: rgba(155, 89, 182, 0.6);
+                width: 14px;
+            }
+        }
+    }
+
+    .mision-objetivos {
+        h4 {
+            margin: 0 0 0.75rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+
+            i {
+                color: rgba(155, 89, 182, 0.6);
+                margin-top: 3px;
+                font-size: 0.7rem;
+
+                &.fa-check {
+                    color: #90ee90;
+                }
+            }
+        }
+    }
+
+    .mision-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+
+    .progreso-container {
+        flex: 1;
+        max-width: 300px;
+
+        .progreso-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .progreso-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+
+            .progreso-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #9b59b6, #00ffff);
+                border-radius: 3px;
+                transition: width 0.3s ease;
+            }
+        }
+    }
+
+    .estado-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+
+        &.activa {
+            background: rgba(0, 255, 255, 0.15);
+            color: #00ffff;
+        }
+
+        &.completada {
+            background: rgba(144, 238, 144, 0.15);
+            color: #90ee90;
+        }
+
+        &.pendiente {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        &.cancelada {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+    }
+}
+
+.misiones-footer {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(155, 89, 182, 0.05);
+    border: 1px solid rgba(155, 89, 182, 0.2);
+    border-radius: 8px;
+
+    .footer-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.8rem;
+
+        i {
+            color: rgba(255, 193, 7, 0.7);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .misiones-header {
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .header-info {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .header-stats {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    .filtros-bar {
+        justify-content: center;
+    }
+}

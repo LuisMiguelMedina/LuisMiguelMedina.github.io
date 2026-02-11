@@ -1,0 +1,141 @@
+<div class="misiones-container">
+    <!-- Header -->
+    <div class="misiones-header">
+        <div class="header-info">
+            <div class="header-icon">
+                <i class="fas fa-crosshairs"></i>
+            </div>
+            <div class="header-text">
+                <h1>Centro de Operaciones</h1>
+                <p class="header-subtitle">Misiones Activas — Proyecto Golden 21</p>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="stat-badge activa">
+                <span class="stat-value">{{ misionesActivas }}</span>
+                <span class="stat-label">Activas</span>
+            </div>
+            <div class="stat-badge pendiente">
+                <span class="stat-value">{{ misionesPendientes }}</span>
+                <span class="stat-label">Pendientes</span>
+            </div>
+            <div class="stat-badge completada">
+                <span class="stat-value">{{ misionesCompletadas }}</span>
+                <span class="stat-label">Completadas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros-bar">
+        <button class="filtro-btn" [class.active]="filtroEstado === 'todas'" (click)="setFiltro('todas')">
+            <i class="fas fa-list"></i>
+            Todas
+        </button>
+        <button class="filtro-btn activa" [class.active]="filtroEstado === 'activa'" (click)="setFiltro('activa')">
+            <i class="fas fa-play-circle"></i>
+            Activas
+        </button>
+        <button class="filtro-btn pendiente" [class.active]="filtroEstado === 'pendiente'" (click)="setFiltro('pendiente')">
+            <i class="fas fa-clock"></i>
+            Pendientes
+        </button>
+        <button class="filtro-btn completada" [class.active]="filtroEstado === 'completada'" (click)="setFiltro('completada')">
+            <i class="fas fa-check-circle"></i>
+            Completadas
+        </button>
+    </div>
+
+    <!-- Lista de Misiones -->
+    <div class="misiones-list">
+        @for (mision of misionesFiltradas; track mision.id) {
+        <div class="mision-card" [class]="'estado-' + mision.estado + ' prioridad-' + mision.prioridad">
+            <div class="mision-header">
+                <div class="mision-tipo">
+                    <i [class]="getTipoIcon(mision.tipo)"></i>
+                    <span>{{ getTipoLabel(mision.tipo) }}</span>
+                </div>
+                <div class="mision-badges">
+                    <span class="clasificacion-badge" [class]="mision.clasificacion">
+                        <i class="fas fa-lock"></i>
+                        {{ getClasificacionLabel(mision.clasificacion) }}
+                    </span>
+                    <span class="prioridad-badge" [class]="mision.prioridad">
+                        {{ mision.prioridad | uppercase }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="mision-body">
+                <div class="mision-info">
+                    <span class="mision-codigo">{{ mision.codigo }}</span>
+                    <h3 class="mision-nombre">{{ mision.nombre }}</h3>
+                    
+                    <div class="mision-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-globe"></i>
+                            <span>{{ mision.dimension }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user-shield"></i>
+                            <span>{{ mision.lider }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>{{ mision.equipoSize }} agentes</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>{{ mision.fechaInicio }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mision-objetivos">
+                    <h4>Objetivos:</h4>
+                    <ul>
+                        @for (objetivo of mision.objetivos; track $index) {
+                        <li>
+                            @if (mision.estado === 'completada') {
+                            <i class="fas fa-check"></i>
+                            } @else {
+                            <i class="fas fa-chevron-right"></i>
+                            }
+                            {{ objetivo }}
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mision-footer">
+                <div class="progreso-container">
+                    <div class="progreso-label">
+                        <span>Progreso</span>
+                        <span>{{ mision.progreso }}%</span>
+                    </div>
+                    <div class="progreso-bar">
+                        <div class="progreso-fill" [style.width.%]="mision.progreso"></div>
+                    </div>
+                </div>
+                <div class="estado-badge" [class]="mision.estado">
+                    @switch (mision.estado) {
+                    @case ('activa') { <i class="fas fa-play"></i> EN CURSO }
+                    @case ('completada') { <i class="fas fa-check"></i> COMPLETADA }
+                    @case ('pendiente') { <i class="fas fa-clock"></i> PENDIENTE }
+                    @case ('cancelada') { <i class="fas fa-times"></i> CANCELADA }
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Footer -->
+    <div class="misiones-footer">
+        <div class="footer-info">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Acceso restringido a personal nivel 3 (Senior PM) o superior — Información clasificada</span>
+        </div>
+    </div>
+</div>
