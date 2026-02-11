@@ -303,7 +303,7 @@ export class Directorio implements OnInit {
       case 'Ultra': return 'Zarek Ultra';
       case 'Original': return 'Zarek Original';
       case 'Anomalo': return 'Zarek Anomalo';
-      case 'Everett': return 'Divergencia Zarek';
+      case 'Everett': return 'Zarek Everett';
       default: return variante;
     }
   }
