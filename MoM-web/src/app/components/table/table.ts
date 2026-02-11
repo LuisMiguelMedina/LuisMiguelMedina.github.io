@@ -32,6 +32,8 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   isLoading = false;
   autoScroll = true;
   private logInterval: any;
+  private logsSinceLastBug = 0;
+  private nextBugAt = 0;
   activeTab: 'logs' | 'bugs' = 'logs';
 
   bugs: BugReport[] = [
@@ -105,6 +107,7 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   simulationDate = '10 de Mayo, 1921';
 
   ngOnInit(): void {
+    this.nextBugAt = Math.floor(Math.random() * 5) + 8; // 8-12
     this.generateHistoricalLogs();
     this.startLogStream();
   }
@@ -155,7 +158,7 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
       { level: 'INFO', source: 'TimeController', message: 'Día simulado: 129 | Velocidad: 1x tiempo real' },
       { level: 'DEBUG', source: 'AnchorSystem', message: 'Ancla-01 conectada - Estabilidad: 97%' },
       { level: 'WARN', source: 'AnchorSystem', message: 'Ancla-02 OFFLINE - Spark desincronizado' },
-      { level: 'WARN', source: 'AnomalyDetector', message: 'Monitoreo de Alma Divina: ACTIVO - Buscando señales...' },
+      { level: 'WARN', source: 'AnomalyDetector', message: 'Monitoreo de Propagación: ACTIVO - Buscando señales...' },
       { level: 'INFO', source: 'Servidor', message: '=====================================================' },
       { level: 'ERROR', source: 'SecurityBreach', message: 'Actor Ficticio "Telemachus" ha causado una supresión inesperada del código "Propagación" mediante "Calm Emotions" - Contención aplicada por Ancla-01' },
       { level: 'WARN', source: 'IntegrityMonitor', message: 'Actor Ficticio "Alerce" ha curado un fragmento del código malicioso de la "Propagación" - Programación actual afectada' },
@@ -179,14 +182,45 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   private startLogStream(): void {
-    // Generate random logs periodically - server is active
+    // Generate random logs periodically - fast server stream
     this.logInterval = setInterval(() => {
-      this.logs.push(this.generateRandomLog());
+      this.logsSinceLastBug++;
+
+      // Every 8-12 logs, inject a bug-related log entry
+      if (this.logsSinceLastBug >= this.nextBugAt) {
+        this.logs.push(this.generateBugLog());
+        this.logsSinceLastBug = 0;
+        this.nextBugAt = Math.floor(Math.random() * 5) + 8;
+      } else {
+        this.logs.push(this.generateRandomLog());
+      }
+
       // Keep only last 150 logs
       if (this.logs.length > 150) {
         this.logs.shift();
       }
-    }, 2500 + Math.random() * 2000);
+    }, 800 + Math.random() * 700);
+  }
+
+  private generateBugLog(): LogEntry {
+    const bugLogs: Omit<LogEntry, 'timestamp'>[] = [
+      { level: 'ERROR', source: 'SecurityBreach', message: 'BUG-001: Supresión de "Propagación" persiste - "Calm Emotions" de Telemachus aún afecta parámetros' },
+      { level: 'WARN', source: 'IntegrityMonitor', message: 'BUG-002: Integridad del código "Propagación" inestable - Daño por curación de Alerce sin revertir' },
+      { level: 'ERROR', source: 'CoreAccess', message: 'BUG-003: Anomalía residual de "El Arcano" detectada - Ingreso de Glenn al mundo sagrado sin resolver' },
+      { level: 'WARN', source: 'ActorManager', message: 'BUG-004: Señal de Freddy (Golem) sigue sin respuesta - Última ubicación: Tienda "Arcana"' },
+      { level: 'ERROR', source: 'ActorManager', message: 'BUG-005: Rastreo de consciencia de Clorinde fallido - Conexión neuronal sin causa de fallo' },
+      { level: 'WARN', source: 'ActorManager', message: 'BUG-006: Desconexión de Amanda Farenheit sin avances - Diagnósticos inconcluyentes' },
+      { level: 'ERROR', source: 'BugTracker', message: 'Bugs activos: 6 | Críticos: 3 | En investigación: 3 | Sin resolver: 2' },
+      { level: 'WARN', source: 'BugTracker', message: 'BUG-003 vinculado a entidad "El Arcano" - Variable no controlada en simulación' },
+      { level: 'WARN', source: 'SecurityBreach', message: 'BUG-001 contenido por Ancla-01 - Monitoreo continuo de Propagación activo' },
+      { level: 'ERROR', source: 'IntegrityMonitor', message: 'BUG-002: Cascada de errores en Propagación - Programación actual desviada de parámetros esperados' },
+    ];
+
+    const bug = bugLogs[Math.floor(Math.random() * bugLogs.length)];
+    return {
+      ...bug,
+      timestamp: this.formatTime(new Date())
+    };
   }
 
   private generateRandomLog(): LogEntry {
@@ -245,10 +279,10 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
       },
       {
         level: 'WARN' as const, source: 'AnomalyDetector', messages: [
-          'Fluctuación en Alma Divina detectada - Analizando origen...',
           `Energía mágica anómala en ${region} - Correlación con destrucción: ${Math.floor(Math.random() * 40) + 50}%`,
           'Patrón de salto temporal detectado en línea de eventos - NO ES VIAJE EN EL TIEMPO',
-          'Actividad sospechosa de entidad "Amanda" registrada - Movimiento hacia orbes de poder'
+          `Señal desconocida detectada en ${region} - Origen: No catalogado`,
+          'Frecuencia anómala en capa espiritual - Analizando correlación con Propagación'
         ]
       },
       {
@@ -308,9 +342,9 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
       {
         level: 'INFO' as const, source: 'DataLogger', messages: [
           'Evento histórico registrado para análisis de destrucción',
-          'Movimiento de Clorinde detectado - Monitoreando interacción con Amanda',
           'Correlación de eventos pre-destrucción: Calculando...',
-          'Datos enviados a Los Archivos - Reconstrucción: 33%'
+          'Datos enviados a Los Archivos - Reconstrucción: 33%',
+          `Telemetría de ${region} almacenada - Análisis pendiente`
         ]
       }
     ];
