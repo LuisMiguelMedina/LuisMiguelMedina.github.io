@@ -29,13 +29,14 @@ export class Directorio {
   busqueda = '';
   filtroDepartamento = 'todos';
   filtroNivel = 'todos';
+  filtroProyecto = 'todos';
 
   personal: Personal[] = [
     {
       id: 'ZRK-001',
       uuid: 'KTH-M2-0021',
       nombre: 'Katherine M.2',
-      puesto: 'Subdirectora Asistente - Golden 21',
+      puesto: 'Asistente del GPM - Golden 21',
       departamento: 'Operaciones Dimensionales',
       nivel: 2,
       estado: 'activo',
@@ -231,6 +232,11 @@ export class Directorio {
     'Control Cronotemporal'
   ];
 
+  proyectos = [
+    'todos',
+    'Golden 21'
+  ];
+
   get personalFiltrado(): Personal[] {
     return this.personal.filter(p => {
       const coincideBusqueda = this.busqueda === '' || 
@@ -244,7 +250,10 @@ export class Directorio {
       const coincideNivel = this.filtroNivel === 'todos' || 
         p.nivel === parseInt(this.filtroNivel);
       
-      return coincideBusqueda && coincideDepartamento && coincideNivel;
+      const coincideProyecto = this.filtroProyecto === 'todos' || 
+        p.proyecto === this.filtroProyecto;
+      
+      return coincideBusqueda && coincideDepartamento && coincideNivel && coincideProyecto;
     });
   }
 

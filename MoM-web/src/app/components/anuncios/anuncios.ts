@@ -44,7 +44,7 @@ export class Anuncios {
     {
       id: 'ZRK-2026-0049',
       titulo: 'Golden 21 - Fase Inicial en Progreso',
-      contenido: 'La reconstrucción del fragmento dimensional 21-E ha iniciado oficialmente. Katherine M.2 reporta un 33% de progreso en la preparación de anclas de realidad. Se están estableciendo los primeros protocolos de estabilización. Los Zarek Ultra con experiencia en operaciones dimensionales deben contactar a la subdirectora asistente para asignación.',
+      contenido: 'La reconstrucción del fragmento dimensional 21-E ha iniciado oficialmente. Katherine M.2 reporta un 33% de progreso en la preparación de anclas de realidad. Se están estableciendo los primeros protocolos de estabilización. Los Zarek Ultra con experiencia en operaciones dimensionales deben contactar a la asistente del GPM para asignación.',
       tipo: 'urgente',
       autor: 'Los Maquinistas Everett',
       fecha: '2026-02-09',

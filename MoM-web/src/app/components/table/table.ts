@@ -8,6 +8,17 @@ interface LogEntry {
   message: string;
 }
 
+interface BugReport {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  prioridad: 'critica' | 'alta' | 'media' | 'baja';
+  estado: 'abierto' | 'investigando' | 'contenido' | 'resuelto';
+  fuente: string;
+  fecha: string;
+  detalles: string;
+}
+
 @Component({
   selector: 'app-table',
   imports: [CommonModule],
@@ -21,6 +32,70 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   isLoading = false;
   autoScroll = true;
   private logInterval: any;
+  activeTab: 'logs' | 'bugs' = 'logs';
+
+  bugs: BugReport[] = [
+    {
+      id: 'BUG-001',
+      titulo: 'Brecha de seguridad - Código "Voracidad"',
+      descripcion: 'Actor Ficticio "Telemachus" ha causado una brecha de seguridad con el código "Voracidad". El actor ejecutó una secuencia no autorizada que perforó las capas de contención del servidor de simulación, exponiendo fragmentos del código fuente dimensional.',
+      prioridad: 'critica',
+      estado: 'contenido',
+      fuente: 'SecurityBreach',
+      fecha: 'Ciclo 21.4 - Día 127',
+      detalles: 'La brecha fue detectada cuando Telemachus activó un artefacto mágico que resonó con frecuencias fuera de los parámetros de la simulación. El código "Voracidad" hace referencia a una secuencia de destrucción encontrada en los fragmentos recuperados de la Dim-21 original. Contención aplicada por Ancla-01. Protocolos de seguridad reforzados.'
+    },
+    {
+      id: 'BUG-002',
+      titulo: 'Daño a integridad - Código "Voracidad"',
+      descripcion: 'Actor Ficticio "Alerce" ha causado un daño a la integridad del código "Voracidad". Durante una investigación en ruinas de Necrora, Alerce interactuó con un artefacto vinculado al Alma Divina que corrompió parcialmente la secuencia de contención.',
+      prioridad: 'alta',
+      estado: 'investigando',
+      fuente: 'IntegrityMonitor',
+      fecha: 'Ciclo 21.4 - Día 128',
+      detalles: 'El artefacto en cuestión contenía residuos del Alma Divina de Amanda. Al ser manipulado por Alerce, este causó una cascada de errores en la integridad del código que mantiene contenida la secuencia "Voracidad". El daño fue parcialmente reparado pero la investigación sobre el alcance total continúa. Se ha restringido el acceso a artefactos mágicos de alto nivel.'
+    },
+    {
+      id: 'BUG-003',
+      titulo: 'Ingreso no autorizado al núcleo dimensional',
+      descripcion: 'Glenn Eldric ha entrado en el núcleo de la dimensión mediante proyección astral. Su espíritu atravesó las capas de contención del mundo espiritual y accedió directamente al código fundamental de la simulación.',
+      prioridad: 'critica',
+      estado: 'investigando',
+      fuente: 'CoreAccess',
+      fecha: 'Ciclo 21.4 - Día 128',
+      detalles: 'Glenn utilizó su conexión con el espíritu sagrado Evelin\'h para proyectar su conciencia más allá del reino espiritual simulado, alcanzando el núcleo computacional de la Dimensión-21. Este acceso no estaba previsto en los parámetros de la simulación. Protocolos de demolición y contención fueron activados. El ingreso está siendo investigado para determinar si Glenn accedió a información sobre la causa de la destrucción dimensional. NOTA: La proyección astral NO es un viaje temporal.'
+    },
+    {
+      id: 'BUG-004',
+      titulo: 'Desconexión inesperada - Actor Ficticio Freddy',
+      descripcion: 'Pérdida total de señal con Actor Ficticio Freddy (Golem). La desconexión coincidió con un episodio severo de esquizofrenia del golem que sobrecargó los sistemas de contención de su entidad.',
+      prioridad: 'alta',
+      estado: 'abierto',
+      fuente: 'ActorManager',
+      fecha: 'Ciclo 21.4 - Día 129',
+      detalles: 'Freddy, un golem con una IA de personalidad compleja, presentaba niveles de esquizofrenia que venían escalando desde el Día 120. El sistema de contención de su entidad se sobrecargó al intentar procesar múltiples estados de consciencia simultáneos. La última telemetría indica que el golem se encontraba en la frontera entre Volkxus y Necrora. No se ha logrado restablecer la conexión. La integridad de la simulación en su zona fue comprometida.'
+    },
+    {
+      id: 'BUG-005',
+      titulo: 'Desconexión inesperada - Actor Ficticio Clorinde',
+      descripcion: 'Pérdida total de señal con Actor Ficticio Clorinde. La desconexión ocurrió durante una interacción cercana con la entidad Amanda, posiblemente relacionada con el Alma Divina.',
+      prioridad: 'alta',
+      estado: 'abierto',
+      fuente: 'ActorManager',
+      fecha: 'Ciclo 21.4 - Día 129',
+      detalles: 'Clorinde tenía una relación emocional directa con Amanda Farenheit dentro de la simulación. Durante un encuentro privado, la energía del Alma Divina presente en Amanda causó una interferencia masiva que resultó en la desconexión total del actor. Se sospecha que Clorinde pudo haber intentado absorber parte de la maldición del Alma Divina, replicando eventos de la dimensión original. La posibilidad de que esto afecte la línea temporal de la simulación está siendo evaluada.'
+    },
+    {
+      id: 'BUG-006',
+      titulo: 'Desconexión de Amanda Farenheit - Investigación en curso',
+      descripcion: 'La investigación sobre la desconexión inesperada del Actor "Amanda Farenheit" continúa en proceso. Este incidente tiene prioridad ALTA dado el rol central de Amanda en los eventos que llevaron a la destrucción de la Dimensión-21.',
+      prioridad: 'critica',
+      estado: 'investigando',
+      fuente: 'ActorManager',
+      fecha: 'Ciclo 21.4 - Día 126',
+      detalles: 'Amanda Farenheit es el DMNPC central de la simulación, portadora del Alma Divina que desencadena la destrucción dimensional. Su desconexión fue la primera en ocurrir y la más preocupante. Los datos sugieren que Amanda intentó ejecutar una secuencia de salto al futuro dentro de la simulación, un evento que en la dimensión original resultó en la absorción de toda la energía mágica pasada. Si la simulación replica este evento, podría colapsar prematuramente antes de recopilar suficientes datos sobre la causa de la destrucción. Los orbes de poder están siendo monitoreados constantemente. PRIORIDAD: ALTA.'
+    }
+  ];
 
   // Server stats - Simulation of destroyed universe
   serverUptime = '129 días';
@@ -53,26 +128,42 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   private generateHistoricalLogs(): void {
-    // Logs estilo servidor de mundo - simulación de universo destruido
+    // Logs del servidor de mundo - Simulación de Dimensión-21 (Volkxus/Necrora/Aiolis)
     const historicalLogs: Omit<LogEntry, 'timestamp'>[] = [
+      { level: 'ERROR', source: 'EntityAI', message: 'Esquizofrenia de Freddy el golem alcanzando niveles críticos - Sistema entrando en modo de contención' },
       { level: 'INFO', source: 'Servidor', message: '=========== GOLDEN 21 WORLD SERVER v3.7.2 ===========' },
       { level: 'INFO', source: 'Servidor', message: 'Iniciando simulación de Dimensión-21...' },
       { level: 'INFO', source: 'WorldLoader', message: 'Cargando fragmento dimensional recuperado...' },
-      { level: 'INFO', source: 'WorldLoader', message: 'Seed del universo: 0x4B454E4F42492D3231' },
+      { level: 'INFO', source: 'WorldLoader', message: 'Seed del universo: 0x564F4C4B5855532D3231' },
       { level: 'INFO', source: 'WorldLoader', message: 'Fecha génesis: 1 de Enero, 1921 | Actual: 10 de Mayo, 1921' },
-      { level: 'INFO', source: 'ChunkManager', message: 'Cargando región [Nueva York, 1921]... 847 chunks' },
-      { level: 'INFO', source: 'ChunkManager', message: 'Región cargada en 2.3s - Edificios: 12,847 | Calles: 2,103' },
-      { level: 'DEBUG', source: 'EntitySpawner', message: 'Spawneando población civil: 45,892 NPCs' },
-      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-001] spawneado en pos(234, 64, -892)' },
-      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-002] spawneado en pos(156, 72, -445)' },
-      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-003] spawneado en pos(-23, 68, 127)' },
-      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-004] spawneado en pos(892, 64, -234)' },
-      { level: 'INFO', source: 'ActorManager', message: 'Actores Ficticios activos: 4/4 - Misión: Infiltración' },
+      { level: 'INFO', source: 'ChunkManager', message: 'Cargando región [Meridiam, Capital de Volkxus]... 1,247 chunks' },
+      { level: 'INFO', source: 'ChunkManager', message: 'Cargando región [Necrora, Estado Caído]... 832 chunks' },
+      { level: 'INFO', source: 'ChunkManager', message: 'Cargando región [Aiolis, Campos Militares]... 614 chunks' },
+      { level: 'DEBUG', source: 'TerrainGen', message: 'Península generada - Biomas: Selva, Costa, Montaña, Ruinas' },
+      { level: 'INFO', source: 'EntitySpawner', message: 'Spawneando población Volkxiana: 38,420 NPCs' },
+      { level: 'INFO', source: 'EntitySpawner', message: 'Spawneando población Necrora: 12,100 NPCs | Aiolis: 8,730 NPCs' },
+      { level: 'DEBUG', source: 'MilitaryAI', message: 'Soldados imperiales inicializados: 4,800 unidades activas' },
+      { level: 'INFO', source: 'SpiritRealm', message: 'Capa espiritual superpuesta al mundo físico - Renderizando...' },
+      { level: 'DEBUG', source: 'SpiritRealm', message: 'Espíritus sagrados vinculados: Várbaros, Tim\'h, Kilombos, GongGang, Ifrin, Jogmus, Evelin\'h' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-001] infiltrado en Meridiam - Identidad: Civil' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-002] infiltrado en Necrora - Identidad: Arcanista' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-003] infiltrado en zona militar de Aiolis' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-004] en red de mercado negro - Vigilancia' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actores Ficticios activos: 4/4 - Misión: Identificar causa de destrucción' },
+      { level: 'INFO', source: 'MagicSystem', message: 'Sistema de magia y artefactos cargado - Objetos mágicos: 2,341' },
       { level: 'DEBUG', source: 'PhysicsEngine', message: 'Motor de física inicializado - Tick rate: 20 TPS' },
       { level: 'INFO', source: 'TimeController', message: 'Día simulado: 129 | Velocidad: 1x tiempo real' },
       { level: 'DEBUG', source: 'AnchorSystem', message: 'Ancla-01 conectada - Estabilidad: 97%' },
       { level: 'WARN', source: 'AnchorSystem', message: 'Ancla-02 OFFLINE - Spark desincronizado' },
+      { level: 'WARN', source: 'AnomalyDetector', message: 'Monitoreo de Alma Divina: ACTIVO - Buscando señales...' },
       { level: 'INFO', source: 'Servidor', message: '=====================================================' },
+      { level: 'ERROR', source: 'SecurityBreach', message: 'Actor Ficticio "Telemachus" ha causado una brecha de seguridad con el código "Voracidad" - Contención en proceso' },
+      { level: 'WARN', source: 'IntegrityMonitor', message: 'Actor Ficticio "Alerce" ha causado un daño a la integridad del código "Voracidad" - Investigación en proceso' },
+      { level: 'ERROR', source: 'CoreAccess', message: 'Glenn Eldric ha entrado en el núcleo de la dimensión mediante proyección astral - Demolición y contención en proceso' },
+      { level: 'WARN', source: 'CoreAccess', message: 'Ingreso de Glenn Eldric al núcleo de la dimensión en investigación' },
+      { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada con Actor Ficticio Freddy' },
+      { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada con Actor Ficticio Clorinde' },
+      { level: 'WARN', source: 'ActorManager', message: 'Investigación de desconexión inesperada de Actor "Amanda Farenheit" sigue en proceso - Prioridad: ALTA' },
     ];
 
     // Add logs with timestamps going back a few minutes
@@ -102,81 +193,93 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
     const chunkX = Math.floor(Math.random() * 200) - 100;
     const chunkZ = Math.floor(Math.random() * 200) - 100;
     const entityCount = Math.floor(Math.random() * 50) + 10;
-    const npcId = Math.floor(Math.random() * 45000) + 1;
+    const npcId = Math.floor(Math.random() * 59000) + 1;
     const posX = Math.floor(Math.random() * 2000) - 1000;
     const posY = Math.floor(Math.random() * 40) + 60;
     const posZ = Math.floor(Math.random() * 2000) - 1000;
+    const regiones = ['Meridiam', 'Necrora', 'Aiolis', 'Costa Norte', 'Selva Interior', 'Ruinas Antiguas'];
+    const region = regiones[Math.floor(Math.random() * regiones.length)];
+    const espiritus = ['Várbaros', 'Tim\'h', 'Kilombos', 'GongGang', 'Ifrin', 'Jogmus', 'Evelin\'h'];
+    const espiritu = espiritus[Math.floor(Math.random() * espiritus.length)];
 
     const logTypes = [
       {
         level: 'DEBUG' as const, source: 'ChunkManager', messages: [
-          `Chunk [${chunkX}, ${chunkZ}] cargado - ${entityCount} entidades`,
-          `Descargando chunk inactivo [${chunkX}, ${chunkZ}] - memoria liberada`,
-          `Renderizando región [${chunkX >> 5}, ${chunkZ >> 5}] - 32 chunks`,
-          `Chunk rebuild completado en ${Math.floor(Math.random() * 50) + 10}ms`
+          `Chunk [${chunkX}, ${chunkZ}] cargado en ${region} - ${entityCount} entidades`,
+          `Descargando chunk inactivo [${chunkX}, ${chunkZ}] en ${region} - memoria liberada`,
+          `Renderizando sub-región ${region} [${chunkX >> 5}, ${chunkZ >> 5}] - 32 chunks`,
+          `Chunk rebuild ${region} completado en ${Math.floor(Math.random() * 50) + 10}ms`
         ]
       },
       {
         level: 'INFO' as const, source: 'WorldTick', messages: [
-          `Tick procesado - TPS: ${(19 + Math.random()).toFixed(1)} | Entidades: ${Math.floor(45000 + Math.random() * 2000)}`,
-          `Ciclo día/noche: ${Math.floor(Math.random() * 24000)} ticks | Clima: Despejado`,
+          `Tick procesado - TPS: ${(19 + Math.random()).toFixed(1)} | Entidades totales: ${Math.floor(59000 + Math.random() * 2000)}`,
+          `Ciclo día/noche: ${Math.floor(Math.random() * 24000)} ticks | Clima en península: Despejado`,
           `Tiempo simulado avanzando... Día 129 activo`,
-          `Guardado automático completado - ${Math.floor(Math.random() * 500) + 200} chunks`
+          `Guardado automático completado - ${Math.floor(Math.random() * 500) + 200} chunks en 3 regiones`
         ]
       },
       {
         level: 'DEBUG' as const, source: 'EntitySpawner', messages: [
-          `NPC #${npcId} pathfinding hacia destino - ${Math.floor(Math.random() * 100)}m`,
-          `Spawneando vehículo en pos(${posX}, ${posY}, ${posZ})`,
-          `Población activa: ${Math.floor(45000 + Math.random() * 1000)} NPCs | Vehículos: ${Math.floor(Math.random() * 500) + 200}`,
-          `NPC #${npcId} rutina diaria: ${['Trabajo', 'Descanso', 'Tránsito', 'Social'][Math.floor(Math.random() * 4)]}`
+          `Soldado imperial #${npcId} patrullando ${region} - Ruta: ${Math.floor(Math.random() * 20) + 1}`,
+          `NPC Volkxiano #${npcId} pathfinding en Meridiam - ${Math.floor(Math.random() * 100)}m`,
+          `Ciudadano de Necrora #${npcId} rutina: ${['Rituales', 'Comercio', 'Meditación', 'Estudio arcano'][Math.floor(Math.random() * 4)]}`,
+          `Población activa: Volkxus ${Math.floor(38000 + Math.random() * 1000)} | Necrora ${Math.floor(12000 + Math.random() * 300)} | Aiolis ${Math.floor(8700 + Math.random() * 200)}`
         ]
       },
       {
         level: 'INFO' as const, source: 'ActorManager', messages: [
-          'AF-001 interactuando con persona de interés',
-          'AF-002 recopilando datos en ubicación objetivo',
-          'AF-003 en posición de observación',
-          'AF-004 siguiendo pista de evento pre-destrucción'
+          'AF-001 observando actividad militar en la capital Meridiam',
+          'AF-002 investigando artefactos mágicos en ruinas de Necrora',
+          'AF-003 monitoreando campos de entrenamiento en Aiolis',
+          'AF-004 rastreando operación de mercado negro - Armas mágicas detectadas'
+        ]
+      },
+      {
+        level: 'DEBUG' as const, source: 'SpiritRealm', messages: [
+          `Espíritu menor de ${espiritu} detectado en chunk [${chunkX}, ${chunkZ}]`,
+          'Capa espiritual estable - Filtro de superposición renderizando correctamente',
+          `Actividad espiritual elevada en ${region} - ${Math.floor(Math.random() * 30) + 5} entidades espirituales`,
+          `Espíritu de la naturaleza interactuando con NPC #${npcId} - Estado: Dormido`
         ]
       },
       {
         level: 'WARN' as const, source: 'AnomalyDetector', messages: [
-          `Fluctuación temporal detectada en chunk [${chunkX}, ${chunkZ}]`,
-          'Patrón de destrucción similar detectado - Correlación: 67%',
-          'Desfase de realidad menor corregido automáticamente',
-          'Inconsistencia en física de entidad - Recalculando...'
+          'Fluctuación en Alma Divina detectada - Analizando origen...',
+          `Energía mágica anómala en ${region} - Correlación con destrucción: ${Math.floor(Math.random() * 40) + 50}%`,
+          'Patrón de salto temporal detectado en línea de eventos - NO ES VIAJE EN EL TIEMPO',
+          'Actividad sospechosa de entidad "Amanda" registrada - Movimiento hacia orbes de poder'
         ]
       },
       {
         level: 'DEBUG' as const, source: 'PhysicsEngine', messages: [
           `Colisiones procesadas: ${Math.floor(Math.random() * 1000) + 500} | Tick: ${Math.floor(Math.random() * 20) + 30}ms`,
-          'Simulación de fluidos estable - Sin overflow',
-          `Gravedad: 9.8m/s² | Fricción: Normal | Entidades físicas: ${Math.floor(Math.random() * 200) + 100}`,
-          'Motor de física sincronizado con servidor'
+          `Simulación de magia elemental estable - Fuego/Agua/Tierra/Viento/Rayo`,
+          `Gravedad: 9.8m/s² | Entidades físicas: ${Math.floor(Math.random() * 200) + 100}`,
+          'Motor de física sincronizado - Interacciones espirituales normalizadas'
         ]
       },
       {
         level: 'WARN' as const, source: 'BugTracker', messages: [
-          `NPC #${npcId} stuck en posición - Teleporting a spawn`,
-          'Textura faltante: building_1921_facade_03 - Usando fallback',
-          'Z-fighting detectado en edificio [Hotel Manhattan] - Ajustando',
-          `Entidad flotando en pos(${posX}, ${posY + 5}, ${posZ}) - Corrigiendo Y`
+          `Soldado imperial #${npcId} stuck en muralla de Meridiam - Teleporting a cuartel`,
+          `Textura faltante: necrora_ruins_temple_07 - Usando fallback`,
+          `Z-fighting en estructuras de Aiolis - Campo militar [${chunkX}, ${chunkZ}] - Ajustando`,
+          `Espíritu flotando fuera de capa espiritual en pos(${posX}, ${posY + 15}, ${posZ}) - Reinsertando`
         ]
       },
       {
         level: 'ERROR' as const, source: 'WorldLoader', messages: [
-          `Chunk [${chunkX}, ${chunkZ}] corruption detectada - Regenerando`,
-          'Timeout en carga de región - Reintentando...',
-          'Ancla-02 sin respuesta - Estabilidad comprometida'
+          `Chunk [${chunkX}, ${chunkZ}] corruption en ${region} - Regenerando desde fragmento`,
+          'Timeout cargando ruinas de Necrora - Artefactos mágicos causando loop - Reintentando...',
+          'Ancla-02 sin respuesta - Estabilidad de simulación comprometida'
         ]
       },
       {
         level: 'INFO' as const, source: 'AnchorSystem', messages: [
           'Ancla-01: Heartbeat OK - Integridad 97%',
-          'Estabilidad dimensional: NORMAL',
-          'Conteniendo micro-fisuras de realidad',
-          'Sincronización con fragmento dimensional: 100%'
+          'Estabilidad dimensional: NORMAL - Membrana contenida',
+          'Conteniendo micro-fisuras entre mundo físico y espiritual',
+          'Sincronización con fragmento dimensional de Dim-21: 100%'
         ]
       },
       {
@@ -187,11 +290,27 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
         ]
       },
       {
+        level: 'INFO' as const, source: 'MilitaryAI', messages: [
+          `Patrulla imperial transitando ${region} - ${Math.floor(Math.random() * 8) + 2} soldados`,
+          'Campo de entrenamiento Aiolis: Ejercicio de combate en progreso',
+          'Soldado imperial ejecutando protocolo de xenofobia contra NPC foráneo',
+          `Mercenario del mercado negro contratado por gobierno - Misión en ${region}`
+        ]
+      },
+      {
+        level: 'DEBUG' as const, source: 'MagicSystem', messages: [
+          `Artefacto mágico #${Math.floor(Math.random() * 2341) + 1} activado en ${region}`,
+          'Regulación Volkxiana: Artefacto mágico decomisado por soldado imperial',
+          `Orbe de poder detectado - Energía: ${(Math.random() * 100).toFixed(1)}% - Ubicación: Clasificada`,
+          'Contrabando de armas mágicas detectado en mercado negro - Registrando...'
+        ]
+      },
+      {
         level: 'INFO' as const, source: 'DataLogger', messages: [
-          'Evento histórico registrado para análisis',
-          'Correlación con destrucción: Calculando...',
-          'Datos enviados a Los Archivos',
-          'Backup de simulación: 33% reconstruido'
+          'Evento histórico registrado para análisis de destrucción',
+          'Movimiento de Clorinde detectado - Monitoreando interacción con Amanda',
+          'Correlación de eventos pre-destrucción: Calculando...',
+          'Datos enviados a Los Archivos - Reconstrucción: 33%'
         ]
       }
     ];
@@ -227,5 +346,29 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
 
   toggleAutoScroll(): void {
     this.autoScroll = !this.autoScroll;
+  }
+
+  switchTab(tab: 'logs' | 'bugs'): void {
+    this.activeTab = tab;
+  }
+
+  getPrioridadLabel(prioridad: string): string {
+    switch (prioridad) {
+      case 'critica': return 'Crítica';
+      case 'alta': return 'Alta';
+      case 'media': return 'Media';
+      case 'baja': return 'Baja';
+      default: return prioridad;
+    }
+  }
+
+  getEstadoLabel(estado: string): string {
+    switch (estado) {
+      case 'abierto': return 'Abierto';
+      case 'investigando': return 'Investigando';
+      case 'contenido': return 'Contenido';
+      case 'resuelto': return 'Resuelto';
+      default: return estado;
+    }
   }
 }

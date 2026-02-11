@@ -28,7 +28,21 @@
         </div>
     </div>
 
+    <!-- Sub-menu tabs -->
+    <div class="registros-tabs">
+        <button class="tab-btn" [class.active]="activeTab === 'logs'" (click)="switchTab('logs')">
+            <i class="fas fa-terminal"></i>
+            Consola
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'bugs'" (click)="switchTab('bugs')">
+            <i class="fas fa-bug"></i>
+            Bugs
+            <span class="bug-count">{{ bugs.length }}</span>
+        </button>
+    </div>
+
     <!-- Console Window -->
+    @if (activeTab === 'logs') {
     <div class="console-window">
         <div class="console-header">
             <div class="console-controls">
@@ -57,6 +71,59 @@
             </div>
         </div>
     </div>
+
+    }
+
+    <!-- Bugs Panel -->
+    @if (activeTab === 'bugs') {
+    <div class="bugs-panel">
+        <div class="bugs-header-info">
+            <i class="fas fa-bug"></i>
+            <span>Reportes de bugs activos en la simulación de Dimensión-21</span>
+        </div>
+
+        <div class="bugs-list">
+            @for (bug of bugs; track bug.id) {
+            <div class="bug-card" [class]="'prioridad-' + bug.prioridad">
+                <div class="bug-card-header">
+                    <div class="bug-title-section">
+                        <div class="bug-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="bug-title-info">
+                            <h3 class="bug-titulo">{{ bug.titulo }}</h3>
+                            <div class="bug-meta">
+                                <span class="bug-id">{{ bug.id }}</span>
+                                <span class="bug-fecha">{{ bug.fecha }}</span>
+                                <span class="bug-fuente">[{{ bug.fuente }}]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bug-badges">
+                        <span class="bug-prioridad" [class]="'prioridad-' + bug.prioridad">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            {{ getPrioridadLabel(bug.prioridad) }}
+                        </span>
+                        <span class="bug-estado" [class]="'estado-' + bug.estado">
+                            {{ getEstadoLabel(bug.estado) }}
+                        </span>
+                    </div>
+                </div>
+
+                <p class="bug-descripcion">{{ bug.descripcion }}</p>
+
+                <div class="bug-detalles">
+                    <div class="detalles-header">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Detalles de la investigación</span>
+                    </div>
+                    <p class="detalles-texto">{{ bug.detalles }}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
 
     <!-- Footer Stats -->
     <div class="logs-footer">

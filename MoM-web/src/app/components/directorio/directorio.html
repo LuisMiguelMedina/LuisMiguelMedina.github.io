@@ -48,6 +48,12 @@
                 <option value="3">Nivel 3 - Senior PM</option>
                 <option value="4">Nivel 4 - GPM</option>
             </select>
+            <select [(ngModel)]="filtroProyecto" class="filter-select">
+                <option value="todos">Todos los proyectos</option>
+                @for (proy of proyectos.slice(1); track proy) {
+                <option [value]="proy">{{ proy }}</option>
+                }
+            </select>
         </div>
     </div>
 

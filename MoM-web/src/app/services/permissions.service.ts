@@ -12,7 +12,7 @@ export interface AdminSession {
 
 // UUIDs conocidos del sistema
 export const KNOWN_UUIDS = {
-    KATHERINE_M2: 'KTH-M2-0021'  // Katherine M.2 (Mark 2) - Subdirectora Asistente Golden 21
+    KATHERINE_M2: 'KTH-M2-0021'  // Katherine M.2 (Mark 2) - Asistente del GPM Golden 21
 } as const;
 
 @Injectable({

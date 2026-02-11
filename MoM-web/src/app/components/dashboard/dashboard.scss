@@ -615,8 +615,28 @@
         font-size: 1.1rem;
     }
 
+    .header-stats {
+        gap: 0.35rem !important;
+
+        .live-stat {
+            font-size: 0.65rem;
+            padding: 0.3rem 0.5rem;
+            flex: 1 1 45%;
+            justify-content: center;
+            text-align: center;
+
+            .stat-label {
+                font-size: 0.6rem;
+            }
+        }
+    }
+
     .genesis-banner .genesis-label {
         font-size: 0.6rem;
+    }
+
+    .genesis-banner .genesis-date {
+        font-size: 0.8rem;
     }
 
     .matrix-card .card-body {

@@ -400,31 +400,112 @@
 }
 
 @media (max-width: 768px) {
+    .directorio-container {
+        padding: 1rem;
+    }
+
     .directorio-header {
         flex-direction: column;
         gap: 1.5rem;
+        padding: 1rem;
 
         .header-info {
             flex-direction: column;
             text-align: center;
         }
 
+        .header-icon {
+            width: 50px;
+            height: 50px;
+
+            i {
+                font-size: 1.4rem;
+            }
+        }
+
+        .header-text h1 {
+            font-size: 1.3rem;
+        }
+
         .header-stats {
             width: 100%;
             justify-content: center;
+        }
+
+        .stat-badge {
+            padding: 0.5rem 0.75rem;
+
+            .stat-value {
+                font-size: 1.2rem;
+            }
         }
     }
 
     .filtros-container {
         flex-direction: column;
 
+        .search-box {
+            min-width: unset;
+        }
+
         .filter-group {
             flex-direction: column;
+        }
+
+        .filter-select {
+            width: 100%;
         }
     }
 
     .personal-grid {
         grid-template-columns: 1fr;
+    }
+
+    .persona-card {
+        .card-header {
+            padding: 1rem;
+        }
+
+        .avatar-container img {
+            width: 55px;
+            height: 55px;
+        }
+
+        .card-body {
+            padding: 0 1rem 1rem;
+
+            .persona-nombre {
+                font-size: 1.05rem;
+            }
+
+            .persona-puesto {
+                font-size: 0.85rem;
+            }
+        }
+
+        .header-badges {
+            top: 0.75rem;
+            right: 0.75rem;
+        }
+
+        .card-footer {
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: center;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .directorio-header .header-stats {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .stat-badge {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.5rem;
     }
 }
 
@@ -439,7 +520,8 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
 
     i {
         font-size: 0.65rem;
