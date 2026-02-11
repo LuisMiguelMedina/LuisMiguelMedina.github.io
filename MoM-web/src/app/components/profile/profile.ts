@@ -1,6 +1,7 @@
 import { Component, inject, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsService, KNOWN_UUIDS } from '../../services/permissions.service';
+import { StaffAvatarService } from '../../services/staff-avatar.service';
 
 interface AdminStats {
   sessionsTotal: number;
@@ -32,9 +33,19 @@ interface AdminBio {
 })
 export class Profile implements OnInit {
   permissionsService = inject(PermissionsService);
+  private staffAvatarService = inject(StaffAvatarService);
 
   adminSession = this.permissionsService.adminSession;
   adminLevel = this.permissionsService.adminLevel;
+
+  // Avatar from Firebase (base64 image, like players)
+  adminAvatar = computed(() => {
+    const uuid = this.adminSession()?.uuid;
+    if (uuid) {
+      return this.staffAvatarService.getAvatarByUuid(uuid);
+    }
+    return this.staffAvatarService.getAvatarByUuid('');
+  });
 
   // Computed profile info
   adminName = computed(() => this.adminSession()?.name || 'Agente Desconocido');
@@ -138,9 +149,9 @@ export class Profile implements OnInit {
       2: {
         codename: `DELTA-${username.toUpperCase()}`,
         origin: 'División de Operaciones Especiales',
-        backstory: `${name} ascendió al rango de Operador tras liderar exitosamente la Operación Bifrost. Especializado en coordinación interdimensional, supervisa las operaciones diarias y gestiona los equipos de monitoreo. Su experiencia en navegación cuántica lo convierte en un activo invaluable para el programa.`,
+        backstory: `${name} ascendió al rango de Operador tras liderar exitosamente la Operación "QuantumLocked". Especializado en coordinación interdimensional, supervisa las operaciones diarias y gestiona los equipos de monitoreo. Su experiencia en navegación cuántica lo convierte en un activo invaluable para el programa.`,
         specialty: 'Coordinación de Equipos y Análisis Dimensional',
-        quote: '"Entre dimensiones, la comunicación es la clave."'
+        quote: '"El deber es universal"'
       },
       1: {
         codename: `GAMMA-${username.toUpperCase()}`,
@@ -170,6 +181,11 @@ export class Profile implements OnInit {
       hash = hash & hash;
     }
     return Math.abs(hash);
+  }
+
+  onAvatarError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNTAiIGZpbGw9IiMzMzMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0iIzY2NiIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9Ijg1IiByeD0iMzAiIHJ5PSIyMCIgZmlsbD0iIzY2NiIvPjwvc3ZnPg==';
   }
 
   private getTimeAgo(minutes: number): string {

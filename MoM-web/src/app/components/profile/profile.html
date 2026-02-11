@@ -3,9 +3,8 @@
     <div class="profile-header">
         <div class="agent-avatar">
             <div class="avatar-ring" [style.border-color]="getLevelColor()">
-                <div class="avatar-inner">
-                    <i class="fas fa-user-secret"></i>
-                </div>
+                <img class="avatar-img" [src]="adminAvatar()" [alt]="adminName()" 
+                     (error)="onAvatarError($event)">
             </div>
             <div class="status-indicator online"></div>
         </div>

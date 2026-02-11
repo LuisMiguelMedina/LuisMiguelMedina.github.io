@@ -63,7 +63,7 @@
         <div class="persona-card" [class]="'estado-' + persona.estado">
             <div class="card-header">
                 <div class="avatar-container">
-                    <img [src]="persona.imagen" [alt]="persona.nombre" 
+                    <img [src]="getStaffAvatar(persona)" [alt]="persona.nombre" 
                          (error)="onImageError($event)">
                     <div class="estado-indicator" [class]="persona.estado"></div>
                 </div>

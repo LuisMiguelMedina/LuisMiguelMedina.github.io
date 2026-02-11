@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { StaffAvatarService } from '../../services/staff-avatar.service';
 
 interface Personal {
   id: string;
@@ -25,7 +26,9 @@ interface Personal {
   templateUrl: './directorio.html',
   styleUrl: './directorio.scss'
 })
-export class Directorio {
+export class Directorio implements OnInit {
+  private staffAvatarService = inject(StaffAvatarService);
+
   busqueda = '';
   filtroDepartamento = 'todos';
   filtroNivel = 'todos';
@@ -303,6 +306,46 @@ export class Directorio {
       case 'Everett': return 'Divergencia Zarek';
       default: return variante;
     }
+  }
+
+  ngOnInit(): void {
+    // Load avatars from Firebase on init
+    this.syncAvatars();
+  }
+
+  /**
+   * Syncs avatar images from Firebase for all staff members.
+   * Reactively updates when Firebase data changes.
+   */
+  private syncAvatars(): void {
+    // Effect-like: whenever avatars signal updates, refresh the staff images
+    const checkAvatars = () => {
+      const avatars = this.staffAvatarService.avatars();
+      if (Object.keys(avatars).length > 0) {
+        this.personal.forEach(p => {
+          const fbAvatar = avatars[p.id];
+          if (fbAvatar) {
+            p.imagen = fbAvatar;
+          }
+        });
+      }
+    };
+    // Initial check
+    checkAvatars();
+    // Poll briefly for async Firebase load
+    const interval = setInterval(() => {
+      checkAvatars();
+      if (this.staffAvatarService.loaded()) {
+        clearInterval(interval);
+      }
+    }, 500);
+  }
+
+  /**
+   * Gets the avatar for a staff member, using Firebase data or service fallback
+   */
+  getStaffAvatar(persona: Personal): string {
+    return this.staffAvatarService.getAvatarByStaffId(persona.id);
   }
 
   onImageError(event: Event): void {
