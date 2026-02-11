@@ -168,7 +168,7 @@ export class Articulos {
 
 Katherine M.2 fue comisionada como sucesora operativa de **Katherine Zarek** (fallecida en acción). Su perfil combina experiencia táctica de nivel Elite con capacidades administrativas avanzadas.
 
-Previo a su asignación como asistente del GPM en Golden 21, completó todas las evaluaciones de combate y aptitud estratégica requeridas, superando los benchmarks establecidos por su predecesora.
+Previo a su asignación como supervisora de operaciones en Golden 21, completó todas las evaluaciones de combate y aptitud estratégica requeridas, superando los benchmarks establecidos por su predecesora.
 
 **Áreas de competencia:**
 - Operaciones militares y comando táctico
