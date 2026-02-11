@@ -206,6 +206,14 @@
             border-radius: 50%;
             border: 3px solid rgba(74, 144, 217, 0.3);
             object-fit: cover;
+            background: rgba(20, 20, 40, 0.8);
+
+            // Fallback styling for favicon
+            &[src*="favicon"] {
+                object-fit: contain;
+                padding: 8px;
+                background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1a 100%);
+            }
         }
 
         .estado-indicator {
@@ -432,12 +440,14 @@
         animation: anomalo-pulse 2s ease-in-out infinite;
     }
 
-    // Externo - Non-Zarek personnel
-    &.variante-externo {
-        background: linear-gradient(135deg, rgba(100, 100, 100, 0.2), rgba(80, 80, 80, 0.15));
-        border: 1px solid rgba(120, 120, 120, 0.3);
-        color: #888;
-        font-style: italic;
+    // Everett - Divergent dimensional copies of the Founder
+    &.variante-everett {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(218, 165, 32, 0.25));
+        border: 1px solid rgba(255, 215, 0, 0.6);
+        color: #ffd700;
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+        font-weight: 700;
     }
 }
 

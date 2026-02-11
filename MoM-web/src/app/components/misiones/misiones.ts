@@ -45,7 +45,7 @@ export class Misiones {
         'Sincronizar resonancia del Spark con el núcleo del fragmento',
         'Reconstruir tejido dimensional al 85% de integridad'
       ],
-      progreso: 67,
+      progreso: 33,
       clasificacion: 'alto-secreto'
     },
     {
@@ -57,7 +57,7 @@ export class Misiones {
       prioridad: 'critica',
       dimension: 'Sector Gamma-7',
       fechaInicio: '2026-02-08',
-      lider: 'Aldric Everett',
+      lider: 'Hugh Everett',
       equipoSize: 4,
       objetivos: [
         'Rastrear firma energética de la Legión Antimateria',
@@ -77,12 +77,12 @@ export class Misiones {
       prioridad: 'alta',
       dimension: 'Dimensión Fronteriza 2-3',
       fechaInicio: '2026-02-12',
-      lider: 'Nova Synthesis',
+      lider: 'Emmy Noether',
       equipoSize: 6,
       objetivos: [
         'Neutralizar efectos de corrupción del Stellaron',
         'Evitar propagación a dimensiones adyacentes',
-        'Capturar para análisis en Applied Cosmology Division'
+        'Capturar para análisis en División de Cosmología Aplicada'
       ],
       progreso: 45,
       clasificacion: 'alto-secreto'
@@ -96,12 +96,12 @@ export class Misiones {
       prioridad: 'alta',
       dimension: 'Plano de Erudición',
       fechaInicio: '2026-02-05',
-      lider: 'Dr. Meridian Vast',
+      lider: 'Dr. Richard Feynman',
       equipoSize: 2,
       objetivos: [
         'Establecer conexión con el Aeon de la Erudición',
         'Descargar actualizaciones del conocimiento cósmico',
-        'Integrar data con sistemas de The Archives'
+        'Integrar data con sistemas de Los Archivos'
       ],
       progreso: 78,
       clasificacion: 'secreto'
@@ -116,7 +116,7 @@ export class Misiones {
       dimension: 'Ciudadela Zarek - Sector Médico',
       fechaInicio: '2026-01-28',
       fechaFin: '2026-01-30',
-      lider: 'Flux Anomaly',
+      lider: 'Werner Heisenberg',
       equipoSize: 3,
       objetivos: [
         'Contener manifestación inestable del Spark',
@@ -136,7 +136,7 @@ export class Misiones {
       dimension: 'Ciudadela Zarek - Nexo Central',
       fechaInicio: '2026-02-01',
       fechaFin: '2026-02-03',
-      lider: 'Transit Nomad',
+      lider: 'Michio Kaku',
       equipoSize: 8,
       objetivos: [
         'Recalibrar portales hacia dimensiones 1-5',
@@ -146,27 +146,9 @@ export class Misiones {
       progreso: 100,
       clasificacion: 'secreto'
     },
+
     {
       id: 'MSN-007',
-      codigo: 'HUNTERS-TRACK-1',
-      nombre: 'Rastreo de Cazadores de Stellaron',
-      tipo: 'reconocimiento',
-      estado: 'pendiente',
-      prioridad: 'media',
-      dimension: 'Múltiples',
-      fechaInicio: '2026-02-20',
-      lider: 'Velix Wanderer',
-      equipoSize: 2,
-      objetivos: [
-        'Identificar movimientos de Elio y su tripulación',
-        'Evaluar intenciones hacia la Ciudadela',
-        'Reportar cualquier alianza con facciones hostiles'
-      ],
-      progreso: 0,
-      clasificacion: 'secreto'
-    },
-    {
-      id: 'MSN-008',
       codigo: 'SPARK-CALIBRATION-Q1',
       nombre: 'Calibración Trimestral del Spark',
       tipo: 'investigacion',

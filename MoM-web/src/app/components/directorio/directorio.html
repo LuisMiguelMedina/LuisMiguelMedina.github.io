@@ -58,7 +58,7 @@
             <div class="card-header">
                 <div class="avatar-container">
                     <img [src]="persona.imagen" [alt]="persona.nombre" 
-                         (error)="$event.target.src='/assets/img/avatars/avatar1.jpg'">
+                         (error)="onImageError($event)">
                     <div class="estado-indicator" [class]="persona.estado"></div>
                 </div>
                 <div class="nivel-badge" [style.background]="getNivelColor(persona.nivel)">
@@ -72,7 +72,7 @@
                 
                 <div class="variante-badge" [class]="'variante-' + persona.variante.toLowerCase()">
                     <i class="fas fa-dna"></i>
-                    Zarek {{ persona.variante }}
+                    {{ getVarianteLabel(persona.variante) }}
                 </div>
                 
                 <div class="info-row">

@@ -14,7 +14,7 @@ interface Personal {
   ubicacion: string;
   especialidad: string;
   fechaIngreso: string;
-  variante: 'Original' | 'Ultra' | 'Anomalo' | 'Externo';
+  variante: 'Original' | 'Ultra' | 'Anomalo' | 'Everett';
 }
 
 @Component({
@@ -39,7 +39,7 @@ export class Directorio {
       nivel: 2,
       estado: 'activo',
       imagen: '/assets/img/avatars/katherine.png',
-      ubicacion: 'Central Nexus - Sector Alpha',
+      ubicacion: 'Nexo Central - Sector Alfa',
       especialidad: 'Comando Táctico / Ingeniería de Combate',
       fechaIngreso: 'Ciclo 20.3',
       variante: 'Ultra'
@@ -47,13 +47,13 @@ export class Directorio {
     {
       id: 'ZRK-002',
       uuid: 'MQN-E1-0002',
-      nombre: 'Aldric Everett',
+      nombre: 'Hugh Everett',
       puesto: 'Maquinista Senior',
       departamento: 'Los Maquinistas',
       nivel: 4,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar1.jpg',
-      ubicacion: 'Central Nexus - Governance Hall',
+      ubicacion: 'Nexo Central - Sala de Gobierno',
       especialidad: 'Filosofía Fundacional / Administración',
       fechaIngreso: 'Ciclo 12.1',
       variante: 'Original'
@@ -61,21 +61,21 @@ export class Directorio {
     {
       id: 'ZRK-003',
       uuid: 'NVA-S3-0089',
-      nombre: 'Nova Synthesis',
+      nombre: 'Emmy Noether',
       puesto: 'Investigadora Cosmológica',
-      departamento: 'Applied Cosmology Division',
+      departamento: 'División de Cosmología Aplicada',
       nivel: 3,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar2.jpg',
-      ubicacion: 'The Observatory',
-      especialidad: 'Monitoreo Aeónico / Paths',
+      ubicacion: 'El Observatorio',
+      especialidad: 'Monitoreo Aeónico / Sendas',
       fechaIngreso: 'Ciclo 18.7',
       variante: 'Original'
     },
     {
       id: 'ZRK-004',
       uuid: 'VLX-U2-0156',
-      nombre: 'Velix Wanderer',
+      nombre: 'Max Planck',
       puesto: 'Explorador Dimensional',
       departamento: 'Operaciones Dimensionales',
       nivel: 2,
@@ -88,28 +88,28 @@ export class Directorio {
     },
     {
       id: 'ZRK-005',
-      uuid: 'SYN-A1-0203',
-      nombre: 'Sylas Unit-7',
-      puesto: 'Técnico de Mantenimiento Sintético',
-      departamento: 'Ingeniería Sintética',
-      nivel: 1,
+      uuid: 'EVR-D7-0012',
+      nombre: 'Kaluza Zarek (Dimensión Tau)',
+      puesto: 'Consultor Estratégico Dimensional',
+      departamento: 'Los Maquinistas',
+      nivel: 3,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar4.jpg',
-      ubicacion: 'Research Quarters - Lab 7',
-      especialidad: 'Reparación de Chasis Sintéticos',
-      fechaIngreso: 'Ciclo 21.1',
-      variante: 'Externo'
+      ubicacion: 'Sala de Gobierno - Cámara de Consejo',
+      especialidad: 'Filosofía Fundacional / Estrategia Multiversal',
+      fechaIngreso: 'Ciclo 20.8',
+      variante: 'Everett'
     },
     {
       id: 'ZRK-006',
       uuid: 'ARX-O3-0045',
-      nombre: 'Arx Theorum',
+      nombre: 'Paul Dirac',
       puesto: 'Archivista Senior',
-      departamento: 'The Archives',
+      departamento: 'Los Archivos',
       nivel: 3,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar5.jpg',
-      ubicacion: 'The Archives - Unified Knowledge',
+      ubicacion: 'Los Archivos - Conocimiento Unificado',
       especialidad: 'Síntesis de Conocimiento Multiversal',
       fechaIngreso: 'Ciclo 15.5',
       variante: 'Original'
@@ -117,7 +117,7 @@ export class Directorio {
     {
       id: 'ZRK-007',
       uuid: 'FLX-N2-0312',
-      nombre: 'Flux Anomaly',
+      nombre: 'Werner Heisenberg',
       puesto: 'Especialista en Contención',
       departamento: 'Operaciones Dimensionales',
       nivel: 2,
@@ -131,27 +131,27 @@ export class Directorio {
     {
       id: 'ZRK-008',
       uuid: 'GNS-S4-0008',
-      nombre: 'Dr. Meridian Vast',
-      puesto: 'Miembro de Genius Society',
-      departamento: 'Genius Society',
+      nombre: 'Dr. Richard Feynman',
+      puesto: 'Miembro de la Sociedad de Genios',
+      departamento: 'Sociedad de Genios',
       nivel: 4,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar7.jpg',
-      ubicacion: 'Central Nexus - Nous Communion',
-      especialidad: 'Consulta con Nous / Erudition',
+      ubicacion: 'Nexo Central - Comunión con Nous',
+      especialidad: 'Consulta con Nous / Erudición',
       fechaIngreso: 'Ciclo 10.2',
       variante: 'Original'
     },
     {
       id: 'ZRK-009',
       uuid: 'TRN-U2-0178',
-      nombre: 'Transit Nomad',
-      puesto: 'Piloto del Central Nexus',
+      nombre: 'Michio Kaku',
+      puesto: 'Piloto del Nexo Central',
       departamento: 'División de Tránsito',
       nivel: 2,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar1.jpg',
-      ubicacion: 'Central Nexus - Portal Hub',
+      ubicacion: 'Nexo Central - Centro de Portales',
       especialidad: 'Navegación Interdimensional',
       fechaIngreso: 'Ciclo 19.9',
       variante: 'Ultra'
@@ -159,13 +159,13 @@ export class Directorio {
     {
       id: 'ZRK-010',
       uuid: 'SPK-A1-0401',
-      nombre: 'Cipher Glitch',
+      nombre: 'Erwin Schrödinger',
       puesto: 'Analista de Anomalías',
-      departamento: 'Applied Cosmology Division',
+      departamento: 'División de Cosmología Aplicada',
       nivel: 1,
       estado: 'activo',
       imagen: '/assets/img/avatars/avatar2.jpg',
-      ubicacion: 'The Observatory - Monitoring',
+      ubicacion: 'El Observatorio - Monitoreo',
       especialidad: 'Detección de Stellarons',
       fechaIngreso: 'Ciclo 21.4',
       variante: 'Anomalo'
@@ -176,10 +176,10 @@ export class Directorio {
     'todos',
     'Operaciones Dimensionales',
     'Los Maquinistas',
-    'Applied Cosmology Division',
+    'División de Cosmología Aplicada',
     'Ingeniería Sintética',
-    'The Archives',
-    'Genius Society',
+    'Los Archivos',
+    'Sociedad de Genios',
     'División de Tránsito'
   ];
 
@@ -236,5 +236,20 @@ export class Directorio {
       case 'inactivo': return 'Inactivo';
       default: return estado;
     }
+  }
+
+  getVarianteLabel(variante: string): string {
+    switch (variante) {
+      case 'Ultra': return 'Zarek Ultra';
+      case 'Original': return 'Zarek Original';
+      case 'Anomalo': return 'Zarek Anomalo';
+      case 'Everett': return 'Divergencia Zarek';
+      default: return variante;
+    }
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = '/favicon.ico';
   }
 }
