@@ -15,6 +15,7 @@ interface Personal {
   especialidad: string;
   fechaIngreso: string;
   variante: 'Original' | 'Ultra' | 'Anomalo' | 'Everett';
+  proyecto?: string;
 }
 
 @Component({
@@ -42,7 +43,8 @@ export class Directorio {
       ubicacion: 'Nexo Central - Sector Alfa',
       especialidad: 'Comando Táctico / Ingeniería de Combate',
       fechaIngreso: 'Ciclo 20.3',
-      variante: 'Ultra'
+      variante: 'Ultra',
+      proyecto: 'Golden 21'
     },
     {
       id: 'ZRK-002',
@@ -169,6 +171,51 @@ export class Directorio {
       especialidad: 'Detección de Stellarons',
       fechaIngreso: 'Ciclo 21.4',
       variante: 'Anomalo'
+    },
+    {
+      id: 'ZRK-011',
+      uuid: 'JKL-A1-0777',
+      nombre: 'Dr. Jeckyll',
+      puesto: 'Asistente de Proyecto',
+      departamento: 'Operaciones Dimensionales',
+      nivel: 1,
+      estado: 'activo',
+      imagen: '/assets/img/avatars/avatar3.jpg',
+      ubicacion: 'Nexo Central - Sector Alfa',
+      especialidad: 'Análisis de Datos / Apoyo Táctico',
+      fechaIngreso: 'Ciclo 20.3',
+      variante: 'Ultra',
+      proyecto: 'Golden 21'
+    },
+    {
+      id: 'ZRK-012',
+      uuid: 'AZK-G4-0003',
+      nombre: 'Amanda Zarek',
+      puesto: 'Gerente de Proyecto',
+      departamento: 'Los Maquinistas',
+      nivel: 4,
+      estado: 'inactivo',
+      imagen: '/assets/img/avatars/avatar4.jpg',
+      ubicacion: 'Nexo Central - Sala de Gobierno',
+      especialidad: 'Administración Multiversal / Dirección Estratégica',
+      fechaIngreso: 'Ciclo 14.2',
+      variante: 'Everett',
+      proyecto: 'Golden 21'
+    },
+    {
+      id: 'ZRK-013',
+      uuid: 'MSM-S3-0142',
+      nombre: 'Martin Seamus',
+      puesto: 'Supervisor de Control Cronotemporal',
+      departamento: 'Control Cronotemporal',
+      nivel: 3,
+      estado: 'activo',
+      imagen: '/assets/img/avatars/avatar5.jpg',
+      ubicacion: 'Nexo Central - División Temporal',
+      especialidad: 'Paradojas Temporales / Líneas de Tiempo',
+      fechaIngreso: 'Ciclo 17.6',
+      variante: 'Original',
+      proyecto: 'Golden 21'
     }
   ];
 
@@ -180,7 +227,8 @@ export class Directorio {
     'Ingeniería Sintética',
     'Los Archivos',
     'Sociedad de Genios',
-    'División de Tránsito'
+    'División de Tránsito',
+    'Control Cronotemporal'
   ];
 
   get personalFiltrado(): Personal[] {

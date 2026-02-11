@@ -1,6 +1,8 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { PermissionsService } from '../../services/permissions.service';
+import { Database, ref, set, get, onValue, off } from '@angular/fire/database';
+import { DatabaseService } from '../../services/database.service';
 
 interface DimensionStatus {
   id: number;
@@ -33,10 +35,16 @@ interface RecentEvent {
   styleUrl: './dashboard.scss'
 })
 export class Dashboard implements OnInit, OnDestroy {
+  private database = inject(Database);
+  private databaseService = inject(DatabaseService);
   permissionsService = inject(PermissionsService);
 
   adminSession = this.permissionsService.adminSession;
   adminLevel = this.permissionsService.adminLevel;
+
+  // Firebase connection status
+  isConnected = signal(false);
+  private connectedRef: any;
 
   // Server Stats - Simulated Universe
   serverUptime = '129 días';
@@ -82,11 +90,40 @@ export class Dashboard implements OnInit, OnDestroy {
     this.generateMetrics();
     this.generateRecentEvents();
     this.startRealTimeUpdates();
+    this.setupFirebaseMonitoring();
   }
 
   ngOnDestroy(): void {
     if (this.updateInterval) {
       clearInterval(this.updateInterval);
+    }
+    if (this.connectedRef) {
+      off(this.connectedRef);
+    }
+  }
+
+  private setupFirebaseMonitoring(): void {
+    // Monitor Firebase connection status
+    this.connectedRef = ref(this.database, '.info/connected');
+    onValue(this.connectedRef, (snapshot) => {
+      this.isConnected.set(snapshot.val() === true);
+    });
+
+    // Initial latency measurement
+    this.measureFirebaseLatency();
+  }
+
+  private async measureFirebaseLatency(): Promise<void> {
+    try {
+      const start = performance.now();
+      const pingRef = ref(this.database, `_ping/${Date.now()}`);
+      await set(pingRef, Date.now());
+      await get(pingRef);
+      const latency = Math.round(performance.now() - start);
+      this.networkPing = latency;
+    } catch (error) {
+      console.error('Error measuring Firebase latency:', error);
+      this.networkPing = -1;
     }
   }
 
@@ -166,17 +203,24 @@ export class Dashboard implements OnInit, OnDestroy {
 
   private startRealTimeUpdates(): void {
     this.updateInterval = setInterval(() => {
-      // Simulate real-time fluctuations
+      // Simulate TPS and memory (these don't have Firebase equivalents)
       this.currentTPS = 19 + Math.random() * 1.5;
       this.memoryUsed = 1 + Math.random() * 0.5;
-      this.networkPing = 20 + Math.floor(Math.random() * 10);
+
+      // Measure real Firebase latency every 10 seconds
+      this.measureFirebaseLatency();
 
       // Occasionally update dimension integrity
       if (Math.random() > 0.7) {
         this.dimensions[0].integrity = 96 + Math.random() * 3;
         this.dimensions[1].integrity = 83 + Math.random() * 4;
       }
-    }, 3000);
+    }, 10000);
+  }
+
+  // Getter for online users from Firebase
+  get onlineUsers(): number {
+    return this.databaseService.onlineUsers();
   }
 
   getStatusClass(status: string): string {

@@ -16,8 +16,20 @@
       <span class="stat-value amber">{{ memoryUsed.toFixed(1) }}GB/{{ memoryTotal }}GB</span>
     </div>
     <div class="live-stat">
-      <span class="stat-label">PING:</span>
+      <span class="stat-label">FIREBASE:</span>
+      @if (networkPing >= 0) {
       <span class="stat-value cyan">{{ networkPing }}ms</span>
+      } @else {
+      <span class="stat-value red">ERROR</span>
+      }
+    </div>
+    <div class="live-stat">
+      <span class="stat-label">DB:</span>
+      @if (isConnected()) {
+      <span class="stat-value green"><i class="fas fa-circle"></i> CONECTADO</span>
+      } @else {
+      <span class="stat-value red"><i class="fas fa-circle"></i> DESCONECTADO</span>
+      }
     </div>
   </div>
 </div>

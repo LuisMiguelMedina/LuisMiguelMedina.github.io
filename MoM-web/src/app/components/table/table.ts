@@ -53,25 +53,26 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   private generateHistoricalLogs(): void {
-    // Logs for simulating a destroyed universe to analyze its destruction
+    // Logs estilo servidor de mundo - simulación de universo destruido
     const historicalLogs: Omit<LogEntry, 'timestamp'>[] = [
-      { level: 'INFO', source: 'Servidor', message: '===================================================' },
-      { level: 'INFO', source: 'Servidor', message: 'PROYECTO GOLDEN 21 - Simulación de Dimensión 21' },
-      { level: 'INFO', source: 'Servidor', message: 'Objetivo: Reconstruir eventos que llevaron a la destrucción' },
-      { level: 'INFO', source: 'Servidor', message: 'Génesis de Simulación: 1 de Enero, 1921' },
-      { level: 'INFO', source: 'Servidor', message: 'Fecha Actual Simulada: 10 de Mayo, 1921 (Día 129)' },
-      { level: 'INFO', source: 'Servidor', message: '===================================================' },
-      { level: 'INFO', source: 'SimulaciónCore', message: 'Universo simulado inicializado correctamente' },
-      { level: 'INFO', source: 'SimulaciónCore', message: 'Parámetros de realidad cargados desde fragmento recuperado' },
-      { level: 'DEBUG', source: 'AnclaRealidad', message: 'Ancla-01: Integridad 97% - Operacional' },
-      { level: 'WARN', source: 'AnclaRealidad', message: 'Ancla-02: Fuera de línea - Requiere recalibración del Spark' },
-      { level: 'INFO', source: 'RegistroAgentes', message: 'Agentes asignados al proyecto: 4' },
-      { level: 'INFO', source: 'RegistroAgentes', message: 'Líder del proyecto: Katherine M.2' },
-      { level: 'INFO', source: 'AnálisisTemporal', message: 'Buscando puntos de divergencia críticos...' },
-      { level: 'WARN', source: 'DetectorAnomalías', message: 'Eventos pre-destrucción detectados en línea temporal' },
-      { level: 'INFO', source: 'Archivos', message: 'Datos históricos del universo destruido: 33% reconstruidos' },
-      { level: 'INFO', source: 'ProyectoGolden21', message: 'Fase actual: Observación y mapeo de causalidad' },
-      { level: 'INFO', source: 'Servidor', message: '---------------------------------------------------' },
+      { level: 'INFO', source: 'Servidor', message: '=========== GOLDEN 21 WORLD SERVER v3.7.2 ===========' },
+      { level: 'INFO', source: 'Servidor', message: 'Iniciando simulación de Dimensión-21...' },
+      { level: 'INFO', source: 'WorldLoader', message: 'Cargando fragmento dimensional recuperado...' },
+      { level: 'INFO', source: 'WorldLoader', message: 'Seed del universo: 0x4B454E4F42492D3231' },
+      { level: 'INFO', source: 'WorldLoader', message: 'Fecha génesis: 1 de Enero, 1921 | Actual: 10 de Mayo, 1921' },
+      { level: 'INFO', source: 'ChunkManager', message: 'Cargando región [Nueva York, 1921]... 847 chunks' },
+      { level: 'INFO', source: 'ChunkManager', message: 'Región cargada en 2.3s - Edificios: 12,847 | Calles: 2,103' },
+      { level: 'DEBUG', source: 'EntitySpawner', message: 'Spawneando población civil: 45,892 NPCs' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-001] spawneado en pos(234, 64, -892)' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-002] spawneado en pos(156, 72, -445)' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-003] spawneado en pos(-23, 68, 127)' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actor Ficticio [AF-004] spawneado en pos(892, 64, -234)' },
+      { level: 'INFO', source: 'ActorManager', message: 'Actores Ficticios activos: 4/4 - Misión: Infiltración' },
+      { level: 'DEBUG', source: 'PhysicsEngine', message: 'Motor de física inicializado - Tick rate: 20 TPS' },
+      { level: 'INFO', source: 'TimeController', message: 'Día simulado: 129 | Velocidad: 1x tiempo real' },
+      { level: 'DEBUG', source: 'AnchorSystem', message: 'Ancla-01 conectada - Estabilidad: 97%' },
+      { level: 'WARN', source: 'AnchorSystem', message: 'Ancla-02 OFFLINE - Spark desincronizado' },
+      { level: 'INFO', source: 'Servidor', message: '=====================================================' },
     ];
 
     // Add logs with timestamps going back a few minutes
@@ -98,66 +99,99 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   private generateRandomLog(): LogEntry {
+    const chunkX = Math.floor(Math.random() * 200) - 100;
+    const chunkZ = Math.floor(Math.random() * 200) - 100;
+    const entityCount = Math.floor(Math.random() * 50) + 10;
+    const npcId = Math.floor(Math.random() * 45000) + 1;
+    const posX = Math.floor(Math.random() * 2000) - 1000;
+    const posY = Math.floor(Math.random() * 40) + 60;
+    const posZ = Math.floor(Math.random() * 2000) - 1000;
+
     const logTypes = [
       {
-        level: 'INFO' as const, source: 'SimulaciónCore', messages: [
-          'Checkpoint de simulación guardado - Día 129',
-          'Procesando eventos históricos del universo destruido...',
-          'Datos de simulación sincronizados con fragmento dimensional',
-          'Verificando integridad de línea temporal: OK'
+        level: 'DEBUG' as const, source: 'ChunkManager', messages: [
+          `Chunk [${chunkX}, ${chunkZ}] cargado - ${entityCount} entidades`,
+          `Descargando chunk inactivo [${chunkX}, ${chunkZ}] - memoria liberada`,
+          `Renderizando región [${chunkX >> 5}, ${chunkZ >> 5}] - 32 chunks`,
+          `Chunk rebuild completado en ${Math.floor(Math.random() * 50) + 10}ms`
         ]
       },
       {
-        level: 'INFO' as const, source: 'AnálisisTemporal', messages: [
-          'Analizando cadena de eventos pre-destrucción',
-          'Mapeando puntos de divergencia en línea temporal',
-          'Correlacionando datos con registros de Los Archivos',
-          'Identificando actores clave en colapso dimensional'
+        level: 'INFO' as const, source: 'WorldTick', messages: [
+          `Tick procesado - TPS: ${(19 + Math.random()).toFixed(1)} | Entidades: ${Math.floor(45000 + Math.random() * 2000)}`,
+          `Ciclo día/noche: ${Math.floor(Math.random() * 24000)} ticks | Clima: Despejado`,
+          `Tiempo simulado avanzando... Día 129 activo`,
+          `Guardado automático completado - ${Math.floor(Math.random() * 500) + 200} chunks`
         ]
       },
       {
-        level: 'DEBUG' as const, source: 'Rendimiento', messages: [
-          `Memoria: ${(Math.random() * 1.5 + 0.8).toFixed(1)}GB/4GB | TPS: ${(19 + Math.random()).toFixed(1)}`,
-          `Entidades simuladas: ${Math.floor(1500 + Math.random() * 500)}`,
-          `Tick: ${Math.floor(40 + Math.random() * 10)}ms | Estable`,
-          'Optimización de recursos completada'
+        level: 'DEBUG' as const, source: 'EntitySpawner', messages: [
+          `NPC #${npcId} pathfinding hacia destino - ${Math.floor(Math.random() * 100)}m`,
+          `Spawneando vehículo en pos(${posX}, ${posY}, ${posZ})`,
+          `Población activa: ${Math.floor(45000 + Math.random() * 1000)} NPCs | Vehículos: ${Math.floor(Math.random() * 500) + 200}`,
+          `NPC #${npcId} rutina diaria: ${['Trabajo', 'Descanso', 'Tránsito', 'Social'][Math.floor(Math.random() * 4)]}`
         ]
       },
       {
-        level: 'WARN' as const, source: 'DetectorAnomalías', messages: [
-          'Patrón de destrucción detectado - Analizando causas',
-          'Fluctuación en membrana dimensional de simulación',
-          'Evento crítico aproximándose en línea temporal simulada',
-          'Similitud con patrones de Legión Antimateria: 67%'
+        level: 'INFO' as const, source: 'ActorManager', messages: [
+          'AF-001 interactuando con persona de interés',
+          'AF-002 recopilando datos en ubicación objetivo',
+          'AF-003 en posición de observación',
+          'AF-004 siguiendo pista de evento pre-destrucción'
         ]
       },
       {
-        level: 'INFO' as const, source: 'ProyectoGolden21', messages: [
-          'Progreso de reconstrucción: 33%',
-          'Katherine M.2 supervisando simulación',
-          'Nuevos datos extraídos del fragmento dimensional',
-          'Hipótesis de destrucción actualizada'
+        level: 'WARN' as const, source: 'AnomalyDetector', messages: [
+          `Fluctuación temporal detectada en chunk [${chunkX}, ${chunkZ}]`,
+          'Patrón de destrucción similar detectado - Correlación: 67%',
+          'Desfase de realidad menor corregido automáticamente',
+          'Inconsistencia en física de entidad - Recalculando...'
         ]
       },
       {
-        level: 'INFO' as const, source: 'AnclaRealidad', messages: [
-          'Ancla-01: Pulso de estabilidad confirmado',
-          'Integridad de simulación: 97%',
-          'Conteniendo desviaciones de realidad',
-          'Ancla-02 pendiente de reparación por Ultra'
+        level: 'DEBUG' as const, source: 'PhysicsEngine', messages: [
+          `Colisiones procesadas: ${Math.floor(Math.random() * 1000) + 500} | Tick: ${Math.floor(Math.random() * 20) + 30}ms`,
+          'Simulación de fluidos estable - Sin overflow',
+          `Gravedad: 9.8m/s² | Fricción: Normal | Entidades físicas: ${Math.floor(Math.random() * 200) + 100}`,
+          'Motor de física sincronizado con servidor'
+        ]
+      },
+      {
+        level: 'WARN' as const, source: 'BugTracker', messages: [
+          `NPC #${npcId} stuck en posición - Teleporting a spawn`,
+          'Textura faltante: building_1921_facade_03 - Usando fallback',
+          'Z-fighting detectado en edificio [Hotel Manhattan] - Ajustando',
+          `Entidad flotando en pos(${posX}, ${posY + 5}, ${posZ}) - Corrigiendo Y`
+        ]
+      },
+      {
+        level: 'ERROR' as const, source: 'WorldLoader', messages: [
+          `Chunk [${chunkX}, ${chunkZ}] corruption detectada - Regenerando`,
+          'Timeout en carga de región - Reintentando...',
+          'Ancla-02 sin respuesta - Estabilidad comprometida'
+        ]
+      },
+      {
+        level: 'INFO' as const, source: 'AnchorSystem', messages: [
+          'Ancla-01: Heartbeat OK - Integridad 97%',
+          'Estabilidad dimensional: NORMAL',
+          'Conteniendo micro-fisuras de realidad',
+          'Sincronización con fragmento dimensional: 100%'
         ]
       },
       {
         level: 'ERROR' as const, source: 'Ancla-02', messages: [
-          'Ancla secundaria sin respuesta',
-          'Requiere calibración del Spark para reactivación'
+          'OFFLINE - Sin señal de Spark',
+          'Último heartbeat: hace 73 horas',
+          'Requiere intervención de personal Ultra'
         ]
       },
       {
-        level: 'INFO' as const, source: 'Archivos', messages: [
-          'Registros históricos indexados correctamente',
-          'Comparando con eventos conocidos de otras dimensiones',
-          'Documentación de hallazgos en progreso'
+        level: 'INFO' as const, source: 'DataLogger', messages: [
+          'Evento histórico registrado para análisis',
+          'Correlación con destrucción: Calculando...',
+          'Datos enviados a Los Archivos',
+          'Backup de simulación: 33% reconstruido'
         ]
       }
     ];

@@ -213,6 +213,15 @@
             &.cyan {
                 color: var(--terminal-cyan);
             }
+
+            &.red {
+                color: #ff4444;
+            }
+
+            i {
+                font-size: 0.5rem;
+                vertical-align: middle;
+            }
         }
     }
 }

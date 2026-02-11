@@ -233,15 +233,44 @@
     }
 
     .nivel-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
         padding: 0.3rem 0.75rem;
         border-radius: 4px;
         font-size: 0.75rem;
         font-weight: 700;
         color: #000;
         text-transform: uppercase;
+    }
+
+    .header-badges {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.4rem;
+    }
+
+    .proyecto-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &.golden-21 {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+
+            i {
+                font-size: 0.6rem;
+            }
+        }
     }
 
     .card-body {
