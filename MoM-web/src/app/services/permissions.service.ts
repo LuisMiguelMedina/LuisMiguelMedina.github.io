@@ -2,19 +2,25 @@ import { Injectable, signal, computed } from '@angular/core';
 import { AdminPermissions, ADMIN_LEVEL_PERMISSIONS } from '../models/user.model';
 
 export interface AdminSession {
+    uuid: string;
     username: string;
     name: string;
     role: string;
-    level: 1 | 2 | 3;
+    level: 1 | 2 | 3 | 4;
     loginTime: string;
 }
+
+// UUIDs conocidos del sistema
+export const KNOWN_UUIDS = {
+    KATHERINE_M2: 'KTH-M2-0021'  // Katherine M.2 (Mark 2) - Subdirectora Asistente Golden 21
+} as const;
 
 @Injectable({
     providedIn: 'root'
 })
 export class PermissionsService {
     // Señales reactivas
-    private adminLevelSignal = signal<1 | 2 | 3>(1);
+    private adminLevelSignal = signal<1 | 2 | 3 | 4>(1);
     private adminSessionSignal = signal<AdminSession | null>(null);
 
     // Lecturas públicas
@@ -80,7 +86,7 @@ export class PermissionsService {
     /**
      * Verifica si el nivel actual es igual o mayor al requerido
      */
-    hasMinimumLevel(requiredLevel: 1 | 2 | 3): boolean {
+    hasMinimumLevel(requiredLevel: 1 | 2 | 3 | 4): boolean {
         return this.adminLevelSignal() >= requiredLevel;
     }
 
@@ -91,11 +97,13 @@ export class PermissionsService {
         const level = this.adminLevelSignal();
         switch (level) {
             case 1:
-                return 'Viewer';
+                return 'Observer';
             case 2:
-                return 'Manager';
+                return 'Operator';
             case 3:
-                return 'Super Admin';
+                return 'Commander';
+            case 4:
+                return 'Director';
             default:
                 return 'Unknown';
         }
@@ -103,18 +111,21 @@ export class PermissionsService {
 
     /**
      * Obtiene el color del badge según el nivel
+     * Nivel 1: Verde claro, Nivel 2: Azul, Nivel 3: Morado, Nivel 4: Dorado
      */
     getLevelColor(): string {
         const level = this.adminLevelSignal();
         switch (level) {
             case 1:
-                return 'cyan';
+                return '#90EE90';  // Verde claro
             case 2:
-                return 'amber';
+                return '#4A90D9';  // Azul
             case 3:
-                return 'purple';
+                return '#9B59B6';  // Morado
+            case 4:
+                return '#FFD700';  // Dorado
             default:
-                return 'gray';
+                return '#808080';  // Gris
         }
     }
 

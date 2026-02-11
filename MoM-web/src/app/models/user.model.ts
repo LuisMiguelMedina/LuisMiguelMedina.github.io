@@ -5,7 +5,7 @@ export interface User {
   lastName: string;
   avatar?: string;
   role: 'admin' | 'user';
-  adminLevel?: 1 | 2 | 3;
+  adminLevel?: 1 | 2 | 3 | 4;
   permissions?: AdminPermissions;
   createdAt: Date;
   lastLogin?: Date;
@@ -20,7 +20,7 @@ export interface AdminPermissions {
   categories: string[];
 }
 
-export const ADMIN_LEVEL_PERMISSIONS: Record<1 | 2 | 3, AdminPermissions> = {
+export const ADMIN_LEVEL_PERMISSIONS: Record<1 | 2 | 3 | 4, AdminPermissions> = {
   1: {
     canViewDashboard: true,
     canViewProfile: false,
@@ -33,11 +33,19 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<1 | 2 | 3, AdminPermissions> = {
     canViewDashboard: true,
     canViewProfile: true,
     canViewTable: true,
+    canManageUsers: false,
+    canAccessSettings: false,
+    categories: ['dashboard', 'profile', 'table']
+  },
+  3: {
+    canViewDashboard: true,
+    canViewProfile: true,
+    canViewTable: true,
     canManageUsers: true,
     canAccessSettings: false,
     categories: ['dashboard', 'profile', 'table', 'users']
   },
-  3: {
+  4: {
     canViewDashboard: true,
     canViewProfile: true,
     canViewTable: true,

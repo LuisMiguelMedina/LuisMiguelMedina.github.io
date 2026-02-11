@@ -7,11 +7,12 @@ import { Database, ref, set, onValue, off } from '@angular/fire/database';
 import { PermissionsService } from '../../services/permissions.service';
 
 interface AdminCredential {
+  uuid: string;
   username: string;
   password: string;
   name: string;
   active: boolean;
-  level: 1 | 2 | 3;
+  level: 1 | 2 | 3 | 4;
 }
 
 interface AttemptBlock {
@@ -73,10 +74,10 @@ export class Login implements OnInit, OnDestroy {
 
     // Cargar admins de fallback para respuesta inmediata
     this.admins = [
-      { username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
-      { username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
-      { username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
-      { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
+      { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
+      { uuid: 'ADM-002-DELTA', username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
+      { uuid: 'ADM-003-GAMMA', username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
+      { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
     ];
 
     // Marcar como inicializado inmediatamente para permitir login sin esperar Firebase
@@ -138,11 +139,12 @@ export class Login implements OnInit, OnDestroy {
     onValue(this.adminsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        // Asignar nivel por defecto a admins existentes que no tienen level
+        // Asignar nivel y UUID por defecto a admins existentes que no los tienen
         this.admins = Object.values(data)
           .filter((a: any) => a.active !== false)
           .map((a: any) => ({
             ...a,
+            uuid: a.uuid || `LEGACY-${a.username?.toUpperCase() || 'UNKNOWN'}`,
             level: a.level || 3 // Nivel 3 por defecto para compatibilidad
           })) as AdminCredential[];
       } else {
@@ -152,8 +154,8 @@ export class Login implements OnInit, OnDestroy {
     }, (error) => {
       console.error('Firebase admins error:', error);
       this.admins = [
-        { username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true, level: 3 },
-        { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
+        { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true, level: 3 },
+        { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
       ];
       this.cdr.markForCheck();
     });
@@ -172,10 +174,10 @@ export class Login implements OnInit, OnDestroy {
 
   private async initializeDefaultAdmins(): Promise<void> {
     const admins: { [k: string]: AdminCredential } = {
-      admin001: { username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
-      admin002: { username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
-      admin003: { username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
-      root: { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
+      admin001: { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
+      admin002: { uuid: 'ADM-002-DELTA', username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
+      admin003: { uuid: 'ADM-003-GAMMA', username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
+      root: { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
     };
     try {
       await set(ref(this.database, FIREBASE_ADMINS_PATH), admins);
@@ -246,9 +248,9 @@ export class Login implements OnInit, OnDestroy {
     if (!this.isInitialized && this.admins.length === 0) {
       // Usar admins de fallback si no hay datos
       this.admins = [
-        { username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
-        { username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
-        { username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
+        { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
+        { uuid: 'ADM-002-DELTA', username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
+        { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 }
       ];
     }
 
@@ -273,6 +275,7 @@ export class Login implements OnInit, OnDestroy {
 
         // Guardar sesión con nivel de admin usando PermissionsService
         this.permissionsService.setAdminSession({
+          uuid: validUser.uuid || this.generateUUID(),
           username: validUser.username,
           name: validUser.name,
           role: 'admin',
@@ -319,5 +322,12 @@ export class Login implements OnInit, OnDestroy {
 
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private generateUUID(): string {
+    // Generar UUID simple para usuarios sin UUID asignado
+    const timestamp = Date.now().toString(36).toUpperCase();
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `USR-${timestamp}-${random}`;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, inject, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PermissionsService } from '../../services/permissions.service';
+import { PermissionsService, KNOWN_UUIDS } from '../../services/permissions.service';
 
 interface AdminStats {
   sessionsTotal: number;
@@ -42,15 +42,22 @@ export class Profile implements OnInit {
   adminRole = computed(() => {
     const level = this.adminLevel();
     switch (level) {
-      case 3: return 'SUPER ADMIN';
-      case 2: return 'MANAGER';
-      case 1: return 'VIEWER';
+      case 4: return 'DIRECTOR';
+      case 3: return 'COMMANDER';
+      case 2: return 'OPERATOR';
+      case 1: return 'OBSERVER';
       default: return 'UNDEFINED';
     }
   });
 
   // Tab navigation
-  activeTab: 'overview' | 'info' = 'overview';
+  activeTab: 'overview' | 'info' | 'hr' = 'overview';
+
+  // Check if user is Katherine M.2 by UUID
+  isKTH01 = computed(() => {
+    const uuid = this.adminSession()?.uuid;
+    return uuid === KNOWN_UUIDS.KATHERINE_M2;
+  });
 
   // Narrative stats
   stats: AdminStats = {
@@ -77,7 +84,7 @@ export class Profile implements OnInit {
     this.generateNarrativeData();
   }
 
-  switchTab(tab: 'overview' | 'info'): void {
+  switchTab(tab: 'overview' | 'info' | 'hr'): void {
     this.activeTab = tab;
   }
 
