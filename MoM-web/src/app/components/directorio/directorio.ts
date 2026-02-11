@@ -87,7 +87,7 @@ export class Directorio implements OnInit {
       nivel: 2,
       estado: 'en-mision',
       imagen: '/assets/img/avatars/avatar3.jpg',
-      ubicacion: 'Dimensión 21-E - Campo',
+      ubicacion: 'Dimensión ZRK-21 - Campo',
       especialidad: 'Reconocimiento / The Spark',
       fechaIngreso: 'Ciclo 19.2',
       variante: 'Ultra'
