@@ -95,7 +95,12 @@
         <div class="dimension-card" [class]="getStatusClass(dim.status)">
           <div class="dimension-header">
             <span class="dimension-name">{{ dim.name }}</span>
-            <span class="dimension-status">{{ dim.status }}</span>
+            <span class="dimension-status">
+              @if (dim.status === 'CRITICAL') {
+                <i class="fas fa-exclamation-triangle critical-icon"></i>
+              }
+              {{ dim.status }}
+            </span>
           </div>
           <div class="dimension-body">
             <div class="integrity-row">

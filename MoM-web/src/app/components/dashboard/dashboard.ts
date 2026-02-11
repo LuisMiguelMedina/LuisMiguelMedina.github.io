@@ -66,8 +66,8 @@ export class Dashboard implements OnInit, OnDestroy {
     {
       id: 2,
       name: 'DIMENSION-2 (Simulated Universe)',
-      status: 'CONTAINED',
-      integrity: 64.7,
+      status: 'STABLE',
+      integrity: 41,
       lastSync: '5 min ago',
       color: '#00ff00'
     }
