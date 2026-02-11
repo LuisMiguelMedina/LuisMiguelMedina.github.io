@@ -58,7 +58,7 @@ export class Dashboard implements OnInit, OnDestroy {
     {
       id: 1,
       name: 'DIMENSION-1',
-      status: 'IN DANGER',
+      status: 'CRITICAL',
       integrity: 7.3,
       lastSync: '2 min ago',
       color: '#ff5555'
