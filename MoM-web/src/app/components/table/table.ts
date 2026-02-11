@@ -60,12 +60,12 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
     {
       id: 'BUG-003',
       titulo: 'Ingreso no autorizado al mundo sagrado',
-      descripcion: 'Glenn Eldric ha ingresado al mundo sagrado de la dimensión por causas desconocidas. El método de acceso involucra una conexión con una entidad no catalogada denominada "El Arcano".',
+      descripcion: 'Glenn Eldric ha ingresado al mundo sagrado de la dimensión por causas desconocidas. El método de acceso involucra una conexión con una entidad no catalogada denominada "El Arcano", quien aparece en lineas de código como "Δ".',
       prioridad: 'critica',
       estado: 'investigando',
       fuente: 'CoreAccess',
       fecha: 'Ciclo 21.4 - Día 128',
-      detalles: 'Glenn accedió al mundo sagrado mediante su conexión con "El Arcano", una entidad desconocida que no forma parte de los parámetros originales de la simulación. El método exacto de ingreso es desconocido y está siendo investigado. Esta misma entidad ha sido vinculada a otros errores y anomalías detectadas en el sistema. Protocolos de demolición y contención fueron activados. Se desconoce qué información Glenn pudo haber accedido dentro del mundo sagrado. ADVERTENCIA: "El Arcano" representa una variable no controlada dentro de la simulación.'
+      detalles: 'Glenn accedió al mundo sagrado mediante su conexión con Δ, una entidad desconocida que no forma parte de los parámetros originales de la simulación. El método exacto de ingreso es desconocido y está siendo investigado. Esta misma entidad ha sido vinculada a otros errores y anomalías detectadas en el sistema. Protocolos de demolición y contención fueron activados. Se desconoce qué información Glenn pudo haber accedido dentro del mundo sagrado. ADVERTENCIA: Δ representa una variable no controlada dentro de la simulación.'
     },
     {
       id: 'BUG-004',
@@ -158,8 +158,8 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
       { level: 'INFO', source: 'Servidor', message: '=====================================================' },
       { level: 'ERROR', source: 'SecurityBreach', message: 'Actor Ficticio "Telemachus" ha causado una supresión inesperada del código "Propagación" mediante "Calm Emotions" - Contención aplicada por Ancla-01' },
       { level: 'WARN', source: 'IntegrityMonitor', message: 'Actor Ficticio "Alerce" ha curado un fragmento del código malicioso de la "Propagación" - Programación actual afectada' },
-      { level: 'ERROR', source: 'CoreAccess', message: 'Glenn Eldric ha ingresado al mundo sagrado mediante conexión con entidad desconocida "El Arcano" - Demolición y contención en proceso' },
-      { level: 'WARN', source: 'CoreAccess', message: 'Ingreso de Glenn Eldric al mundo sagrado en investigación - "El Arcano" vinculado a otras anomalías' },
+      { level: 'ERROR', source: 'CoreAccess', message: 'Glenn Eldric ha ingresado al mundo sagrado mediante conexión con entidad desconocida Δ - Demolición y contención en proceso' },
+      { level: 'WARN', source: 'CoreAccess', message: 'Ingreso de Glenn Eldric al mundo sagrado en investigación - Δ vinculado a otras anomalías' },
       { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada con Actor Ficticio Freddy' },
       { level: 'ERROR', source: 'ActorManager', message: 'Desconexión inesperada - Rastreo de consciencia perdido con Actor Ficticio Clorinde' },
       { level: 'WARN', source: 'ActorManager', message: 'Desconexión de consciencia de Actor "Amanda Farenheit" sin causa identificable - Investigación sin avances - Prioridad: ALTA' },
@@ -202,12 +202,12 @@ export class Table implements OnInit, OnDestroy, AfterViewChecked {
     const bugLogs: Omit<LogEntry, 'timestamp'>[] = [
       { level: 'ERROR', source: 'SecurityBreach', message: 'BUG-001: Supresión de "Propagación" persiste - "Calm Emotions" de Telemachus aún afecta parámetros' },
       { level: 'WARN', source: 'IntegrityMonitor', message: 'BUG-002: Integridad del código "Propagación" inestable - Daño por curación de Alerce sin revertir' },
-      { level: 'ERROR', source: 'CoreAccess', message: 'BUG-003: Anomalía residual de "El Arcano" detectada - Ingreso de Glenn al mundo sagrado sin resolver' },
+      { level: 'ERROR', source: 'CoreAccess', message: 'BUG-003: Anomalía residual de "Δ" detectada - Ingreso de Glenn al mundo sagrado sin resolver' },
       { level: 'WARN', source: 'ActorManager', message: 'BUG-004: Señal de Freddy (Golem) sigue sin respuesta - Última ubicación: Tienda "Arcana"' },
       { level: 'ERROR', source: 'ActorManager', message: 'BUG-005: Rastreo de consciencia de Clorinde fallido - Conexión neuronal sin causa de fallo' },
       { level: 'WARN', source: 'ActorManager', message: 'BUG-006: Desconexión de Amanda Farenheit sin avances - Diagnósticos inconcluyentes' },
       { level: 'ERROR', source: 'BugTracker', message: 'Bugs activos: 6 | Críticos: 3 | En investigación: 3 | Sin resolver: 2' },
-      { level: 'WARN', source: 'BugTracker', message: 'BUG-003 vinculado a entidad "El Arcano" - Variable no controlada en simulación' },
+      { level: 'WARN', source: 'BugTracker', message: 'BUG-003 vinculado a entidad "Δ" - Variable no controlada en simulación' },
       { level: 'WARN', source: 'SecurityBreach', message: 'BUG-001 contenido por Ancla-01 - Monitoreo continuo de Propagación activo' },
       { level: 'ERROR', source: 'IntegrityMonitor', message: 'BUG-002: Cascada de errores en Propagación - Programación actual desviada de parámetros esperados' },
     ];
