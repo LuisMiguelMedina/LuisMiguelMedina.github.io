@@ -4,6 +4,7 @@
 !MoM-web/**
 index.html
 404.html
+!MoM-web/index.html
 
 # Archive folder (old/obsolete files)
 archive/
