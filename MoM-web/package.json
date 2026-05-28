@@ -1,24 +1,15 @@
 {
   "name": "mo-m-web",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --open",
-    "start:optimized": "ng serve --configuration development --optimization=true --source-map=false",
-    "build": "ng build",
-    "build:prod": "ng build --configuration production",
-    "build:optimized": "ng build --configuration production --optimization=true --source-map=false --vendor-chunk=false --named-chunks=false",
-    "build:gh-pages": "ng build --configuration production --base-href / && node generate-404.js",
+    "dev": "vite --open",
+    "start": "vite --open",
+    "build": "tsc --project tsconfig.json --noEmit && vite build",
+    "build:gh-pages": "npm run build && node generate-404.js",
+    "preview": "vite preview --host",
     "clean": "rimraf dist",
-    "clean:root": "cd .. && del /F /Q main-*.js styles-*.css *.txt && echo Root files cleaned",
-    "clean:all": "npm run clean && npm run clean:root",
-    "clean:cache": "ng cache clean",
-    "analyze": "ng build --configuration production --stats-json && npx webpack-bundle-analyzer dist/MoM-web/stats.json",
-    "memory:check": "node --max-old-space-size=512 ./node_modules/@angular/cli/bin/ng build --configuration production",
-    "deploy": "npm run clean && npm run build:gh-pages && xcopy /E /Y dist\\MoM-web\\browser\\* ..\\ && echo Deployment completed successfully!",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "deploy": "npm run clean && npm run build:gh-pages && xcopy /E /Y dist\\* ..\\ && if exist dist\\.nojekyll copy /Y dist\\.nojekyll ..\\.nojekyll >nul && if exist dist\\CNAME copy /Y dist\\CNAME ..\\CNAME >nul && echo Deployment completed successfully!"
   },
   "prettier": {
     "printWidth": 100,
@@ -27,42 +18,24 @@
       {
         "files": "*.html",
         "options": {
-          "parser": "angular"
+          "parser": "html"
         }
       }
     ]
   },
-  "private": true,
   "dependencies": {
-    "@angular/common": "^20.3.0",
-    "@angular/compiler": "^20.3.0",
-    "@angular/core": "^20.3.0",
-    "@angular/fire": "^20.0.1",
-    "@angular/forms": "^20.3.0",
-    "@angular/platform-browser": "^20.3.0",
-    "@angular/platform-server": "^20.3.0",
-    "@angular/router": "^20.3.0",
-    "@angular/ssr": "^20.3.3",
-    "express": "^5.1.0",
-    "firebase": "^11.10.0",
-    "marked": "^17.0.1",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "bootstrap": "^5.3.8",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.0.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.3.3",
-    "@angular/cli": "^20.3.3",
-    "@angular/compiler-cli": "^20.3.0",
-    "@types/express": "^5.0.1",
-    "@types/jasmine": "~5.1.0",
-    "@types/node": "^20.17.19",
-    "jasmine-core": "~5.9.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
     "rimraf": "^6.0.1",
-    "typescript": "~5.9.2"
+    "sass": "^1.100.0",
+    "typescript": "~5.9.2",
+    "vite": "^8.0.14"
   }
 }

@@ -1,33 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-// Leer el archivo index.html generado
-const indexPath = path.join(__dirname, 'dist/MoM-web/browser/index.html');
-const notFoundPath = path.join(__dirname, 'dist/MoM-web/browser/404.html');
+const distPath = path.join(__dirname, 'dist');
+const indexPath = path.join(distPath, 'index.html');
+const notFoundPath = path.join(distPath, '404.html');
+const noJekyllPath = path.join(distPath, '.nojekyll');
 
-// También crear en la raíz de dist/MoM-web para la configuración actual
-const indexRootPath = path.join(__dirname, 'dist/MoM-web/index.html');
-const notFoundRootPath = path.join(__dirname, 'dist/MoM-web/404.html');
-
-if (fs.existsSync(indexPath)) {
-  const indexContent = fs.readFileSync(indexPath, 'utf8');
-
-  // Crear 404.html idéntico al index.html en browser/
-  fs.writeFileSync(notFoundPath, indexContent);
-
-  // También crear en la raíz si existe index.html allí
-  if (fs.existsSync(indexRootPath)) {
-    const indexRootContent = fs.readFileSync(indexRootPath, 'utf8');
-    fs.writeFileSync(notFoundRootPath, indexRootContent);
-  }
-
-  console.log('✅ 404.html generated successfully');
-} else if (fs.existsSync(indexRootPath)) {
-  // Fallback: usar index.html de la raíz si no existe en browser/
-  const indexContent = fs.readFileSync(indexRootPath, 'utf8');
-  fs.writeFileSync(notFoundRootPath, indexContent);
-  console.log('✅ 404.html generated successfully from root');
-} else {
-  console.error('❌ index.html not found in dist/MoM-web/ or dist/MoM-web/browser/');
+if (!fs.existsSync(indexPath)) {
+  console.error('❌ index.html not found in dist/');
   process.exit(1);
 }
+
+const indexContent = fs.readFileSync(indexPath, 'utf8');
+fs.writeFileSync(notFoundPath, indexContent);
+fs.writeFileSync(noJekyllPath, '');
+
+console.log('✅ 404.html and .nojekyll generated successfully');
