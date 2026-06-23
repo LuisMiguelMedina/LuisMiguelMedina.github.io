@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
 
-  // Luvinox tokens (oil-painting sun, yellow + light blue)
+  // Lumivox tokens (oil-painting sun, yellow + light blue)
   --lvx-canvas: #f2ead6;
   --lvx-canvas-deep: #e8dcc0;
   --lvx-sun: #e8b848;
@@ -528,17 +528,17 @@ img {
 }
 
 /* =========================================================================
-   Luvinox champion-select header
+   Lumivox champion-select header
    ========================================================================= */
 
-.luvinox-shell {
+.lumivox-shell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: 'Manrope', 'Segoe UI', sans-serif;
 }
 
-.luvinox-topbar {
+.lumivox-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -549,7 +549,7 @@ img {
   margin-inline: auto;
 }
 
-.luvinox-mark {
+.lumivox-mark {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
@@ -561,13 +561,13 @@ img {
   text-decoration: none;
 }
 
-.luvinox-mark-sun {
+.lumivox-mark-sun {
   width: 2.25rem;
   height: 2.25rem;
   flex: 0 0 auto;
 }
 
-.luvinox-tagline-top {
+.lumivox-tagline-top {
   font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   color: var(--lvx-muted-ink);
@@ -575,7 +575,7 @@ img {
 }
 
 /* central stage: splash + identity side-by-side */
-.luvinox-stage {
+.lumivox-stage {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: 3rem;
@@ -587,7 +587,7 @@ img {
   padding: 1rem 2rem 2.5rem;
 }
 
-.luvinox-splash {
+.lumivox-splash {
   position: relative;
   border-radius: 1.5rem;
   overflow: hidden;
@@ -598,7 +598,7 @@ img {
     inset 0 0 0 1px rgba(46, 72, 88, 0.1);
 }
 
-.luvinox-splash::after {
+.lumivox-splash::after {
   /* soft warm overlay to keep the art coherent with the page */
   content: '';
   position: absolute;
@@ -607,20 +607,20 @@ img {
   pointer-events: none;
 }
 
-.luvinox-splash img {
+.lumivox-splash img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.luvinox-identity {
+.lumivox-identity {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
 }
 
-.luvinox-discipline {
+.lumivox-discipline {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -631,7 +631,7 @@ img {
   color: var(--lvx-sun-deep);
 }
 
-.luvinox-discipline::before {
+.lumivox-discipline::before {
   content: '';
   width: 1.5rem;
   height: 2px;
@@ -639,7 +639,7 @@ img {
   border-radius: 2px;
 }
 
-.luvinox-display-name {
+.lumivox-display-name {
   margin: 0;
   font-family: 'Fraunces', Georgia, serif;
   font-weight: 600;
@@ -649,7 +649,7 @@ img {
   letter-spacing: -0.02em;
 }
 
-.luvinox-tagline {
+.lumivox-tagline {
   margin: 0;
   font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
@@ -658,7 +658,7 @@ img {
   color: var(--lvx-deep);
 }
 
-.luvinox-brief {
+.lumivox-brief {
   margin: 0;
   font-size: 1.02rem;
   line-height: 1.7;
@@ -667,14 +667,14 @@ img {
 }
 
 /* socials */
-.luvinox-socials {
+.lumivox-socials {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
   margin-top: 0.25rem;
 }
 
-.luvinox-social {
+.lumivox-social {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -689,21 +689,21 @@ img {
   transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
-.luvinox-social:hover,
-.luvinox-social:focus-visible {
+.lumivox-social:hover,
+.lumivox-social:focus-visible {
   background: var(--lvx-deep);
   color: var(--lvx-canvas);
   border-color: var(--lvx-deep);
   outline: none;
 }
 
-.luvinox-social-arrow {
+.lumivox-social-arrow {
   font-size: 0.78rem;
   opacity: 0.7;
 }
 
 /* website */
-.luvinox-website {
+.lumivox-website {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -718,8 +718,8 @@ img {
   transition: background-color 150ms ease, transform 150ms ease;
 }
 
-.luvinox-website:hover,
-.luvinox-website:focus-visible {
+.lumivox-website:hover,
+.lumivox-website:focus-visible {
   background: var(--lvx-sky-deep);
   color: var(--lvx-canvas);
   transform: translateY(-1px);
@@ -727,7 +727,7 @@ img {
 }
 
 /* portal — the special CTA (only Luis.M today) */
-.luvinox-portal {
+.lumivox-portal {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
@@ -746,27 +746,27 @@ img {
   transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
-.luvinox-portal:hover,
-.luvinox-portal:focus-visible {
+.lumivox-portal:hover,
+.lumivox-portal:focus-visible {
   background: var(--lvx-sun);
   color: var(--lvx-ink);
   transform: translateY(-2px);
   outline: none;
 }
 
-.luvinox-portal-arrow {
+.lumivox-portal-arrow {
   font-size: 1.2rem;
   line-height: 1;
 }
 
-.luvinox-module-stack {
+.lumivox-module-stack {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
 }
 
 /* roster strip */
-.luvinox-roster {
+.lumivox-roster {
   position: relative;
   display: flex;
   gap: 1.15rem;
@@ -779,7 +779,7 @@ img {
   scrollbar-color: var(--lvx-sun) transparent;
 }
 
-.luvinox-roster::before {
+.lumivox-roster::before {
   /* brush-stroke divider above the roster */
   content: '';
   position: absolute;
@@ -799,7 +799,7 @@ img {
   opacity: 0.55;
 }
 
-.luvinox-roster-item {
+.lumivox-roster-item {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
@@ -815,12 +815,12 @@ img {
   position: relative;
 }
 
-.luvinox-roster-item:focus-visible {
+.lumivox-roster-item:focus-visible {
   outline: 2px solid var(--lvx-sun-deep);
   outline-offset: 2px;
 }
 
-.luvinox-roster-icon {
+.lumivox-roster-icon {
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 999px;
@@ -830,18 +830,18 @@ img {
   transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
-.luvinox-roster-item:hover .luvinox-roster-icon {
+.lumivox-roster-item:hover .lumivox-roster-icon {
   border-color: var(--lvx-sun);
   transform: translateY(-3px);
 }
 
-.luvinox-roster-item[aria-selected='true'] .luvinox-roster-icon {
+.lumivox-roster-item[aria-selected='true'] .lumivox-roster-icon {
   border-color: var(--lvx-sun);
   box-shadow: 0 0 0 4px rgba(232, 184, 72, 0.28);
   transform: translateY(-3px);
 }
 
-.luvinox-roster-name {
+.lumivox-roster-name {
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--lvx-deep);
@@ -850,73 +850,73 @@ img {
   transition: opacity 180ms ease;
 }
 
-.luvinox-roster-item[aria-selected='true'] .luvinox-roster-name,
-.luvinox-roster-item:hover .luvinox-roster-name {
+.lumivox-roster-item[aria-selected='true'] .lumivox-roster-name,
+.lumivox-roster-item:hover .lumivox-roster-name {
   opacity: 1;
 }
 
 /* responsive */
 @media (max-width: 1023.98px) {
-  .luvinox-stage {
+  .lumivox-stage {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 0.5rem 1.5rem 2rem;
   }
 
-  .luvinox-splash {
+  .lumivox-splash {
     max-width: 22rem;
     margin-inline: auto;
     aspect-ratio: 4 / 5;
   }
 
-  .luvinox-identity {
+  .lumivox-identity {
     text-align: center;
     align-items: center;
   }
 
-  .luvinox-brief {
+  .lumivox-brief {
     text-align: left;
   }
 }
 
 @media (max-width: 767.98px) {
-  .luvinox-topbar {
+  .lumivox-topbar {
     padding: 1rem 1.25rem;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.35rem;
   }
 
-  .luvinox-stage {
+  .lumivox-stage {
     padding: 0.5rem 1.25rem 1.5rem;
     gap: 1.5rem;
   }
 
-  .luvinox-splash {
+  .lumivox-splash {
     max-width: 18rem;
   }
 
-  .luvinox-roster {
+  .lumivox-roster {
     padding: 1.25rem 1rem 1.5rem;
     gap: 0.9rem;
   }
 
-  .luvinox-roster::before {
+  .lumivox-roster::before {
     left: 1rem;
     right: 1rem;
   }
 
-  .luvinox-roster-icon {
+  .lumivox-roster-icon {
     width: 3.85rem;
     height: 3.85rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .luvinox-roster-item:hover .luvinox-roster-icon,
-  .luvinox-roster-item[aria-selected='true'] .luvinox-roster-icon,
-  .luvinox-website:hover,
-  .luvinox-portal:hover {
+  .lumivox-roster-item:hover .lumivox-roster-icon,
+  .lumivox-roster-item[aria-selected='true'] .lumivox-roster-icon,
+  .lumivox-website:hover,
+  .lumivox-portal:hover {
     transform: none;
   }
 }

@@ -40,7 +40,7 @@ export function RosterStrip({
   }
 
   return (
-    <div className="luvinox-roster" role="tablist" aria-label="Luvinox roster">
+    <div className="lumivox-roster" role="tablist" aria-label="Lumivox roster">
       {artists.map((artist, index) => {
         const isActive = artist.handle === activeHandle;
         return (
@@ -51,7 +51,7 @@ export function RosterStrip({
             }}
             id={tabIdFor(artist.handle)}
             type="button"
-            className="luvinox-roster-item"
+            className="lumivox-roster-item"
             role="tab"
             aria-selected={isActive}
             aria-controls={panelIdFor(artist.handle)}
@@ -61,13 +61,13 @@ export function RosterStrip({
             onKeyDown={(event) => handleKeyDown(event, index)}
           >
             <img
-              className="luvinox-roster-icon"
+              className="lumivox-roster-icon"
               src={artist.icon}
               alt={artist.displayName}
               loading="lazy"
               style={{ backgroundColor: artist.accentColor }}
             />
-            <span className="luvinox-roster-name">{artist.displayName}</span>
+            <span className="lumivox-roster-name">{artist.displayName}</span>
           </button>
         );
       })}

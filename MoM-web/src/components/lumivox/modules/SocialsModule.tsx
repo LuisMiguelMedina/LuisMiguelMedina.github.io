@@ -24,20 +24,20 @@ export function SocialsModule({ entries }: SocialsModuleProps) {
   if (entries.length === 0) return null;
 
   return (
-    <div className="luvinox-socials" role="list">
+    <div className="lumivox-socials" role="list">
       {entries.map((entry) => {
         const label = entry.label ?? PLATFORM_LABELS[entry.platform];
         return (
           <a
             key={`${entry.platform}-${entry.url}`}
-            className="luvinox-social"
+            className="lumivox-social"
             href={entry.url}
             target="_blank"
             rel="noopener noreferrer"
             role="listitem"
           >
             <span>{label}</span>
-            <span className="luvinox-social-arrow" aria-hidden="true">
+            <span className="lumivox-social-arrow" aria-hidden="true">
               ↗
             </span>
           </a>

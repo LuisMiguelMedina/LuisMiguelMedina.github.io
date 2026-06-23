@@ -1,0 +1,91 @@
+<div class="anuncios-container">
+    <!-- Header -->
+    <div class="anuncios-header">
+        <div class="header-info">
+            <div class="header-icon">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+            <div class="header-text">
+                <h1>Comunicados de la Ciudadela</h1>
+                <p class="header-subtitle">Centro de anuncios y notificaciones oficiales</p>
+            </div>
+        </div>
+        <div class="header-stats">
+            @if (noLeidos > 0) {
+            <span class="badge-unread">
+                <i class="fas fa-envelope"></i>
+                {{ noLeidos }} sin leer
+            </span>
+            }
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros-bar">
+        <button class="filtro-btn" [class.active]="filtroActivo === 'todos'" (click)="setFiltro('todos')">
+            <i class="fas fa-list"></i>
+            Todos
+        </button>
+        <button class="filtro-btn urgente" [class.active]="filtroActivo === 'urgente'" (click)="setFiltro('urgente')">
+            <i class="fas fa-exclamation-triangle"></i>
+            Urgentes
+        </button>
+        <button class="filtro-btn operativo" [class.active]="filtroActivo === 'operativo'" (click)="setFiltro('operativo')">
+            <i class="fas fa-shield-alt"></i>
+            Operativos
+        </button>
+        <button class="filtro-btn mantenimiento" [class.active]="filtroActivo === 'mantenimiento'" (click)="setFiltro('mantenimiento')">
+            <i class="fas fa-tools"></i>
+            Mantenimiento
+        </button>
+        <button class="filtro-btn info" [class.active]="filtroActivo === 'info'" (click)="setFiltro('info')">
+            <i class="fas fa-info-circle"></i>
+            Informativos
+        </button>
+    </div>
+
+    <!-- Lista de Anuncios -->
+    <div class="anuncios-list">
+        @for (anuncio of anunciosFiltrados; track anuncio.id) {
+        <div class="anuncio-card" [class]="'tipo-' + anuncio.tipo" [class.no-leido]="!anuncio.leido" (click)="marcarLeido(anuncio)">
+            <div class="anuncio-header">
+                <div class="anuncio-tipo">
+                    <i [class]="getTipoIcon(anuncio.tipo)"></i>
+                    <span class="tipo-label">{{ getTipoLabel(anuncio.tipo) }}</span>
+                </div>
+                <div class="anuncio-meta">
+                    <span class="anuncio-id">{{ anuncio.id }}</span>
+                    <span class="anuncio-fecha">{{ anuncio.fecha }}</span>
+                </div>
+            </div>
+            
+            <h3 class="anuncio-titulo">
+                @if (!anuncio.leido) {
+                <span class="dot-unread"></span>
+                }
+                {{ anuncio.titulo }}
+            </h3>
+            
+            <p class="anuncio-contenido">{{ anuncio.contenido }}</p>
+            
+            <div class="anuncio-footer">
+                <span class="anuncio-autor">
+                    <i class="fas fa-user-tie"></i>
+                    {{ anuncio.autor }}
+                </span>
+                <span class="anuncio-prioridad" [class]="'prioridad-' + anuncio.prioridad">
+                    Prioridad: {{ anuncio.prioridad | titlecase }}
+                </span>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Footer -->
+    <div class="anuncios-footer">
+        <div class="footer-info">
+            <i class="fas fa-info-circle"></i>
+            <span>Los comunicados oficiales son emitidos por la Administración Central de la Ciudadela Zarek</span>
+        </div>
+    </div>
+</div>

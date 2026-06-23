@@ -18,27 +18,27 @@ export function ArtistShowcase({ artist, panelId, labelledBy }: ArtistShowcasePr
 
   return (
     <section
-      className="luvinox-stage"
+      className="lumivox-stage"
       role="tabpanel"
       id={panelId}
       aria-labelledby={labelledBy}
       style={{ ['--accent-color' as string]: artist.accentColor }}
     >
-      <div className="luvinox-splash">
+      <div className="lumivox-splash">
         <img src={artist.splash} alt={`${artist.displayName} — splash art`} loading="lazy" />
       </div>
 
-      <div className="luvinox-identity">
-        <span className="luvinox-discipline">{artist.discipline}</span>
-        <h1 className="luvinox-display-name" id={labelledBy}>
+      <div className="lumivox-identity">
+        <span className="lumivox-discipline">{artist.discipline}</span>
+        <h1 className="lumivox-display-name" id={labelledBy}>
           {artist.displayName}
         </h1>
-        <p className="luvinox-tagline">{artist.tagline}</p>
-        <p className="luvinox-brief">{artist.bio}</p>
+        <p className="lumivox-tagline">{artist.tagline}</p>
+        <p className="lumivox-brief">{artist.bio}</p>
 
         {briefModule ? <BriefModule body={briefModule.body} /> : null}
 
-        <div className="luvinox-module-stack">
+        <div className="lumivox-module-stack">
           {otherModules.map((module, idx) => (
             <ModuleRenderer key={moduleKey(module, idx)} module={module} />
           ))}

@@ -45,8 +45,8 @@ export const artists: Artist[] = [
     tagline: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
     discipline: 'Lorem Ipsum · Dolor Sit',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
-    splash: '/luvinox-media/luis-m.svg',
-    icon: '/luvinox-media/luis-m.svg',
+    splash: '/lumivox-media/luis-m.svg',
+    icon: '/lumivox-media/luis-m.svg',
     accentColor: '#3B5673',
     modules: [
       {
@@ -63,7 +63,7 @@ export const artists: Artist[] = [
       {
         kind: 'portal',
         label: 'Multiverse Of Madness',
-        route: '/multiverse-of-madness',
+        route: '/home/luis-m/multiverse-of-madness',
       },
     ],
   },
@@ -74,8 +74,8 @@ export const artists: Artist[] = [
     tagline: 'Lorem ipsum dolor sit amet, consectetur',
     discipline: 'Lorem Ipsum Dolor',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-    splash: '/luvinox-media/joz.svg',
-    icon: '/luvinox-media/joz.svg',
+    splash: '/lumivox-media/joz.svg',
+    icon: '/lumivox-media/joz.svg',
     accentColor: '#D17865',
     modules: [
       {

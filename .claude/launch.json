@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mom-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "MoM-web", "run", "preview"],
+      "port": 4173
+    }
+  ]
+}

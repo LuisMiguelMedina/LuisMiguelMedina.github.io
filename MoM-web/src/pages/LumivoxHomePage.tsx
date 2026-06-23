@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import { ArtistShowcase } from '../components/luvinox/ArtistShowcase';
-import { LuvinoxMark } from '../components/luvinox/LuvinoxMark';
-import { RosterStrip } from '../components/luvinox/RosterStrip';
+import { ArtistShowcase } from '../components/lumivox/ArtistShowcase';
+import { LumivoxMark } from '../components/lumivox/LumivoxMark';
+import { RosterStrip } from '../components/lumivox/RosterStrip';
 import { artists } from '../data/artists';
 
 const tabIdFor = (handle: string) => `roster-tab-${handle}`;
 const panelIdFor = (handle: string) => `showcase-${handle}`;
 
-export function LuvinoxHomePage() {
+export function LumivoxHomePage() {
   const [activeHandle, setActiveHandle] = useState<string>(artists[0]?.handle ?? '');
   const activeArtist = artists.find((a) => a.handle === activeHandle) ?? artists[0];
 
   if (!activeArtist) {
     return (
-      <div className="luvinox-shell">
-        <div className="luvinox-topbar">
-          <LuvinoxMark asLink={false} />
+      <div className="lumivox-shell">
+        <div className="lumivox-topbar">
+          <LumivoxMark asLink={false} />
         </div>
         <p style={{ padding: '2rem', textAlign: 'center' }}>Roster vacío.</p>
       </div>
@@ -23,10 +23,10 @@ export function LuvinoxHomePage() {
   }
 
   return (
-    <div className="luvinox-shell">
-      <div className="luvinox-topbar">
-        <LuvinoxMark asLink={false} />
-        <span className="luvinox-tagline-top">
+    <div className="lumivox-shell">
+      <div className="lumivox-topbar">
+        <LumivoxMark asLink={false} />
+        <span className="lumivox-tagline-top">
           comunidad de artistas y creadores
         </span>
       </div>

@@ -1,35 +1,35 @@
 import { Link } from 'react-router-dom';
 
-type LuvinoxMarkProps = {
-  /** When true, render as a Link back to /. When false, render as plain text. */
+type LumivoxMarkProps = {
+  /** When true, render as a Link back to /home. When false, render as plain text. */
   asLink?: boolean;
 };
 
-export function LuvinoxMark({ asLink = true }: LuvinoxMarkProps) {
+export function LumivoxMark({ asLink = true }: LumivoxMarkProps) {
   const inner = (
     <>
-      <LuvinoxSun />
-      <span>Luvinox</span>
+      <LumivoxSun />
+      <span>Lumivox</span>
     </>
   );
 
   if (asLink) {
     return (
-      <Link className="luvinox-mark" to="/" aria-label="Luvinox — home">
+      <Link className="lumivox-mark" to="/home" aria-label="Lumivox — home">
         {inner}
       </Link>
     );
   }
 
-  return <span className="luvinox-mark">{inner}</span>;
+  return <span className="lumivox-mark">{inner}</span>;
 }
 
-function LuvinoxSun() {
+function LumivoxSun() {
   // Placeholder oil-painted sun. Replaced when the real asset is ready.
   const rays = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
 
   return (
-    <svg className="luvinox-mark-sun" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+    <svg className="lumivox-mark-sun" viewBox="0 0 36 36" fill="none" aria-hidden="true">
       <circle cx="18" cy="18" r="6.2" fill="var(--lvx-sun)" />
       <circle cx="18" cy="18" r="6.2" fill="none" stroke="var(--lvx-sun-deep)" strokeWidth="1" />
       {rays.map((angle) => (

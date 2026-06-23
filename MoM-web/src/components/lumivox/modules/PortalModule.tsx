@@ -7,9 +7,9 @@ type PortalModuleProps = {
 
 export function PortalModule({ label, route }: PortalModuleProps) {
   return (
-    <Link className="luvinox-portal" to={route}>
+    <Link className="lumivox-portal" to={route}>
       <span>{label}</span>
-      <span className="luvinox-portal-arrow" aria-hidden="true">
+      <span className="lumivox-portal-arrow" aria-hidden="true">
         →
       </span>
     </Link>

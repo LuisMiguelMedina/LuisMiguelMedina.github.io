@@ -1,0 +1,77 @@
+<div id="wrapper" class="matrix-dashboard">
+  <!-- Mobile Toggle Button -->
+  <button class="mobile-menu-toggle" (click)="toggleSidebar()" [class.active]="sidebarOpen()">
+    <i class="fas" [class.fa-bars]="!sidebarOpen()" [class.fa-times]="sidebarOpen()"></i>
+  </button>
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" [class.active]="sidebarOpen()" (click)="closeSidebar()"></div>
+
+  <!-- Matrix Sidebar -->
+  <nav class="navbar align-items-start p-0 sidebar matrix-sidebar accordion navbar-dark" [class.open]="sidebarOpen()">
+    <div class="container-fluid d-flex flex-column p-0">
+      <!-- Brand Logo -->
+      <a class="navbar-brand d-flex justify-content-center align-items-center m-0 sidebar-brand" href="#">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="mx-3 sidebar-brand-text">
+          <span>ZRK Intranet</span>
+        </div>
+      </a>
+      <hr class="my-0 sidebar-divider">
+
+      <!-- Admin Level Badge -->
+      @if (adminSession()) {
+      <div class="admin-level-badge">
+        <span class="level-indicator level-{{ adminLevel() }}">
+          <i class="fas fa-shield-alt level-icon"></i>
+          LVL {{ adminLevel() }} - {{ getLevelName() }}
+        </span>
+      </div>
+      }
+
+      <!-- Dynamic Navigation based on permissions -->
+      <ul class="navbar-nav text-light" id="accordionSidebar">
+        @for (item of menuItems(); track item.path) {
+        @if (item.visible) {
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="item.path" routerLinkActive="active">
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        </li>
+        }
+        }
+
+        <!-- Logout always visible -->
+        <li class="nav-item mt-3">
+          <a class="nav-link" (click)="logout()" style="cursor: pointer;">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar Sesión</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+  <!-- Content Wrapper -->
+  <div class="d-flex flex-column" id="content-wrapper" style="background: var(--terminal-bg);">
+    <div id="content">
+      <!-- Page Content -->
+      <div class="container-fluid" #pageContent>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <!-- Matrix Footer -->
+    <footer class="sticky-footer matrix-footer">
+      <div class="container my-auto">
+        <div class="text-center my-auto">
+          <span>ZRK INTRANET v2.4.1 // © 2025 CIUDADELA ZAREK</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

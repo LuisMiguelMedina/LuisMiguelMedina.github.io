@@ -3,5 +3,5 @@ type BriefModuleProps = {
 };
 
 export function BriefModule({ body }: BriefModuleProps) {
-  return <p className="luvinox-brief">{body}</p>;
+  return <p className="lumivox-brief">{body}</p>;
 }

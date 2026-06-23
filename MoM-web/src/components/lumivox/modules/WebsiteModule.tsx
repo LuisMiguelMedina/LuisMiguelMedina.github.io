@@ -6,7 +6,7 @@ type WebsiteModuleProps = {
 export function WebsiteModule({ url, label }: WebsiteModuleProps) {
   return (
     <a
-      className="luvinox-website"
+      className="lumivox-website"
       href={url}
       target="_blank"
       rel="noopener noreferrer"
