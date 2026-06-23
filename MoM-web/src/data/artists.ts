@@ -42,16 +42,16 @@ export const artists: Artist[] = [
     handle: 'luis-m',
     // TODO confirm with Luis.M
     displayName: 'Luis.M',
-    tagline: 'Tejedor de mundos en la mesa, arquitecto en el código',
-    discipline: 'Tabletop Narrator · Developer',
-    bio: 'Construye mundos para juegos de mesa y los lugares donde habitan. Lleva las mismas manos a la narración de partidas y a la implementación de los sistemas que las sostienen.',
+    tagline: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
+    discipline: 'Lorem Ipsum · Dolor Sit',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
     splash: '/luvinox-media/luis-m.svg',
     icon: '/luvinox-media/luis-m.svg',
     accentColor: '#3B5673',
     modules: [
       {
         kind: 'brief',
-        body: 'Presencia técnica del colectivo. No abierto a sponsors — su sitio expone su mundo personal, Multiverse Of Madness.',
+        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
         kind: 'socials',
@@ -71,16 +71,16 @@ export const artists: Artist[] = [
     handle: 'joz',
     // TODO confirm with Joz
     displayName: 'Joz',
-    tagline: 'Ilustradora freelance, paleta cálida con filo',
-    discipline: 'Freelance Illustrator',
-    bio: 'Trabaja por encargo: personajes, retratos y referencias. Su catálogo de servicios y precios vive abajo — arma tu cotización y le llega directo.',
+    tagline: 'Lorem ipsum dolor sit amet, consectetur',
+    discipline: 'Lorem Ipsum Dolor',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
     splash: '/luvinox-media/joz.svg',
     icon: '/luvinox-media/joz.svg',
     accentColor: '#D17865',
     modules: [
       {
         kind: 'brief',
-        body: 'Abierta a comisiones. Construye tu cotización en la sección de abajo y le llega por correo.',
+        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
       },
       {
         kind: 'socials',
