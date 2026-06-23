@@ -28,4 +28,7 @@ Thumbs.db
 *.tmp
 *.temp
 *.log
-.claude/.legacy-angular/
+
+# Claude Code local config + legacy Angular migration reference (local only)
+.claude/
+.legacy-angular/

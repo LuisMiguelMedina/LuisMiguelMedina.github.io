@@ -165,9 +165,9 @@ La topología exacta de rutas es la tabla autoritativa del ADR-0001 (sección 9)
 
 ### 6.3 Escenario: acceso al subárbol protegido (futuro)
 
-1. Visitante navega a `.../app/dashboard`.
-2. El loader/guard del segmento `app` comprueba el estado de Firebase.
-3. Si no autenticado → redirige a `.../login`. Si autenticado → `Outlet` renderiza la página hija.
+1. Visitante navega a `.../dashboard`.
+2. El guard sin ruta (`ProtectedRoute`) comprueba la sesión.
+3. Si no autenticado → redirige a `.../login`. Si autenticado → `Layout` (`Outlet`) renderiza la página hija.
 
 ---
 
@@ -292,41 +292,41 @@ las redirecciones de retrocompatibilidad que siguen.
 |------|--------|------|--------|---------------------|-------|
 | `/` | (ninguno) | (redirect) | **implementado** | Redirect (replace) a `/home` | Raíz = redirect canónico, no página. Exento de `{artist}` por ser sólo redirección. |
 | `/home` | (ninguno) | Home | **implementado** | `LumivoxHomePage` (tira del roster) | El roster. Exento del segmento `{artist}` por ser el índice sobre todos los artistas. |
-| `/home/luis-m/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | `MultiverseOfMadnessPage` (landing del portal; hoy placeholder estático) | Ejemplo canónico del propietario. La `route` del módulo `portal` en `artists.ts` ya apunta a este path. |
+| `/home/luis-m/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | Redirect (replace) a `.../login` | Base del portal. El índice redirige al gate de login (fiel al `/` → `/login` del Angular original). `MultiverseOfMadnessPage` queda como componente sin rutear (ver riesgos). La `route` del módulo `portal` en `artists.ts` apunta a este path. |
 | `/home/joz/commission-builder` | joz | Commission Builder | planificado | `JozCommissionBuilderPage` envolviendo `<CommissionBuilder/>` | Joz hoy NO tiene ruta dedicada (el builder es inline en el roster según `joz-commission-builder`). Slug de la página pendiente de confirmación — ver preguntas abiertas. |
-| `/home/luis-m/multiverse-of-madness/login` | luis-m | Multiverse Of Madness | planificado | `LoginComponent` Angular migrado | PÚBLICA (login-gated, no auth-guarded). Antiguo `/login` Angular. Hermana de `register`. |
-| `/home/luis-m/multiverse-of-madness/register` | luis-m | Multiverse Of Madness | planificado | `RegisterComponent` Angular migrado | PÚBLICA. Antiguo `/register` Angular. |
-| `/home/luis-m/multiverse-of-madness/app` | luis-m | Multiverse Of Madness | planificado | Shell `Layout` del portal (auth-guarded vía Firebase, niveles 1..4); el index redirige a `app/dashboard` | Mapea al `/app` Angular. AUTH-GUARDED. Todos los hijos cuelgan de este segmento `app` → frontera única del subárbol protegido. |
-| `/home/luis-m/multiverse-of-madness/app/dashboard` | luis-m | Multiverse Of Madness | planificado | `DashboardComponent` (migrado) | AUTH-GUARDED. Hijo por defecto del shell `app`. |
-| `/home/luis-m/multiverse-of-madness/app/profile` | luis-m | Multiverse Of Madness | planificado | `ProfileComponent` (migrado) | AUTH-GUARDED. |
-| `/home/luis-m/multiverse-of-madness/app/logs` | luis-m | Multiverse Of Madness | planificado | Vista Table (migrada; ruta Angular `logs`) | AUTH-GUARDED. `logs` = componente Table. Slug inglés `logs` conservado del segmento Angular; ver preguntas abiertas sobre consistencia ES/EN. |
-| `/home/luis-m/multiverse-of-madness/app/monitoreo` | luis-m | Multiverse Of Madness | planificado | Vista Players (migrada; ruta Angular `monitoreo`) | AUTH-GUARDED. `monitoreo` = componente Players. Slug conservado verbatim del Angular; ver preguntas abiertas sobre anglicizar a `players`. |
-| `/home/luis-m/multiverse-of-madness/app/anuncios` | luis-m | Multiverse Of Madness | planificado | Vista Anuncios (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
-| `/home/luis-m/multiverse-of-madness/app/directorio` | luis-m | Multiverse Of Madness | planificado | Vista Directorio (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
-| `/home/luis-m/multiverse-of-madness/app/misiones` | luis-m | Multiverse Of Madness | planificado | Vista Misiones (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
-| `/home/luis-m/multiverse-of-madness/app/articulos` | luis-m | Multiverse Of Madness | planificado | Vista Articulos (migrada) | AUTH-GUARDED. Slug español conservado del Angular (`articulos`, acento eliminado). |
-| `/home/luis-m/multiverse-of-madness/app/settings` | luis-m | Multiverse Of Madness | planificado | `SettingsComponent` (migrado) | AUTH-GUARDED. |
+| `/home/luis-m/multiverse-of-madness/login` | luis-m | Multiverse Of Madness | **implementado** | `Login` (migrado a React) | PÚBLICA (gate de login, no auth-guarded). Antiguo `/login` Angular. Hermana de `register`. |
+| `/home/luis-m/multiverse-of-madness/register` | luis-m | Multiverse Of Madness | **implementado** | `Register` (migrado a React) | PÚBLICA. Antiguo `/register` Angular. |
+| _(sin segmento de URL)_ | luis-m | Multiverse Of Madness | **implementado** | `ProtectedRoute` → `Layout` (auth-guarded vía Firebase, niveles 1..4) | AUTH-GUARDED. **Guard sin ruta** (*pathless layout route* de React Router): da la frontera única del subárbol protegido SIN añadir segmento `/app` a la URL. Las páginas cuelgan directamente de la base del portal. |
+| `/home/luis-m/multiverse-of-madness/dashboard` | luis-m | Multiverse Of Madness | **implementado** | `Dashboard` (migrado) | AUTH-GUARDED. Destino del login. |
+| `/home/luis-m/multiverse-of-madness/profile` | luis-m | Multiverse Of Madness | **implementado** | `Profile` (migrado) | AUTH-GUARDED. |
+| `/home/luis-m/multiverse-of-madness/logs` | luis-m | Multiverse Of Madness | **implementado** | `Logs` (migrado del componente Table) | AUTH-GUARDED. `logs` = componente Table. Slug inglés conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/monitoreo` | luis-m | Multiverse Of Madness | **implementado** | `Players` (migrado) | AUTH-GUARDED. `monitoreo` = componente Players. Slug conservado verbatim del Angular. |
+| `/home/luis-m/multiverse-of-madness/anuncios` | luis-m | Multiverse Of Madness | **implementado** | `Anuncios` (migrado) | AUTH-GUARDED. Slug español conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/directorio` | luis-m | Multiverse Of Madness | **implementado** | `Directorio` (migrado) | AUTH-GUARDED. Slug español conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/misiones` | luis-m | Multiverse Of Madness | **implementado** | `Misiones` (migrado) | AUTH-GUARDED. Slug español conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/articulos` | luis-m | Multiverse Of Madness | **implementado** | `Articulos` (migrado) | AUTH-GUARDED. Slug español conservado del Angular (`articulos`, acento eliminado). |
+| `/home/luis-m/multiverse-of-madness/settings` | luis-m | Multiverse Of Madness | **implementado** | `Settings` (migrado) | AUTH-GUARDED. |
 | `/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | Redirect (replace) a `/home/luis-m/multiverse-of-madness` | LEGACY plano. Ya redirige en `main.tsx`. Ver retrocompatibilidad. |
 | `*` | (ninguno) | (fallback) | **implementado** | Redirect (replace) a `/home` | El wildcard redirige cualquier path desconocido a `/home`. Exento de `{artist}` por ser sólo redirección, no página. |
 
 ##### Anidamiento del portal
 
 El portal MoM **es** la página de Luis.M, así que su base es
-`/home/luis-m/multiverse-of-madness` (profundidad 3). Las páginas internas anidan
-extendiendo esa base, en dos niveles:
+`/home/luis-m/multiverse-of-madness` (profundidad 3). Todas las páginas internas son
+**hijas directas de la base** (profundidad 4) — URLs planas, sin segmento extra:
 
-1. **Entrada PÚBLICA** — hijos directos de la base:
-   `.../login` y `.../register` (profundidad 4).
-2. **Aplicación AUTH-GUARDED** — bajo un segmento `app` explícito:
-   `.../app` (profundidad 4, shell `Layout` + guard Firebase), con cada página del
-   área de dashboard como hijo en profundidad 5 (p. ej. `.../app/dashboard`,
-   `.../app/monitoreo`, `.../app/settings`).
+1. **Entrada PÚBLICA:** `.../login` y `.../register`.
+2. **Aplicación AUTH-GUARDED:** `.../dashboard`, `.../profile`, `.../logs`,
+   `.../monitoreo`, `.../anuncios`, `.../directorio`, `.../misiones`,
+   `.../articulos`, `.../settings`.
 
-El segmento `app` se conserva deliberadamente de la estructura Angular para que el
-subárbol protegido mapee a una única ruta de React Router con loader/guard y un
-`Outlet`; `login`/`register` quedan **fuera** de `app` para seguir siendo accesibles
-sin autenticación. El index de la base del portal (sin sub-segmento) renderiza la
-landing/marketing pública del MoM; el index de `app` redirige a `app/dashboard`.
+La frontera del subárbol protegido NO es un segmento de URL sino un **guard sin ruta**
+(*pathless layout route*): `ProtectedRoute` (redirige a `.../login` si no hay sesión)
+envuelve a `Layout` (shell con `Outlet`), y las páginas protegidas cuelgan de él. Esto
+descarta el segmento `/app` del Angular original: se obtiene la misma frontera única de
+auth con URLs más cortas que cumplen literalmente `home/{artist}/{page}/{subpágina}`.
+El índice de la base (`.../`) redirige a `.../login`; `login`/`register` quedan fuera del
+guard para ser accesibles sin autenticación.
 
 ##### Redirecciones de retrocompatibilidad
 
@@ -334,19 +334,13 @@ landing/marketing pública del MoM; el index de `app` redirige a `app/dashboard`
 |-------|-------|--------|
 | `/` | `/home` | implementado |
 | `/multiverse-of-madness` | `/home/luis-m/multiverse-of-madness` | implementado |
-| `/login` | `/home/luis-m/multiverse-of-madness/login` | planificado |
-| `/register` | `/home/luis-m/multiverse-of-madness/register` | planificado |
-| `/app` | `/home/luis-m/multiverse-of-madness/app/dashboard` | planificado |
-| `/app/dashboard` | `/home/luis-m/multiverse-of-madness/app/dashboard` | planificado |
-| `/app/profile` | `/home/luis-m/multiverse-of-madness/app/profile` | planificado |
-| `/app/logs` | `/home/luis-m/multiverse-of-madness/app/logs` | planificado |
-| `/app/monitoreo` | `/home/luis-m/multiverse-of-madness/app/monitoreo` | planificado |
-| `/app/anuncios` | `/home/luis-m/multiverse-of-madness/app/anuncios` | planificado |
-| `/app/directorio` | `/home/luis-m/multiverse-of-madness/app/directorio` | planificado |
-| `/app/misiones` | `/home/luis-m/multiverse-of-madness/app/misiones` | planificado |
-| `/app/articulos` | `/home/luis-m/multiverse-of-madness/app/articulos` | planificado |
-| `/app/settings` | `/home/luis-m/multiverse-of-madness/app/settings` | planificado |
 | `*` (path desconocido) | `/home` | implementado |
+
+> Nota: los deep links del Angular original (`/login`, `/register`, `/app/*` servidos
+> en la raíz del dominio) hoy **no** tienen redirect dedicado — caen en el comodín
+> `*` → `/home`. No se añadieron porque el portal Angular estaba login-gated (no eran
+> URLs marcables sin sesión). Si hace falta, se pueden mapear 1:1 a `.../login` y
+> `.../<página>`.
 
 ##### Árbol de rutas (visión global)
 
@@ -355,18 +349,18 @@ graph TD
   ROOT["/ a redirect (replace)"] --> HOME["/home (roster - LumivoxHomePage)"]
   HOME --> LM["/home/luis-m/multiverse-of-madness<br/>(landing publica MoM)"]
   HOME --> JZ["/home/joz/commission-builder (planificado)"]
-  LM --> LOGIN["login (publico, planificado)"]
-  LM --> REG["register (publico, planificado)"]
-  LM --> APP["app - shell Layout + AuthGuard Firebase<br/>index a app/dashboard (planificado)"]
-  APP --> DASH[dashboard]
-  APP --> PROF[profile]
-  APP --> LOGS["logs (Table)"]
-  APP --> MON["monitoreo (Players)"]
-  APP --> ANU[anuncios]
-  APP --> DIR[directorio]
-  APP --> MIS[misiones]
-  APP --> ART[articulos]
-  APP --> SET[settings]
+  LM -->|"index a redirect"| LOGIN["login (publico)"]
+  LM --> REG["register (publico)"]
+  LM --> GUARD["ProtectedRoute + Layout<br/>(guard sin ruta, sin segmento URL)"]
+  GUARD --> DASH[dashboard]
+  GUARD --> PROF[profile]
+  GUARD --> LOGS["logs (Table)"]
+  GUARD --> MON["monitoreo (Players)"]
+  GUARD --> ANU[anuncios]
+  GUARD --> DIR[directorio]
+  GUARD --> MIS[misiones]
+  GUARD --> ART[articulos]
+  GUARD --> SET[settings]
   WILD["* a redirect /home"]
 ```
 
@@ -375,8 +369,13 @@ graph TD
 **Positivas:**
 - URLs predecibles y deducibles a partir de `handle` + nombre de página.
 - El roster es un índice claro (`/home`) y cada artista tiene un espacio de nombres propio (`/home/{artist}/...`).
-- La migración Angular es trazable 1:1 (segmento `app` y slugs preservados → mapa de redirecciones trivial).
+- La migración Angular preservó los slugs de página → URLs predecibles. El segmento `/app` se descartó a favor de un guard sin ruta (URLs más cortas, misma frontera de auth).
 - Una sola URL canónica para home (`/home`), con `/` y `*` redirigiendo a ella.
+
+> **Estado de implementación (2026-06-23):** el portal MoM ya está re-migrado a React y
+> vivo bajo `/home/luis-m/multiverse-of-madness` (login + las 9 páginas protegidas). La
+> estructura final es **plana con guard sin ruta**, no el segmento `/app` que se barajó
+> en el diseño inicial.
 
 **Negativas / costes:**
 - URLs largas en el portal (el slug `multiverse-of-madness` se repite en todas las subrutas).
@@ -466,11 +465,12 @@ Experiencia de "área privada" sin backend propio; a cambio, la confidencialidad
 
 | # | Riesgo / Deuda | Mitigación |
 |---|----------------|------------|
+| 0 | **🔴 Contraseñas de admin públicas:** `system/admins.json` de la Realtime DB se lee SIN autenticación (HTTP 200 abierto), exponiendo usuarios **y contraseñas** en claro a cualquiera. Verificado el 2026-06-23. | **Urgente:** endurecer las reglas de seguridad de Firebase (denegar lectura de `system/admins`), mover la verificación de credenciales a un backend/Cloud Function, y hashear las contraseñas. Mientras tanto, no usar contraseñas reutilizadas. |
 | 1 | **Auth "falsa" en host estático:** Firebase niveles 1..4 es client-side; no protege datos (ADR-0003). | Tratar como soft-gating de UX; no almacenar secretos/datos sensibles tras el guard; usar reglas de Firebase del lado servidor. |
 | 2 | **Sincronía `artists.ts` ↔ `main.tsx`:** la `route` del `portal` ya está alineada, pero la duplicación es manual y puede divergir al añadir páginas. | Idealmente derivar la ruta de un helper común a partir de `handle` + slug de página. |
 | 3 | **Slugs mixtos ES/EN** en el portal generan inconsistencia. | Decisión diferida (ADR-0001, pregunta abierta 3). |
 | 4 | **Datos placeholder** (`Lorem ipsum`, URLs `example`, TODOs) en `artists.ts`. | Confirmar contenido real con Luis.M y Joz. |
-| 5 | **Migración Angular pendiente** (vive solo en historial git). | Re-migrar componente a componente preservando segmentos de ruta. |
+| 5 | **Migración Angular: COMPLETADA** (2026-06-23) — portada a React en `src/portal/`. El Angular original queda solo en historial git (referencia local en `.legacy-angular/`, gitignored). | — |
 | 6 | **URLs largas** del portal por repetir `multiverse-of-madness`. | Aceptado por ahora (ADR-0001, pregunta abierta 6). |
 
 ---

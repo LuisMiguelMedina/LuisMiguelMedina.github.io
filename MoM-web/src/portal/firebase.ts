@@ -1,6 +1,6 @@
 // Firebase init for the Multiverse of Madness portal (Realtime Database).
-// ponytail: client config is public by design for Firebase; access is gated by
-// Realtime Database security rules, not by hiding these values.
+// Nota: esta config de cliente es pública por diseño en Firebase; el acceso debe
+// protegerse con reglas de seguridad de la Realtime Database, no ocultando estos valores.
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
