@@ -1,0 +1,39 @@
+// Register page — terminal-themed registration form (ported from legacy register.scss, which was empty;
+// styles authored on top of the portal theme.scss terminal primitives).
+
+.register-page {
+  .register-card {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .register-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 575.98px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .register-grid--full {
+    grid-column: 1 / -1;
+  }
+
+  .register-notice {
+    margin-top: 1.25rem;
+    padding: 0.85rem 1rem;
+    border: var(--border-terminal, 1px solid var(--terminal-cyan));
+    border-color: var(--terminal-amber);
+    color: var(--terminal-amber);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    background: rgba(0, 0, 0, 0.25);
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+}

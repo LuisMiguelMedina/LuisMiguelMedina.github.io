@@ -13,7 +13,7 @@
 ## 1. Introducción y Objetivos
 
 `multiverseofmadness.me` es el sitio personal del propietario. Funciona como un
-*roster* tipo "Luvinox": una tira de artistas seleccionables; al elegir un artista
+*roster* tipo "Lumivox": una tira de artistas seleccionables; al elegir un artista
 se muestra su página dedicada (sus *modules*: brief, redes, web, o un *portal*).
 
 Hoy existen dos artistas en `MoM-web/src/data/artists.ts`:
@@ -68,7 +68,7 @@ graph LR
   O[Propietario / Editor de datos]
 
   subgraph Sistema["multiverseofmadness.me (SPA en GitHub Pages)"]
-    R["Roster Luvinox (/home)<br/>Paginas de artista (/home/{artist}/...)<br/>Portal MoM (futuro: login/app)"]
+    R["Roster Lumivox (/home)<br/>Paginas de artista (/home/{artist}/...)<br/>Portal MoM (futuro: login/app)"]
   end
 
   GH[(GitHub Pages<br/>hosting estatico)]
@@ -98,8 +98,8 @@ graph LR
 ## 4. Estrategia de Solución (Solution Strategy)
 
 - **SPA estática, sin backend propio.** Toda la lógica vive en el cliente; el estado del portal se delega a Firebase.
-- **Routing declarativo centralizado** en `main.tsx` con `createBrowserRouter`. Una única convención de URL (`home/{artist}/{page}`) gobierna todas las rutas — ver ADR-0001.
-- **El roster es el índice.** `/home` lista los artistas; cada artista expone sus páginas bajo `/home/{artist}/{page}`. Las páginas internas del portal extienden esa base.
+- **Routing declarativo centralizado** en `main.tsx` con `createBrowserRouter`. Una única convención de URL (`home/{artist}/{page}`) gobierna todas las rutas de página — ver ADR-0001.
+- **El roster es el índice.** `/home` lista los artistas; cada artista expone sus páginas bajo `/home/{artist}/{page}`. Las páginas internas del portal extienden esa base. Las únicas rutas exentas del segmento `{artist}` son `/home` (el roster) y las rutas que sólo redirigen: `/` → `/home` y `*` → `/home`.
 - **Migración 1:1 del panel Angular** a React Router preservando los segmentos de ruta originales (incluido el segmento `app` y los slugs en español) para poder mapear redirecciones antiguas → nuevas de forma trivial.
 - **Despliegue automático** vía GitHub Actions en cada push a `main`; `404.html` (generado por `generate-404.js`) como fallback de deep links.
 
@@ -116,7 +116,7 @@ graph TD
     DATA[("data/artists.ts<br/>roster: handle - displayName - modules")]
     STYLES["styles.scss<br/>Bootstrap 5 + SCSS"]
     subgraph PAGES["pages/"]
-      HP["LuvinoxHomePage<br/>roster a /home"]
+      HP["LumivoxHomePage<br/>roster a /home"]
       MOM["MultiverseOfMadnessPage<br/>landing portal MoM (placeholder hoy)"]
       JOZ["JozCommissionBuilderPage<br/>+ CommissionBuilder (planificado)"]
     end
@@ -133,7 +133,7 @@ graph TD
 |--------|-----------------|
 | `main.tsx` | Define el árbol de rutas y monta `RouterProvider`. Punto único donde se materializa la convención de rutas. |
 | `data/artists.ts` | Define los artistas. El campo `handle` es el **slug canónico del artista** (segmento `{artist}`). El módulo `portal` contiene la `route` que debe alinearse con la convención. |
-| `pages/LuvinoxHomePage` | Renderiza el roster. Mapea a `/home`. |
+| `pages/LumivoxHomePage` | Renderiza el roster. Mapea a `/home`. |
 | `pages/MultiverseOfMadnessPage` | Landing del portal de Luis.M. Mapea a `/home/luis-m/multiverse-of-madness`. |
 
 ### 5.2 Nivel 2 — Subárbol del portal MoM (planificado)
@@ -204,7 +204,7 @@ El routing es el concepto transversal dominante de este proyecto. Reglas:
 - **`{artist}` = `handle` verbatim** de `artists.ts` (los handles SON los slugs canónicos de artista; no se recalculan).
 - **`{page}` = slug kebab-case** del `displayName` de la página, según el algoritmo de slug del ADR-0001.
 - **Subpáginas** (portal/app) extienden la base con segmentos kebab-case adicionales.
-- **Exenciones:** solo `/home` (el roster) y el redirect `/` → `/home` están exentos del segmento `{artist}`.
+- **Exenciones:** sólo están exentos del segmento `{artist}` el roster `/home` y las rutas que únicamente redirigen — `/` → `/home` y el comodín `*` → `/home` —. Estas dos últimas no son rutas de página, sino redirecciones canónicas (ver tabla y árbol del ADR-0001).
 - **Fuente de verdad de rutas:** `MoM-web/src/main.tsx`. La `route` del módulo `portal` en `artists.ts` ya está alineada (`/home/luis-m/multiverse-of-madness`) y debe mantenerse sincronizada al añadir páginas.
 
 ### 8.2 Deep links en host estático
@@ -246,7 +246,7 @@ El núcleo de la convención ya está implementado en `main.tsx`:
 // Route convention: /home/{artist}/{page} — see docs/arc42 (ADR-0001).
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/home" replace /> },
-  { path: '/home', element: <LuvinoxHomePage /> },
+  { path: '/home', element: <LumivoxHomePage /> },
   { path: '/home/luis-m/multiverse-of-madness', element: <MultiverseOfMadnessPage /> },
   // Back-compat: old flat route -> canonical home/{artist}/{page}
   { path: '/multiverse-of-madness', element: <Navigate to="/home/luis-m/multiverse-of-madness" replace /> },
@@ -269,8 +269,9 @@ las redirecciones de retrocompatibilidad que siguen.
 > donde `{artist}` es el campo `handle` del artista en `artists.ts` (kebab-case) y
 > `{page}` es el slug kebab-case del nombre visible de la página. Las subpáginas del
 > portal/app extienden esa base añadiendo más segmentos kebab-case
-> (`/home/{artist}/{page}/{sub-page}`). Solo `/home` (el roster) y el redirect
-> `/` → `/home` están exentos de requerir un `{artist}`.
+> (`/home/{artist}/{page}/{sub-page}`). Quedan exentos del segmento `{artist}`
+> únicamente el roster `/home` y las rutas que sólo redirigen y no renderizan
+> contenido propio: `/` → `/home` y el comodín `*` → `/home`.
 
 ##### Algoritmo de slug
 
@@ -289,24 +290,24 @@ las redirecciones de retrocompatibilidad que siguen.
 
 | Path | Artist | Page | Estado | Renderiza / Mapea a | Notas |
 |------|--------|------|--------|---------------------|-------|
-| `/` | (ninguno) | (redirect) | **implementado** | Redirect (replace) a `/home` | Raíz = redirect canónico, no página. |
-| `/home` | (ninguno) | Home | **implementado** | `LuvinoxHomePage` (tira del roster) | El roster. Exento del segmento `{artist}` por ser el índice sobre todos los artistas. |
+| `/` | (ninguno) | (redirect) | **implementado** | Redirect (replace) a `/home` | Raíz = redirect canónico, no página. Exento de `{artist}` por ser sólo redirección. |
+| `/home` | (ninguno) | Home | **implementado** | `LumivoxHomePage` (tira del roster) | El roster. Exento del segmento `{artist}` por ser el índice sobre todos los artistas. |
 | `/home/luis-m/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | `MultiverseOfMadnessPage` (landing del portal; hoy placeholder estático) | Ejemplo canónico del propietario. La `route` del módulo `portal` en `artists.ts` ya apunta a este path. |
-| `/home/joz/commission-builder` | joz | Commission Builder | planned | `JozCommissionBuilderPage` envolviendo `<CommissionBuilder/>` | Joz hoy NO tiene ruta dedicada (el builder es inline en el roster según `joz-commission-builder`). Slug de la página pendiente de confirmación — ver preguntas abiertas. |
-| `/home/luis-m/multiverse-of-madness/login` | luis-m | Multiverse Of Madness | planned | `LoginComponent` Angular migrado | PÚBLICA (login-gated, no auth-guarded). Antiguo `/login` Angular. Hermana de `register`. |
-| `/home/luis-m/multiverse-of-madness/register` | luis-m | Multiverse Of Madness | planned | `RegisterComponent` Angular migrado | PÚBLICA. Antiguo `/register` Angular. |
-| `/home/luis-m/multiverse-of-madness/app` | luis-m | Multiverse Of Madness | planned | Shell `Layout` del portal (auth-guarded vía Firebase, niveles 1..4); el index redirige a `app/dashboard` | Mapea al `/app` Angular. AUTH-GUARDED. Todos los hijos cuelgan de este segmento `app` → frontera única del subárbol protegido. |
-| `/home/luis-m/multiverse-of-madness/app/dashboard` | luis-m | Multiverse Of Madness | planned | `DashboardComponent` (migrado) | AUTH-GUARDED. Hijo por defecto del shell `app`. |
-| `/home/luis-m/multiverse-of-madness/app/profile` | luis-m | Multiverse Of Madness | planned | `ProfileComponent` (migrado) | AUTH-GUARDED. |
-| `/home/luis-m/multiverse-of-madness/app/logs` | luis-m | Multiverse Of Madness | planned | Vista Table (migrada; ruta Angular `logs`) | AUTH-GUARDED. `logs` = componente Table. Slug inglés `logs` conservado del segmento Angular; ver preguntas abiertas sobre consistencia ES/EN. |
-| `/home/luis-m/multiverse-of-madness/app/monitoreo` | luis-m | Multiverse Of Madness | planned | Vista Players (migrada; ruta Angular `monitoreo`) | AUTH-GUARDED. `monitoreo` = componente Players. Slug conservado verbatim del Angular; ver preguntas abiertas sobre anglicizar a `players`. |
-| `/home/luis-m/multiverse-of-madness/app/anuncios` | luis-m | Multiverse Of Madness | planned | Vista Anuncios (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
-| `/home/luis-m/multiverse-of-madness/app/directorio` | luis-m | Multiverse Of Madness | planned | Vista Directorio (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
-| `/home/luis-m/multiverse-of-madness/app/misiones` | luis-m | Multiverse Of Madness | planned | Vista Misiones (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
-| `/home/luis-m/multiverse-of-madness/app/articulos` | luis-m | Multiverse Of Madness | planned | Vista Articulos (migrada) | AUTH-GUARDED. Slug español conservado del Angular (`articulos`, acento eliminado). |
-| `/home/luis-m/multiverse-of-madness/app/settings` | luis-m | Multiverse Of Madness | planned | `SettingsComponent` (migrado) | AUTH-GUARDED. |
+| `/home/joz/commission-builder` | joz | Commission Builder | planificado | `JozCommissionBuilderPage` envolviendo `<CommissionBuilder/>` | Joz hoy NO tiene ruta dedicada (el builder es inline en el roster según `joz-commission-builder`). Slug de la página pendiente de confirmación — ver preguntas abiertas. |
+| `/home/luis-m/multiverse-of-madness/login` | luis-m | Multiverse Of Madness | planificado | `LoginComponent` Angular migrado | PÚBLICA (login-gated, no auth-guarded). Antiguo `/login` Angular. Hermana de `register`. |
+| `/home/luis-m/multiverse-of-madness/register` | luis-m | Multiverse Of Madness | planificado | `RegisterComponent` Angular migrado | PÚBLICA. Antiguo `/register` Angular. |
+| `/home/luis-m/multiverse-of-madness/app` | luis-m | Multiverse Of Madness | planificado | Shell `Layout` del portal (auth-guarded vía Firebase, niveles 1..4); el index redirige a `app/dashboard` | Mapea al `/app` Angular. AUTH-GUARDED. Todos los hijos cuelgan de este segmento `app` → frontera única del subárbol protegido. |
+| `/home/luis-m/multiverse-of-madness/app/dashboard` | luis-m | Multiverse Of Madness | planificado | `DashboardComponent` (migrado) | AUTH-GUARDED. Hijo por defecto del shell `app`. |
+| `/home/luis-m/multiverse-of-madness/app/profile` | luis-m | Multiverse Of Madness | planificado | `ProfileComponent` (migrado) | AUTH-GUARDED. |
+| `/home/luis-m/multiverse-of-madness/app/logs` | luis-m | Multiverse Of Madness | planificado | Vista Table (migrada; ruta Angular `logs`) | AUTH-GUARDED. `logs` = componente Table. Slug inglés `logs` conservado del segmento Angular; ver preguntas abiertas sobre consistencia ES/EN. |
+| `/home/luis-m/multiverse-of-madness/app/monitoreo` | luis-m | Multiverse Of Madness | planificado | Vista Players (migrada; ruta Angular `monitoreo`) | AUTH-GUARDED. `monitoreo` = componente Players. Slug conservado verbatim del Angular; ver preguntas abiertas sobre anglicizar a `players`. |
+| `/home/luis-m/multiverse-of-madness/app/anuncios` | luis-m | Multiverse Of Madness | planificado | Vista Anuncios (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/app/directorio` | luis-m | Multiverse Of Madness | planificado | Vista Directorio (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/app/misiones` | luis-m | Multiverse Of Madness | planificado | Vista Misiones (migrada) | AUTH-GUARDED. Slug español conservado del Angular. |
+| `/home/luis-m/multiverse-of-madness/app/articulos` | luis-m | Multiverse Of Madness | planificado | Vista Articulos (migrada) | AUTH-GUARDED. Slug español conservado del Angular (`articulos`, acento eliminado). |
+| `/home/luis-m/multiverse-of-madness/app/settings` | luis-m | Multiverse Of Madness | planificado | `SettingsComponent` (migrado) | AUTH-GUARDED. |
 | `/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | Redirect (replace) a `/home/luis-m/multiverse-of-madness` | LEGACY plano. Ya redirige en `main.tsx`. Ver retrocompatibilidad. |
-| `*` | (ninguno) | (fallback) | **implementado** | Redirect (replace) a `/home` | El wildcard redirige cualquier path desconocido a `/home`. |
+| `*` | (ninguno) | (fallback) | **implementado** | Redirect (replace) a `/home` | El wildcard redirige cualquier path desconocido a `/home`. Exento de `{artist}` por ser sólo redirección, no página. |
 
 ##### Anidamiento del portal
 
@@ -333,30 +334,30 @@ landing/marketing pública del MoM; el index de `app` redirige a `app/dashboard`
 |-------|-------|--------|
 | `/` | `/home` | implementado |
 | `/multiverse-of-madness` | `/home/luis-m/multiverse-of-madness` | implementado |
-| `/login` | `/home/luis-m/multiverse-of-madness/login` | planned |
-| `/register` | `/home/luis-m/multiverse-of-madness/register` | planned |
-| `/app` | `/home/luis-m/multiverse-of-madness/app/dashboard` | planned |
-| `/app/dashboard` | `/home/luis-m/multiverse-of-madness/app/dashboard` | planned |
-| `/app/profile` | `/home/luis-m/multiverse-of-madness/app/profile` | planned |
-| `/app/logs` | `/home/luis-m/multiverse-of-madness/app/logs` | planned |
-| `/app/monitoreo` | `/home/luis-m/multiverse-of-madness/app/monitoreo` | planned |
-| `/app/anuncios` | `/home/luis-m/multiverse-of-madness/app/anuncios` | planned |
-| `/app/directorio` | `/home/luis-m/multiverse-of-madness/app/directorio` | planned |
-| `/app/misiones` | `/home/luis-m/multiverse-of-madness/app/misiones` | planned |
-| `/app/articulos` | `/home/luis-m/multiverse-of-madness/app/articulos` | planned |
-| `/app/settings` | `/home/luis-m/multiverse-of-madness/app/settings` | planned |
+| `/login` | `/home/luis-m/multiverse-of-madness/login` | planificado |
+| `/register` | `/home/luis-m/multiverse-of-madness/register` | planificado |
+| `/app` | `/home/luis-m/multiverse-of-madness/app/dashboard` | planificado |
+| `/app/dashboard` | `/home/luis-m/multiverse-of-madness/app/dashboard` | planificado |
+| `/app/profile` | `/home/luis-m/multiverse-of-madness/app/profile` | planificado |
+| `/app/logs` | `/home/luis-m/multiverse-of-madness/app/logs` | planificado |
+| `/app/monitoreo` | `/home/luis-m/multiverse-of-madness/app/monitoreo` | planificado |
+| `/app/anuncios` | `/home/luis-m/multiverse-of-madness/app/anuncios` | planificado |
+| `/app/directorio` | `/home/luis-m/multiverse-of-madness/app/directorio` | planificado |
+| `/app/misiones` | `/home/luis-m/multiverse-of-madness/app/misiones` | planificado |
+| `/app/articulos` | `/home/luis-m/multiverse-of-madness/app/articulos` | planificado |
+| `/app/settings` | `/home/luis-m/multiverse-of-madness/app/settings` | planificado |
 | `*` (path desconocido) | `/home` | implementado |
 
 ##### Árbol de rutas (visión global)
 
 ```mermaid
 graph TD
-  ROOT["/ a redirect (replace)"] --> HOME["/home (roster - LuvinoxHomePage)"]
+  ROOT["/ a redirect (replace)"] --> HOME["/home (roster - LumivoxHomePage)"]
   HOME --> LM["/home/luis-m/multiverse-of-madness<br/>(landing publica MoM)"]
-  HOME --> JZ["/home/joz/commission-builder (planned)"]
-  LM --> LOGIN["login (publico, planned)"]
-  LM --> REG["register (publico, planned)"]
-  LM --> APP["app - shell Layout + AuthGuard Firebase<br/>index a app/dashboard (planned)"]
+  HOME --> JZ["/home/joz/commission-builder (planificado)"]
+  LM --> LOGIN["login (publico, planificado)"]
+  LM --> REG["register (publico, planificado)"]
+  LM --> APP["app - shell Layout + AuthGuard Firebase<br/>index a app/dashboard (planificado)"]
   APP --> DASH[dashboard]
   APP --> PROF[profile]
   APP --> LOGS["logs (Table)"]
@@ -407,11 +408,22 @@ graph TD
 
 **Estado:** Aceptada · **Fecha:** 2026-06-23 · **Decisor:** Propietario (Luis.M)
 
-**Contexto:** GitHub Pages es un host estático que no puede reescribir rutas del lado servidor; un deep link a una subruta del SPA (`/home/...`) devolvería un 404 real.
+#### Contexto
 
-**Decisión:** Usar `createBrowserRouter` (history API, URLs limpias) y generar un `404.html` en build (`generate-404.js`) que sirva el mismo bundle como fallback, de modo que el router resuelva el path en el cliente. Mantener `.nojekyll` y `CNAME` en el artefacto.
+GitHub Pages es un host estático que no puede reescribir rutas del lado servidor; un deep link a una subruta del SPA (`/home/...`) devolvería un 404 real.
 
-**Consecuencias:** URLs limpias y compartibles; a cambio, cada deep link "frío" pasa por el 404 de Pages antes de hidratar el SPA. Alternativa rechazada: hash routing (`/#/...`), descartada por estética y SEO (ver ADR-0001, alternativa 3).
+#### Decisión
+
+Usar `createBrowserRouter` (history API, URLs limpias) y generar un `404.html` en build (`generate-404.js`) que sirva el mismo bundle como fallback, de modo que el router resuelva el path en el cliente. Mantener `.nojekyll` y `CNAME` en el artefacto.
+
+#### Consecuencias
+
+URLs limpias y compartibles, alineadas con la convención `/home/{artist}/{page}` del ADR-0001; a cambio, cada deep link "frío" pasa por el 404 de Pages antes de hidratar el SPA.
+
+#### Alternativas consideradas
+
+1. **Hash routing (`/#/...`):** evitaría por completo el `404.html` porque el fragmento nunca llega al servidor. Rechazada por estética de URL y peor SEO/compartibilidad (coherente con ADR-0001, alternativa 3).
+2. **Pre-render / SSG de cada ruta a un `.html` físico:** eliminaría el salto por el 404 para rutas conocidas. Rechazada: añade complejidad de build y un paso de generación por ruta para un SPA estático mantenido por una sola persona, y no cubre rutas dinámicas (`/home/{artist}/...`) sin enumerarlas.
 
 ---
 
@@ -419,11 +431,23 @@ graph TD
 
 **Estado:** Aceptada · **Fecha:** 2026-06-23 · **Decisor:** Propietario (Luis.M)
 
-**Contexto:** El portal re-migrado de Angular usa Firebase Realtime DB con niveles de permiso 1..4. El sitio es un bundle estático y público.
+#### Contexto
 
-**Decisión:** Tratar el guard del segmento `app` como **soft-gating de UX**, no como una frontera de seguridad. No colocar secretos ni datos sensibles tras el guard; cualquier dato que deba protegerse de verdad debe asegurarse por reglas de Firebase del lado servidor, no por el routing del cliente.
+El portal re-migrado de Angular usa Firebase Realtime DB con niveles de permiso 1..4. El sitio es un bundle estático y público.
 
-**Consecuencias:** Experiencia de "área privada" sin backend propio; a cambio, la confidencialidad real depende de las reglas de Firebase, no del SPA. Ver sección 8.3 y riesgo #1.
+#### Decisión
+
+Tratar el guard del segmento `app` como **soft-gating de UX**, no como una frontera de seguridad. No colocar secretos ni datos sensibles tras el guard; cualquier dato que deba protegerse de verdad debe asegurarse por reglas de Firebase del lado servidor, no por el routing del cliente.
+
+#### Consecuencias
+
+Experiencia de "área privada" sin backend propio; a cambio, la confidencialidad real depende de las reglas de Firebase, no del SPA. Ver sección 8.3 y riesgo #1.
+
+#### Alternativas consideradas
+
+1. **Backend/serverless propio para autenticar y autorizar:** sería una frontera de seguridad real. Rechazada: rompe la restricción de cero-backend (sección 2) y el objetivo de bajo coste de mantenimiento.
+2. **Sin gating: portal totalmente público:** más simple. Rechazada: el propietario quiere una UX de "área privada" diferenciada para el portal.
+3. **Reglas de seguridad de Firebase del lado servidor como única frontera real:** adoptada como complemento, no alternativa — el routing del cliente sólo aporta la UX de gating, y toda confidencialidad efectiva recae en estas reglas.
 
 ---
 
@@ -457,7 +481,7 @@ graph TD
 |---------|------------|
 | **arc42** | Plantilla de documentación de arquitectura de 12 secciones. |
 | **ADR** | Architecture Decision Record. Registro de una decisión de arquitectura con contexto, decisión, consecuencias y alternativas. |
-| **Roster / Luvinox** | La tira de artistas seleccionables; el índice del sitio (`/home`). |
+| **Roster / Lumivox** | La tira de artistas seleccionables; el índice del sitio (`/home`). |
 | **handle** | Identificador kebab-case del artista en `artists.ts` (`luis-m`, `joz`). Slug canónico del segmento `{artist}`. |
 | **slug** | Forma kebab-case y sin diacríticos de un nombre, usada como segmento de URL. |
 | **Portal (MoM)** | La página de Luis.M = "Multiverse Of Madness"; subárbol con landing pública, login/registro y app protegida. |
