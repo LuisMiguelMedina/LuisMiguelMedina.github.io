@@ -8,8 +8,7 @@
     "build": "tsc --project tsconfig.json --noEmit && vite build",
     "build:gh-pages": "npm run build && node generate-404.js",
     "preview": "vite preview --host",
-    "clean": "rimraf dist",
-    "deploy": "npm run clean && npm run build:gh-pages && xcopy /E /Y dist\\* ..\\ && if exist dist\\.nojekyll copy /Y dist\\.nojekyll ..\\.nojekyll >nul && if exist dist\\CNAME copy /Y dist\\CNAME ..\\CNAME >nul && echo Deployment completed successfully!"
+    "clean": "rimraf dist"
   },
   "prettier": {
     "printWidth": 100,

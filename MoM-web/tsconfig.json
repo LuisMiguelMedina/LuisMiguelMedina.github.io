@@ -21,8 +21,8 @@
     "types": ["vite/client"]
   },
   "include": [
-    "src/App.tsx",
     "src/main.tsx",
+    "src/pages/**/*.tsx",
     "src/components/**/*.tsx",
     "src/data/**/*.ts",
     "src/vite-env.d.ts",
