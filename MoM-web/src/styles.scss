@@ -549,6 +549,25 @@ img {
   margin-inline: auto;
 }
 
+.lumivox-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lumivox-back {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--lvx-muted-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lumivox-back:hover {
+  text-decoration: underline;
+}
+
 .lumivox-mark {
   display: inline-flex;
   align-items: center;

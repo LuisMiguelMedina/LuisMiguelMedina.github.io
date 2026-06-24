@@ -1,16 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { artists, type Artist } from '../data/artists';
+import { artists } from '../data/artists';
 import './LumivoxHome.scss';
-
-// Where an artist card points: its portal route if any, else its website.
-function artistLink(a: Artist): { to: string; external: boolean } | null {
-  const portal = a.modules.find((m) => m.kind === 'portal');
-  if (portal?.kind === 'portal') return { to: portal.route, external: false };
-  const web = a.modules.find((m) => m.kind === 'website');
-  if (web?.kind === 'website') return { to: web.url, external: true };
-  return null;
-}
 
 // Lumivox homepage — brand landing with a day/night logo (radiant sun ↔ "V"
 // monogram). Implements the "Lumivox — Guía de construcción" brand spec.
@@ -125,9 +116,9 @@ export function LumivoxHomePage() {
         </div>
 
         <nav className="lvx-nav">
-          <a href="#obras">obras</a>
-          <a href="#artistas">artistas</a>
-          <a href="#comunidad">comunidad</a>
+          <Link to="/artistas">obras</Link>
+          <Link to="/artistas">artistas</Link>
+          <Link to="/artistas">comunidad</Link>
         </nav>
 
         <div className="lvx-actions">
@@ -154,12 +145,12 @@ export function LumivoxHomePage() {
             encuentra su <span className="lvx-accent">voz</span>.
           </h1>
           <p>
-            Una comunidad para artistas independientes. Muestra tu obra, encuentra a tu gente,
-            deja que tu voz brille.
+            Una comunidad privada de artistas, solo por invitación. Un espacio cerrado para
+            mostrar tu obra, encontrar a tu gente y dejar que tu voz brille.
           </p>
-          <a className="lvx-cta lvx-cta-lg" href="#artistas">
+          <Link className="lvx-cta lvx-cta-lg" to="/artistas">
             explorar obras
-          </a>
+          </Link>
         </div>
 
         <div className="lvx-hero-mark markstack" aria-hidden="true">
@@ -171,43 +162,21 @@ export function LumivoxHomePage() {
       <section className="lvx-artists" id="artistas">
         <h2 className="lvx-section-title">artistas</h2>
         <div className="lvx-artist-grid">
-          {artists.map((a) => {
-            const link = artistLink(a);
-            const style = { ['--artist-accent' as string]: a.accentColor };
-            const inner = (
-              <>
-                <img className="lvx-artist-icon" src={a.icon} alt="" />
-                <span className="lvx-artist-name">{a.displayName}</span>
-                <span className="lvx-artist-role">{a.discipline}</span>
-                <span className="lvx-artist-go" aria-hidden="true">
-                  ver →
-                </span>
-              </>
-            );
-            if (!link) {
-              return (
-                <div className="lvx-artist-card" key={a.handle} style={style}>
-                  {inner}
-                </div>
-              );
-            }
-            return link.external ? (
-              <a
-                className="lvx-artist-card"
-                key={a.handle}
-                href={link.to}
-                target="_blank"
-                rel="noreferrer"
-                style={style}
-              >
-                {inner}
-              </a>
-            ) : (
-              <Link className="lvx-artist-card" key={a.handle} to={link.to} style={style}>
-                {inner}
-              </Link>
-            );
-          })}
+          {artists.map((a) => (
+            <Link
+              className="lvx-artist-card"
+              key={a.handle}
+              to={`/artistas/${a.handle}`}
+              style={{ ['--artist-accent' as string]: a.accentColor }}
+            >
+              <img className="lvx-artist-icon" src={a.icon} alt="" />
+              <span className="lvx-artist-name">{a.displayName}</span>
+              <span className="lvx-artist-role">{a.discipline}</span>
+              <span className="lvx-artist-go" aria-hidden="true">
+                ver →
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
     </div>

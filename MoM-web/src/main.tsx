@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles.scss';
 import './portal/theme.scss';
 import { LumivoxHomePage } from './pages/LumivoxHomePage';
+import { ArtistsPage } from './pages/ArtistsPage';
 import { SamCommissionsPage } from './pages/SamCommissionsPage';
 import { JozCommissionsPage } from './pages/JozCommissionsPage';
 import { AuthProvider } from './portal/auth';
@@ -61,6 +62,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: '/artistas', element: <ArtistsPage /> },
+  { path: '/artistas/:handle', element: <ArtistsPage /> },
   { path: '/home/sam/comisiones', element: <SamCommissionsPage /> },
   { path: '/home/joz/comisiones', element: <JozCommissionsPage /> },
   // Back-compat: old flat route -> canonical home/{artist}/{page}
