@@ -127,6 +127,7 @@
   }
 
   .lvx-cta {
+    display: inline-block;
     border: none;
     border-radius: 999px;
     padding: 11px 22px;
@@ -136,6 +137,7 @@
     background: var(--cta-bg);
     color: var(--cta-ink);
     cursor: pointer;
+    text-decoration: none;
     letter-spacing: 0.04em;
     transition: background-color 0.6s, color 0.6s, transform 0.15s;
 
@@ -234,8 +236,89 @@
     animation: lvx-pulse 2.6s ease-in-out infinite;
   }
 
+  // --- Artists (keeps the previous "browse the roster" use) ---------------
+  .lvx-artists {
+    max-width: 1080px;
+    margin: 96px auto 0;
+  }
+
+  .lvx-section-title {
+    margin: 0 0 24px;
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    transition: color 0.6s;
+  }
+
+  .lvx-artist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .lvx-artist-card {
+    --artist-accent: var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.25s, transform 0.15s, color 0.6s;
+
+    &:hover {
+      border-color: var(--artist-accent);
+      transform: translateY(-3px);
+    }
+  }
+
+  .lvx-artist-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+    object-fit: cover;
+    background: var(--line);
+  }
+
+  .lvx-artist-name {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .lvx-artist-role {
+    font-size: 14px;
+    color: var(--muted);
+    transition: color 0.6s;
+  }
+
+  .lvx-artist-go {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--artist-accent);
+  }
+
+  // --- Responsive: tablet -------------------------------------------------
+  @media (max-width: 900px) {
+    .lvx-artist-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   // --- Responsive: phone --------------------------------------------------
   @media (max-width: 640px) {
+    .lvx-artist-grid {
+      grid-template-columns: 1fr;
+    }
     .lvx-nav {
       display: none; // brand + theme switch + CTA stay; nav collapses
     }

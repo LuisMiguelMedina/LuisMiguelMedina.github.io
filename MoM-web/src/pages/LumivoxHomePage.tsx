@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { artists, type Artist } from '../data/artists';
 import './LumivoxHome.scss';
+
+// Where an artist card points: its portal route if any, else its website.
+function artistLink(a: Artist): { to: string; external: boolean } | null {
+  const portal = a.modules.find((m) => m.kind === 'portal');
+  if (portal?.kind === 'portal') return { to: portal.route, external: false };
+  const web = a.modules.find((m) => m.kind === 'website');
+  if (web?.kind === 'website') return { to: web.url, external: true };
+  return null;
+}
 
 // Lumivox homepage — brand landing with a day/night logo (radiant sun ↔ "V"
 // monogram). Implements the "Lumivox — Guía de construcción" brand spec.
@@ -146,14 +157,57 @@ export function LumivoxHomePage() {
             Una comunidad para artistas independientes. Muestra tu obra, encuentra a tu gente,
             deja que tu voz brille.
           </p>
-          <button className="lvx-cta lvx-cta-lg" type="button">
+          <a className="lvx-cta lvx-cta-lg" href="#artistas">
             explorar obras
-          </button>
+          </a>
         </div>
 
         <div className="lvx-hero-mark markstack" aria-hidden="true">
           <DayMark />
           <NightMark stars />
+        </div>
+      </section>
+
+      <section className="lvx-artists" id="artistas">
+        <h2 className="lvx-section-title">artistas</h2>
+        <div className="lvx-artist-grid">
+          {artists.map((a) => {
+            const link = artistLink(a);
+            const style = { ['--artist-accent' as string]: a.accentColor };
+            const inner = (
+              <>
+                <img className="lvx-artist-icon" src={a.icon} alt="" />
+                <span className="lvx-artist-name">{a.displayName}</span>
+                <span className="lvx-artist-role">{a.discipline}</span>
+                <span className="lvx-artist-go" aria-hidden="true">
+                  ver →
+                </span>
+              </>
+            );
+            if (!link) {
+              return (
+                <div className="lvx-artist-card" key={a.handle} style={style}>
+                  {inner}
+                </div>
+              );
+            }
+            return link.external ? (
+              <a
+                className="lvx-artist-card"
+                key={a.handle}
+                href={link.to}
+                target="_blank"
+                rel="noreferrer"
+                style={style}
+              >
+                {inner}
+              </a>
+            ) : (
+              <Link className="lvx-artist-card" key={a.handle} to={link.to} style={style}>
+                {inner}
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>
