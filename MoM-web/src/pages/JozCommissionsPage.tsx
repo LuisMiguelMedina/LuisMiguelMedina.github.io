@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LumivoxMark } from '../components/lumivox/LumivoxMark';
+import { LumivoxBrand } from '../components/LumivoxBrand';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { useTheme } from '../components/ThemeContext';
 import './JozCommissions.scss';
@@ -77,7 +77,7 @@ export function JozCommissionsPage() {
   return (
     <div className="joz-comm" data-theme={theme}>
       <div className="jc-topbar">
-        <LumivoxMark />
+        <LumivoxBrand />
         <ThemeToggle />
       </div>
 

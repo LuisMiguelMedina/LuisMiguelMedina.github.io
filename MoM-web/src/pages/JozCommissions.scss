@@ -28,11 +28,9 @@
     justify-content: space-between;
     gap: 1rem;
 
-    // dark, solid logo so it reads on the bright yellow background
-    .lumivox-mark {
+    // dark wordmark on the bright yellow background (mark has its own colors)
+    .lvx-brand-logo {
       color: var(--jc-ink);
-      --lvx-sun: var(--jc-ink);
-      --lvx-sun-deep: var(--jc-ink);
     }
   }
 
@@ -378,15 +376,20 @@
     background: radial-gradient(circle at 50% -10%, #2a2545 0%, #15131f 55%, #0d0b14 100%);
     color: #f1ece0;
 
-    .jc-topbar .lumivox-mark {
+    .jc-topbar .lvx-brand-logo {
       color: #f1ece0;
-      --lvx-sun: #e8b848;
-      --lvx-sun-deep: #c97f2a;
     }
 
     .jc-hero h1 {
       color: #f1ece0;
       text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45), 5px 5px 0 var(--jc-teal-deep);
+    }
+
+    // The dark text-stroke blends into the dark cards and muddies the price.
+    // Drop the stroke and brighten the cyan so it reads cleanly.
+    .jc-price {
+      color: #34c9ec;
+      -webkit-text-stroke-width: 0;
     }
 
     .jc-card {

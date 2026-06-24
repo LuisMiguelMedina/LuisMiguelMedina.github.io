@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LumivoxMark } from '../components/lumivox/LumivoxMark';
+import { LumivoxBrand } from '../components/LumivoxBrand';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { useTheme } from '../components/ThemeContext';
 import './SamCommissions.scss';
@@ -43,7 +43,7 @@ export function SamCommissionsPage() {
   return (
     <div className="sam-commissions" data-theme={theme}>
       <div className="sc-topbar">
-        <LumivoxMark />
+        <LumivoxBrand />
         <ThemeToggle />
       </div>
 

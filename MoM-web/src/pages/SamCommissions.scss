@@ -38,8 +38,8 @@
   justify-content: space-between;
   gap: 1rem;
 
-  // light logo on the dark diner background (sun stays gold, visible on dark)
-  .lumivox-mark {
+  // light wordmark on the dark diner background (day/night mark has its own colors)
+  .lvx-brand-logo {
     color: var(--cream);
   }
 }
