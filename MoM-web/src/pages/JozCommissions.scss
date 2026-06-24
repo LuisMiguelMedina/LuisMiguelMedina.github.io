@@ -20,15 +20,31 @@
     box-sizing: border-box;
   }
 
+  .jc-topbar {
+    max-width: 920px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    // dark, solid logo so it reads on the bright yellow background
+    .lumivox-mark {
+      color: var(--jc-ink);
+      --lvx-sun: var(--jc-ink);
+      --lvx-sun-deep: var(--jc-ink);
+    }
+  }
+
   .jc-back {
     display: inline-block;
-    margin: 0 0 1rem;
+    margin: 0 0 0 auto; // push to the right of the logo
     padding: 0.35rem 0.9rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.7);
     color: var(--jc-ink);
     font-weight: 700;
     text-decoration: none;
+    white-space: nowrap;
     transition: background 0.15s;
 
     &:hover {

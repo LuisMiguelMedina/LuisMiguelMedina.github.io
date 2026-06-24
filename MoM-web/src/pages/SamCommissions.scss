@@ -19,14 +19,27 @@
   color: var(--ink);
 }
 
-.sc-back {
+.sc-topbar {
   width: 100%;
   max-width: 560px;
-  margin-bottom: 0.85rem;
+  margin: 0 auto 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  // light logo on the dark diner background (sun stays gold, visible on dark)
+  .lumivox-mark {
+    color: var(--cream);
+  }
+}
+
+.sc-back {
+  margin-left: auto; // push to the right of the logo
   color: var(--cream);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
+  white-space: nowrap;
 
   &:hover {
     color: var(--blue);
@@ -290,7 +303,7 @@
     padding: 1.25rem clamp(1rem, 3vw, 3rem) 1.5rem;
   }
 
-  .sc-back {
+  .sc-topbar {
     max-width: min(1700px, 95vw);
   }
 
