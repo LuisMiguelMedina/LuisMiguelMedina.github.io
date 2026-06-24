@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DayMark, NightMark, readTheme, THEME_KEY, type Theme } from '../components/LumivoxLogo';
+import { ArtistShowcase } from '../components/lumivox/ArtistShowcase';
+import { RosterStrip } from '../components/lumivox/RosterStrip';
 import { artists } from '../data/artists';
 import './LumivoxHome.scss';
 
-// Lumivox homepage — brand landing with a day/night logo (radiant sun ↔ "V"
-// monogram). Implements the "Lumivox — Guía de construcción" brand spec.
+// Lumivox homepage — brand landing (day/night logo) with the artist roster
+// embedded: pick an artist and see their card (socials + special buttons)
+// without leaving the main page.
+
+const tabIdFor = (handle: string) => `roster-tab-${handle}`;
+const panelIdFor = (handle: string) => `showcase-${handle}`;
 
 function SunIcon() {
   return (
@@ -26,6 +32,8 @@ function MoonIcon() {
 
 export function LumivoxHomePage() {
   const [theme, setTheme] = useState<Theme>('day');
+  const [activeHandle, setActiveHandle] = useState<string>(artists[0]?.handle ?? '');
+  const activeArtist = artists.find((a) => a.handle === activeHandle) ?? artists[0];
 
   useEffect(() => {
     setTheme(readTheme());
@@ -38,23 +46,34 @@ export function LumivoxHomePage() {
       return next;
     });
 
+  const scrollToArtistas = (e: React.MouseEvent): void => {
+    e.preventDefault();
+    document.getElementById('artistas')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const night = theme === 'night';
 
   return (
     <div className="lumivox-site" data-theme={theme}>
       <header className="lvx-top">
-        <div className="lvx-brand">
+        <Link className="lvx-brand" to="/home" aria-label="Lumivox — inicio">
           <div className="lvx-logo-mark markstack" aria-hidden="true">
             <DayMark />
             <NightMark />
           </div>
           <span className="lvx-word">lumivox</span>
-        </div>
+        </Link>
 
         <nav className="lvx-nav">
-          <Link to="/artistas">obras</Link>
-          <Link to="/artistas">artistas</Link>
-          <Link to="/artistas">comunidad</Link>
+          <a href="#artistas" onClick={scrollToArtistas}>
+            obras
+          </a>
+          <a href="#artistas" onClick={scrollToArtistas}>
+            artistas
+          </a>
+          <a href="#artistas" onClick={scrollToArtistas}>
+            comunidad
+          </a>
         </nav>
 
         <div className="lvx-actions">
@@ -87,23 +106,22 @@ export function LumivoxHomePage() {
 
       <section className="lvx-artists" id="artistas">
         <h2 className="lvx-section-title">artistas</h2>
-        <div className="lvx-artist-grid">
-          {artists.map((a) => (
-            <Link
-              className="lvx-artist-card"
-              key={a.handle}
-              to={`/artistas/${a.handle}`}
-              style={{ ['--artist-accent' as string]: a.accentColor }}
-            >
-              <img className="lvx-artist-icon" src={a.icon} alt="" />
-              <span className="lvx-artist-name">{a.displayName}</span>
-              <span className="lvx-artist-role">{a.discipline}</span>
-              <span className="lvx-artist-go" aria-hidden="true">
-                ver →
-              </span>
-            </Link>
-          ))}
-        </div>
+        {activeArtist && (
+          <div className="lvx-roster">
+            <RosterStrip
+              artists={artists}
+              activeHandle={activeArtist.handle}
+              onSelect={setActiveHandle}
+              tabIdFor={tabIdFor}
+              panelIdFor={panelIdFor}
+            />
+            <ArtistShowcase
+              artist={activeArtist}
+              panelId={panelIdFor(activeArtist.handle)}
+              labelledBy={tabIdFor(activeArtist.handle)}
+            />
+          </div>
+        )}
       </section>
     </div>
   );

@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
+
 export function LumivoxMark() {
   return (
-    <span className="lumivox-mark">
+    <Link className="lumivox-mark" to="/home" aria-label="Lumivox — inicio">
       <LumivoxSun />
       <span>Lumivox</span>
-    </span>
+    </Link>
   );
 }
 
