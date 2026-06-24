@@ -770,6 +770,40 @@ img {
   line-height: 1;
 }
 
+/* email — reusable mailto CTA; uses the artist accent so it adapts per artist */
+.lumivox-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: var(--accent-color, var(--lvx-sun-deep));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  width: fit-content;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.lumivox-email:hover,
+.lumivox-email:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.lumivox-email-icon {
+  display: inline-flex;
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.lumivox-email-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .lumivox-module-stack {
   display: flex;
   flex-direction: column;

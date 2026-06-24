@@ -1,6 +1,7 @@
 import type { Artist, ArtistModule } from '../../data/artists';
 import { useLang } from '../../i18n';
 import { BriefModule } from './modules/BriefModule';
+import { EmailModule } from './modules/EmailModule';
 import { PortalModule } from './modules/PortalModule';
 import { SocialsModule } from './modules/SocialsModule';
 import { WebsiteModule } from './modules/WebsiteModule';
@@ -61,6 +62,8 @@ function ModuleRenderer({ module }: { module: ArtistModule }) {
       return <WebsiteModule url={module.url} label={module.label} />;
     case 'portal':
       return <PortalModule label={module.label} route={module.route} />;
+    case 'email':
+      return <EmailModule address={module.address} label={module.label} />;
     default: {
       // Exhaustiveness: future module kinds added via the union will surface here.
       const _exhaustive: never = module;
@@ -79,5 +82,7 @@ function moduleKey(module: ArtistModule, idx: number): string {
       return `website-${module.url}`;
     case 'portal':
       return `portal-${module.route}`;
+    case 'email':
+      return `email-${module.address}`;
   }
 }

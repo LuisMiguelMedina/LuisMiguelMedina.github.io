@@ -12,6 +12,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     // shared CTAs / chrome (artist module labels are i18n keys; proper nouns fall through)
     'cta.commissions': 'Commissions',
     'cta.website': 'Visit website',
+    'cta.contact': 'Contact me!',
     'theme.toggle': 'Switch day / night mode',
     'artists.empty': 'Empty roster.',
     // home
@@ -65,6 +66,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'common.days': 'días',
     'cta.commissions': 'Comisiones',
     'cta.website': 'Visitar sitio',
+    'cta.contact': '¡Contáctame!',
     'theme.toggle': 'Cambiar entre modo día y noche',
     'artists.empty': 'Roster vacío.',
     'home.hero.l1': 'Donde el arte',

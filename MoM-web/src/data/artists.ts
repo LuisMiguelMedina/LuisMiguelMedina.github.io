@@ -23,7 +23,8 @@ export type ArtistModule =
   | { kind: 'brief'; body: string }
   | { kind: 'socials'; entries: SocialEntry[] }
   | { kind: 'website'; url: string; label?: string }
-  | { kind: 'portal'; label: string; route: string };
+  | { kind: 'portal'; label: string; route: string }
+  | { kind: 'email'; address: string; label?: string };
 
 export type Artist = {
   handle: string;
@@ -59,6 +60,10 @@ export const artists: Artist[] = [
         entries: [
           { platform: 'github', url: 'https://github.com/LuisMiguelMedina' },
         ],
+      },
+      {
+        kind: 'email',
+        address: 'luis.mm91836@gmail.com',
       },
       {
         kind: 'portal',
