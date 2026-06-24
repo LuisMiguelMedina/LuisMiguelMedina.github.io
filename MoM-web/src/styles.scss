@@ -650,14 +650,6 @@ img {
   color: var(--lvx-sun-deep);
 }
 
-.lumivox-discipline::before {
-  content: '';
-  width: 1.5rem;
-  height: 2px;
-  background: currentColor;
-  border-radius: 2px;
-}
-
 .lumivox-display-name {
   margin: 0;
   font-family: 'Fraunces', Georgia, serif;
