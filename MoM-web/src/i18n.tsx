@@ -26,7 +26,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'artist.luis.hook': 'Do you like this page?',
     'artist.luis.discipline': 'Design · Digital solutions',
     'artist.luis.bio':
-      "Hi, I'm Luis.M — I designed this page to give my fellow artists a unique space for their commercial needs.",
+      "Hi, I'm Luis.M. I designed this page to give my fellow artists a unique space for their commercial needs.",
     'artist.luis.brief':
       "We live in a time when digitalization makes spreading a digital brand remarkably easy. If you're looking to grow your brand through digital solutions, reach out!",
     // joz commissions
