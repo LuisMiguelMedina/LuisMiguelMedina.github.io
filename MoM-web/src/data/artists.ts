@@ -92,6 +92,11 @@ export const artists: Artist[] = [
       },
       // TODO confirm with Joz — placeholder website URL
       { kind: 'website', url: 'https://joz.example', label: 'Portfolio' },
+      {
+        kind: 'portal',
+        label: 'Comisiones',
+        route: '/home/joz/comisiones',
+      },
     ],
   },
   {
