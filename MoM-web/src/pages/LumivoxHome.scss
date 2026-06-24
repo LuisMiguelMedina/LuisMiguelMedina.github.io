@@ -1,0 +1,295 @@
+// Lumivox homepage — day/night brand landing. Adapted from the brand guide.
+.lumivox-site {
+  // Day tokens (default)
+  --bg: #f4ece0;
+  --ink: #2a1a12;
+  --muted: #856650;
+  --line: #e3d6c5;
+  --accent: #b8472a;
+  --cta-bg: #8d3e2e;
+  --cta-ink: #fbf4ec;
+  --sw: #e2d5c4;
+  --knob: #ffffff;
+  --knob-ink: #c8861f;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+
+  &[data-theme='night'] {
+    --bg: #0c0b16;
+    --ink: #f4efe6;
+    --muted: #9a93b0;
+    --line: #26223a;
+    --accent: #ff3d8b;
+    --cta-bg: #ffe500;
+    --cta-ink: #0c0b16;
+    --sw: #2a2440;
+    --knob: #ffe500;
+    --knob-ink: #0c0b16;
+  }
+
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  padding: 28px clamp(16px, 4vw, 40px) 64px;
+  transition: background-color 0.6s, color 0.6s;
+  box-sizing: border-box;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  // --- Header -------------------------------------------------------------
+  .lvx-top {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .lvx-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lvx-logo-mark {
+    width: 42px;
+    height: 42px;
+  }
+
+  .lvx-word {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+    transition: color 0.6s;
+  }
+
+  .lvx-nav {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: color 0.6s;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    a:hover {
+      color: var(--ink);
+    }
+  }
+
+  .lvx-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lvx-switch {
+    position: relative;
+    width: 54px;
+    height: 28px;
+    border: none;
+    border-radius: 999px;
+    background: var(--sw);
+    cursor: pointer;
+    flex: none;
+    transition: background-color 0.6s;
+  }
+
+  .lvx-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--knob);
+    color: var(--knob-ink);
+    transition: left 0.42s cubic-bezier(0.5, 1.5, 0.5, 1), background-color 0.6s, color 0.6s;
+
+    svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  &[data-theme='night'] .lvx-knob {
+    left: 29px;
+  }
+
+  .lvx-cta {
+    border: none;
+    border-radius: 999px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    background: var(--cta-bg);
+    color: var(--cta-ink);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background-color 0.6s, color 0.6s, transform 0.15s;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+
+  .lvx-cta-lg {
+    padding: 13px 28px;
+    font-size: 15px;
+  }
+
+  // --- Hero ---------------------------------------------------------------
+  .lvx-hero {
+    max-width: 1080px;
+    margin: 80px auto 0;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .lvx-hero-text {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .lvx-hero-text h1 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1.08;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    transition: color 0.6s;
+  }
+
+  .lvx-accent {
+    color: var(--accent);
+    transition: color 0.6s;
+  }
+
+  .lvx-hero-text p {
+    color: var(--muted);
+    font-size: 18px;
+    margin: 22px 0 30px;
+    max-width: 420px;
+    transition: color 0.6s;
+  }
+
+  .lvx-hero-mark {
+    width: 300px;
+    height: 300px;
+    flex: none;
+  }
+
+  // --- Day/night logo crossfade -------------------------------------------
+  .markstack {
+    display: grid;
+    place-items: center;
+  }
+
+  .markstack > svg {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .mark-night {
+    opacity: 0;
+    transform: scale(0.5) rotate(-14deg);
+  }
+
+  &[data-theme='night'] .mark-day {
+    opacity: 0;
+    transform: scale(0.5) rotate(-14deg);
+  }
+
+  &[data-theme='night'] .mark-night {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .rays {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: lvx-spin 60s linear infinite;
+  }
+
+  .dot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: lvx-pulse 2.6s ease-in-out infinite;
+  }
+
+  // --- Responsive: phone --------------------------------------------------
+  @media (max-width: 640px) {
+    .lvx-nav {
+      display: none; // brand + theme switch + CTA stay; nav collapses
+    }
+    .lvx-top {
+      gap: 10px;
+    }
+    .lvx-logo-mark {
+      width: 36px;
+      height: 36px;
+    }
+    .lvx-word {
+      font-size: 20px;
+      letter-spacing: 0.1em;
+    }
+    .lvx-actions {
+      gap: 10px;
+    }
+    .lvx-cta {
+      padding: 9px 16px;
+      font-size: 13px;
+    }
+    .lvx-hero {
+      margin-top: 48px;
+      gap: 28px;
+    }
+    .lvx-hero-mark {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@keyframes lvx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lvx-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.16);
+    opacity: 0.82;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lumivox-site .rays,
+  .lumivox-site .dot {
+    animation: none;
+  }
+}
