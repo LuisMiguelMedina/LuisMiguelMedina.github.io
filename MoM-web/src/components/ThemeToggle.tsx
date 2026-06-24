@@ -1,4 +1,5 @@
 import { useTheme } from './ThemeContext';
+import { useLang } from '../i18n';
 import './ThemeToggle.scss';
 
 // Day/night switch backed by the shared ThemeContext, so flipping it updates the
@@ -23,6 +24,7 @@ function MoonIcon() {
 
 export function ThemeToggle() {
   const { theme, toggle } = useTheme();
+  const { t } = useLang();
   const night = theme === 'night';
 
   return (
@@ -31,7 +33,7 @@ export function ThemeToggle() {
       data-theme={theme}
       type="button"
       onClick={toggle}
-      aria-label="Cambiar entre modo día y noche"
+      aria-label={t('theme.toggle')}
       aria-pressed={night}
     >
       <span className="lvx-theme-knob">{night ? <MoonIcon /> : <SunIcon />}</span>

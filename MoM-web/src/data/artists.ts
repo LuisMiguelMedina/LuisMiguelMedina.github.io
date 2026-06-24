@@ -94,7 +94,7 @@ export const artists: Artist[] = [
       { kind: 'website', url: 'https://joz.example', label: 'Portfolio' },
       {
         kind: 'portal',
-        label: 'Comisiones',
+        label: 'cta.commissions',
         route: '/home/joz/comisiones',
       },
     ],
@@ -124,7 +124,7 @@ export const artists: Artist[] = [
       },
       {
         kind: 'portal',
-        label: 'Comisiones',
+        label: 'cta.commissions',
         route: '/home/sam/comisiones',
       },
     ],

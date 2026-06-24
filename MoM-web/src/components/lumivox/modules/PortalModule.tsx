@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useLang } from '../../../i18n';
 
 type PortalModuleProps = {
   label: string;
@@ -6,9 +7,10 @@ type PortalModuleProps = {
 };
 
 export function PortalModule({ label, route }: PortalModuleProps) {
+  const { t } = useLang();
   return (
     <Link className="lumivox-portal" to={route}>
-      <span>{label}</span>
+      <span>{t(label)}</span>
       <span className="lumivox-portal-arrow" aria-hidden="true">
         →
       </span>

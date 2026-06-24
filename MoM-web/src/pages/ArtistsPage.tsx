@@ -48,7 +48,7 @@ export function ArtistsPage() {
           />
         </>
       ) : (
-        <p style={{ padding: '2rem', textAlign: 'center' }}>Roster vacío.</p>
+        <p style={{ padding: '2rem', textAlign: 'center' }}>{t('artists.empty')}</p>
       )}
     </div>
   );

@@ -10,6 +10,11 @@ const DICT: Record<Lang, Record<string, string>> = {
     'nav.home': 'home',
     'common.example': 'EXAMPLE',
     'common.days': 'days',
+    // shared CTAs / chrome (artist module labels are i18n keys; proper nouns fall through)
+    'cta.commissions': 'Commissions',
+    'cta.website': 'Visit website',
+    'theme.toggle': 'Switch day / night mode',
+    'artists.empty': 'Empty roster.',
     // home
     'home.hero.l1': 'Where art',
     'home.hero.l2': 'finds its',
@@ -53,6 +58,10 @@ const DICT: Record<Lang, Record<string, string>> = {
     'nav.home': 'inicio',
     'common.example': 'EJEMPLO',
     'common.days': 'días',
+    'cta.commissions': 'Comisiones',
+    'cta.website': 'Visitar sitio',
+    'theme.toggle': 'Cambiar entre modo día y noche',
+    'artists.empty': 'Roster vacío.',
     'home.hero.l1': 'Donde el arte',
     'home.hero.l2': 'encuentra su',
     'home.hero.accent': 'voz',
