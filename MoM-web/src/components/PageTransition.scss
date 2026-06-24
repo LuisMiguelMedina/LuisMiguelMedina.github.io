@@ -1,0 +1,72 @@
+// Page-transition overlay: flashes the Lumivox logo on route change.
+.lvx-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+
+  --tbg: #f4ece0; // day background
+  &[data-theme='night'] {
+    --tbg: #0c0b16;
+  }
+  background: var(--tbg);
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+// Cover: appears instantly (no transition) so the new page never flashes.
+.lvx-transition-cover {
+  opacity: 1;
+  visibility: visible;
+}
+
+// Reveal: fade the overlay out to expose the new page.
+.lvx-transition-reveal {
+  opacity: 0;
+  visibility: visible;
+  transition: opacity 0.42s ease;
+}
+
+.lvx-transition-mark {
+  width: clamp(96px, 22vw, 140px);
+  height: clamp(96px, 22vw, 140px);
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Logo pops in during the cover phase…
+.lvx-transition-cover .lvx-transition-mark {
+  animation: lvx-trans-pop 0.42s cubic-bezier(0.5, 1.4, 0.5, 1) both;
+}
+
+// …and lifts + fades as the page is revealed.
+.lvx-transition-reveal .lvx-transition-mark {
+  transform: scale(1.12);
+  opacity: 0;
+  transition: transform 0.42s ease, opacity 0.42s ease;
+}
+
+@keyframes lvx-trans-pop {
+  from {
+    transform: scale(0.78);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lvx-transition-cover .lvx-transition-mark,
+  .lvx-transition-reveal .lvx-transition-mark {
+    animation: none;
+    transition: none;
+  }
+}

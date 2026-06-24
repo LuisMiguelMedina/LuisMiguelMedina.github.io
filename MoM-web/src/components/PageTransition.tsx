@@ -1,0 +1,37 @@
+import { useLayoutEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { DayMark, NightMark, readTheme, type Theme } from './LumivoxLogo';
+import './PageTransition.scss';
+
+type Phase = 'idle' | 'cover' | 'reveal';
+
+// Full-screen overlay that flashes the Lumivox logo (sun by day, "V" monogram
+// by night) on every route change. The cover is applied in useLayoutEffect so
+// it paints before the new page is ever visible (no flash), then fades out.
+export function PageTransition() {
+  const location = useLocation();
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [theme, setTheme] = useState<Theme>('day');
+  const first = useRef(true);
+
+  useLayoutEffect(() => {
+    if (first.current) {
+      first.current = false; // no transition on initial load
+      return;
+    }
+    setTheme(readTheme());
+    setPhase('cover');
+    const toReveal = setTimeout(() => setPhase('reveal'), 430);
+    const toIdle = setTimeout(() => setPhase('idle'), 850);
+    return () => {
+      clearTimeout(toReveal);
+      clearTimeout(toIdle);
+    };
+  }, [location.pathname]);
+
+  return (
+    <div className={`lvx-transition lvx-transition-${phase}`} data-theme={theme} aria-hidden="true">
+      <div className="lvx-transition-mark">{theme === 'night' ? <NightMark /> : <DayMark />}</div>
+    </div>
+  );
+}

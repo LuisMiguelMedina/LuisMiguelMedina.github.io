@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles.scss';
 import './portal/theme.scss';
+import { PageTransition } from './components/PageTransition';
 import { LumivoxHomePage } from './pages/LumivoxHomePage';
 import { ArtistsPage } from './pages/ArtistsPage';
 import { SamCommissionsPage } from './pages/SamCommissionsPage';
@@ -24,14 +25,27 @@ import { Misiones } from './portal/pages/Misiones';
 import { Articulos } from './portal/pages/Articulos';
 import { Settings } from './portal/pages/Settings';
 
+// Root layout: mounts the page-transition overlay above every route.
+function RootLayout() {
+  return (
+    <>
+      <PageTransition />
+      <Outlet />
+    </>
+  );
+}
+
 // Route convention: /home/{artist}/{page}/{sub} — see docs/arc42 (ADR-0001).
 // Luis.M's page is the Multiverse of Madness portal: a public login/register
 // gate plus an auth-guarded app (pathless guard route keeps URLs flat).
 const router = createBrowserRouter([
-  { path: '/', element: <Navigate to="/home" replace /> },
-  { path: '/home', element: <LumivoxHomePage /> },
   {
-    path: '/home/luis-m/multiverse-of-madness',
+    element: <RootLayout />,
+    children: [
+      { path: '/', element: <Navigate to="/home" replace /> },
+      { path: '/home', element: <LumivoxHomePage /> },
+      {
+        path: '/home/luis-m/multiverse-of-madness',
     element: (
       <AuthProvider>
         <Outlet />
@@ -66,9 +80,11 @@ const router = createBrowserRouter([
   { path: '/artistas/:handle', element: <ArtistsPage /> },
   { path: '/home/sam/comisiones', element: <SamCommissionsPage /> },
   { path: '/home/joz/comisiones', element: <JozCommissionsPage /> },
-  // Back-compat: old flat route -> canonical home/{artist}/{page}
-  { path: '/multiverse-of-madness', element: <Navigate to="/home/luis-m/multiverse-of-madness" replace /> },
-  { path: '*', element: <Navigate to="/home" replace /> },
+      // Back-compat: old flat route -> canonical home/{artist}/{page}
+      { path: '/multiverse-of-madness', element: <Navigate to="/home/luis-m/multiverse-of-madness" replace /> },
+      { path: '*', element: <Navigate to="/home" replace /> },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
