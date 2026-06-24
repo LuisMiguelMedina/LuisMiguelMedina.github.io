@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { ArtistShowcase } from '../components/lumivox/ArtistShowcase';
 import { LumivoxMark } from '../components/lumivox/LumivoxMark';
 import { RosterStrip } from '../components/lumivox/RosterStrip';
+import { LanguageToggle } from '../components/LanguageToggle';
+import { useLang } from '../i18n';
 import { artists } from '../data/artists';
 
 // Artist roster: pick an artist and see their full card (socials + special
@@ -11,6 +13,7 @@ const tabIdFor = (handle: string) => `roster-tab-${handle}`;
 const panelIdFor = (handle: string) => `showcase-${handle}`;
 
 export function ArtistsPage() {
+  const { t } = useLang();
   const { handle } = useParams();
   const initial = artists.find((a) => a.handle === handle)?.handle ?? artists[0]?.handle ?? '';
   const [activeHandle, setActiveHandle] = useState<string>(initial);
@@ -21,11 +24,12 @@ export function ArtistsPage() {
       <div className="lumivox-topbar">
         <div className="lumivox-topbar-left">
           <Link className="lumivox-back" to="/home">
-            ← inicio
+            ← {t('artists.back')}
           </Link>
           <LumivoxMark />
+          <LanguageToggle />
         </div>
-        <span className="lumivox-tagline-top">artistas de la comunidad</span>
+        <span className="lumivox-tagline-top">{t('artists.tagline')}</span>
       </div>
 
       {activeArtist ? (

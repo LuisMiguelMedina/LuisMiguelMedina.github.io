@@ -25,10 +25,13 @@
     --sw: #2a2440;
     --knob: #ffe500;
     --knob-ink: #0c0b16;
+
+    background: var(--bg); // flat dark overrides the day cream gradient
   }
 
   min-height: 100vh;
-  background: var(--bg);
+  // Warm cream gradient (with depth) instead of a flat near-white.
+  background: radial-gradient(circle at 50% -8%, #fdf6e9 0%, #f2ead6 52%, #e9ddc8 100%);
   color: var(--ink);
   font-family: var(--font-sans);
   padding: 28px clamp(16px, 4vw, 40px) 64px;

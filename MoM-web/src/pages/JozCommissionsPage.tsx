@@ -1,38 +1,42 @@
 import { useState } from 'react';
 import { LumivoxBrand } from '../components/LumivoxBrand';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { LanguageToggle } from '../components/LanguageToggle';
 import { useTheme } from '../components/ThemeContext';
+import { useLang } from '../i18n';
 import './JozCommissions.scss';
 
 // Functional commission quote builder for Joz.
 // Pick one option per step (style + size + look); the total updates live.
 // Total is shown in USD and in MXN at a fixed 1 USD = 20 MXN rate.
+// Labels are localized via the i18n layer (size/look names live in the dictionary
+// keyed by id; style names are proper names and stay as-is).
 
 type StyleOption = { id: string; name: string; days: string; price: number };
-type CropOption = { id: SizeCrop; name: string; desc: string; price: number };
-type LookOption = { id: string; name: string; desc: string; price: number };
 type SizeCrop = 'shoulders' | 'half' | 'full';
+type CropOption = { id: SizeCrop; price: number };
+type LookOption = { id: string; price: number };
 
 const STYLES: StyleOption[] = [
-  { id: 'cutsey', name: 'Cutsey', days: '3–5 días', price: 3 },
-  { id: 'chibi', name: 'Chibi+', days: '5–7 días', price: 7 },
-  { id: 'fiddle', name: 'Fiddle', days: '3–5 días', price: 7 },
-  { id: 'dull-eyes', name: 'Dull-Eyes', days: '3–7 días', price: 10 },
-  { id: 'anima', name: 'Anima', days: '7–15 días', price: 18 },
-  { id: 'semi-real', name: 'Semi-Real', days: '12–20 días', price: 22 },
+  { id: 'cutsey', name: 'Cutsey', days: '3–5', price: 3 },
+  { id: 'chibi', name: 'Chibi+', days: '5–7', price: 7 },
+  { id: 'fiddle', name: 'Fiddle', days: '3–5', price: 7 },
+  { id: 'dull-eyes', name: 'Dull-Eyes', days: '3–7', price: 10 },
+  { id: 'anima', name: 'Anima', days: '7–15', price: 18 },
+  { id: 'semi-real', name: 'Semi-Real', days: '12–20', price: 22 },
 ];
 
 const SIZES: CropOption[] = [
-  { id: 'shoulders', name: 'Hombros', desc: 'Retrato desde los hombros', price: 2 },
-  { id: 'half', name: 'Medio cuerpo', desc: 'Hasta la cadera', price: 4 },
-  { id: 'full', name: 'Cuerpo completo', desc: 'Figura completa', price: 8 },
+  { id: 'shoulders', price: 2 },
+  { id: 'half', price: 4 },
+  { id: 'full', price: 8 },
 ];
 
 const LOOKS: LookOption[] = [
-  { id: 'draft', name: 'Draft', desc: 'Boceto a lápiz', price: 2 },
-  { id: 'lineart', name: 'Lineart', desc: 'Línea limpia', price: 6 },
-  { id: 'clean', name: 'Limpio', desc: 'Color plano', price: 7 },
-  { id: 'rendered', name: 'Renderizado', desc: 'Render con luz y sombra', price: 10 },
+  { id: 'draft', price: 2 },
+  { id: 'lineart', price: 6 },
+  { id: 'clean', price: 7 },
+  { id: 'rendered', price: 10 },
 ];
 
 const USD_TO_MXN = 20;
@@ -63,6 +67,7 @@ function SizeFigure({ crop }: { crop: SizeCrop }) {
 
 export function JozCommissionsPage() {
   const { theme } = useTheme();
+  const { t } = useLang();
   const [styleId, setStyleId] = useState<string | null>(null);
   const [sizeId, setSizeId] = useState<string | null>(null);
   const [lookId, setLookId] = useState<string | null>(null);
@@ -78,18 +83,21 @@ export function JozCommissionsPage() {
     <div className="joz-comm" data-theme={theme}>
       <div className="jc-topbar">
         <LumivoxBrand />
-        <ThemeToggle />
+        <div className="jc-topbar-actions">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </div>
 
       <header className="jc-hero">
-        <h1>¡Comisiones!</h1>
-        <p>Arma tu cotización — elige una opción en cada paso y mira tu total en vivo.</p>
+        <h1>{t('joz.title')}</h1>
+        <p>{t('joz.subtitle')}</p>
       </header>
 
       {/* Step 1 — style */}
       <section className="jc-step">
         <h2>
-          <span className="jc-num">1</span> Elige un estilo
+          <span className="jc-num">1</span> {t('joz.step.style')}
         </h2>
         <div className="jc-style-grid">
           {STYLES.map((s) => (
@@ -102,11 +110,13 @@ export function JozCommissionsPage() {
             >
               <div className="jc-style-info">
                 <span className="jc-style-name">{s.name}</span>
-                <span className="jc-style-days">{s.days}</span>
+                <span className="jc-style-days">
+                  {s.days} {t('common.days')}
+                </span>
                 <span className="jc-price">{usd(s.price)}</span>
               </div>
               <div className="jc-style-art">
-                <span>ejemplo</span>
+                <span>{t('common.example')}</span>
               </div>
             </button>
           ))}
@@ -116,7 +126,7 @@ export function JozCommissionsPage() {
       {/* Step 2 — size */}
       <section className="jc-step">
         <h2>
-          <span className="jc-num">2</span> Elige un tamaño
+          <span className="jc-num">2</span> {t('joz.step.size')}
         </h2>
         <div className="jc-size-row">
           {SIZES.map((s) => (
@@ -128,8 +138,8 @@ export function JozCommissionsPage() {
               onClick={() => setSizeId(s.id)}
             >
               <SizeFigure crop={s.id} />
-              <span className="jc-size-name">{s.name}</span>
-              <span className="jc-size-desc">{s.desc}</span>
+              <span className="jc-size-name">{t(`joz.size.${s.id}`)}</span>
+              <span className="jc-size-desc">{t(`joz.size.${s.id}.desc`)}</span>
               <span className="jc-price">{usd(s.price)}</span>
             </button>
           ))}
@@ -139,7 +149,7 @@ export function JozCommissionsPage() {
       {/* Step 3 — look */}
       <section className="jc-step">
         <h2>
-          <span className="jc-num">3</span> Elige un acabado
+          <span className="jc-num">3</span> {t('joz.step.look')}
         </h2>
         <div className="jc-look-row">
           {LOOKS.map((l) => (
@@ -150,8 +160,8 @@ export function JozCommissionsPage() {
               aria-pressed={lookId === l.id}
               onClick={() => setLookId(l.id)}
             >
-              <span className="jc-look-name">{l.name}</span>
-              <span className="jc-look-desc">{l.desc}</span>
+              <span className="jc-look-name">{t(`joz.look.${l.id}`)}</span>
+              <span className="jc-look-desc">{t(`joz.look.${l.id}.desc`)}</span>
               <span className="jc-price">{usd(l.price)}</span>
             </button>
           ))}
@@ -160,39 +170,37 @@ export function JozCommissionsPage() {
 
       {/* Summary */}
       <section className="jc-summary" aria-live="polite">
-        <h2>Tu cotización</h2>
+        <h2>{t('joz.summary')}</h2>
         <ul className="jc-lines">
           <li>
-            <span className="jc-line-step">1 · Estilo</span>
+            <span className="jc-line-step">{t('joz.line.style')}</span>
             <span className="jc-line-pick">{style ? style.name : '—'}</span>
             <span className="jc-line-price">{style ? usd(style.price) : '$0'}</span>
           </li>
           <li>
-            <span className="jc-line-step">2 · Tamaño</span>
-            <span className="jc-line-pick">{size ? size.name : '—'}</span>
+            <span className="jc-line-step">{t('joz.line.size')}</span>
+            <span className="jc-line-pick">{size ? t(`joz.size.${size.id}`) : '—'}</span>
             <span className="jc-line-price">{size ? usd(size.price) : '$0'}</span>
           </li>
           <li>
-            <span className="jc-line-step">3 · Acabado</span>
-            <span className="jc-line-pick">{look ? look.name : '—'}</span>
+            <span className="jc-line-step">{t('joz.line.look')}</span>
+            <span className="jc-line-pick">{look ? t(`joz.look.${look.id}`) : '—'}</span>
             <span className="jc-line-price">{look ? usd(look.price) : '$0'}</span>
           </li>
         </ul>
 
         <div className="jc-total">
           <div className="jc-total-usd">
-            <span>Total</span>
+            <span>{t('joz.total')}</span>
             <strong>{usd(total)} USD</strong>
           </div>
           <div className="jc-total-mxn">
-            <span>En pesos (1 USD = 20 MXN)</span>
+            <span>{t('joz.mxn')}</span>
             <strong>{mxn(total)} MXN</strong>
           </div>
         </div>
 
-        {!complete && (
-          <p className="jc-hint">Elige estilo, tamaño y acabado para completar tu total.</p>
-        )}
+        {!complete && <p className="jc-hint">{t('joz.hint')}</p>}
       </section>
     </div>
   );

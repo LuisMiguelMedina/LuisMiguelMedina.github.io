@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { LumivoxBrand } from '../components/LumivoxBrand';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { LanguageToggle } from '../components/LanguageToggle';
 import { useTheme } from '../components/ThemeContext';
+import { useLang } from '../i18n';
 import './SamCommissions.scss';
 
 // Mockup landing for Sam's commissions — retro diner "menu" layout.
@@ -37,6 +39,7 @@ const MENU = [
 
 export function SamCommissionsPage() {
   const { theme } = useTheme();
+  const { t } = useLang();
   const [pick, setPick] = useState<string | null>(null);
   const randomOc = (): void => setPick(MENU[Math.floor(Math.random() * MENU.length)]);
 
@@ -44,7 +47,10 @@ export function SamCommissionsPage() {
     <div className="sam-commissions" data-theme={theme}>
       <div className="sc-topbar">
         <LumivoxBrand />
-        <ThemeToggle />
+        <div className="sc-topbar-actions">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="sc-frame">
@@ -61,7 +67,7 @@ export function SamCommissionsPage() {
           <div className="sc-portrait" aria-hidden="true" />
           <div className="sc-title">
             <h1>Sam</h1>
-            <span className="sc-tag">comisiones</span>
+            <span className="sc-tag">{t('sam.tag')}</span>
           </div>
         </header>
 
@@ -123,7 +129,7 @@ export function SamCommissionsPage() {
         </button>
       </div>
 
-      <p className="sc-note">Diseño de muestra — se modificará más adelante.</p>
+      <p className="sc-note">{t('sam.note')}</p>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import './styles.scss';
 import './portal/theme.scss';
 import { PageTransition } from './components/PageTransition';
 import { ThemeProvider } from './components/ThemeContext';
+import { LanguageProvider } from './i18n';
 import { LumivoxHomePage } from './pages/LumivoxHomePage';
 import { ArtistsPage } from './pages/ArtistsPage';
 import { SamCommissionsPage } from './pages/SamCommissionsPage';
@@ -29,10 +30,12 @@ import { Settings } from './portal/pages/Settings';
 // Root layout: mounts the page-transition overlay above every route.
 function RootLayout() {
   return (
-    <ThemeProvider>
-      <PageTransition />
-      <Outlet />
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <PageTransition />
+        <Outlet />
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 

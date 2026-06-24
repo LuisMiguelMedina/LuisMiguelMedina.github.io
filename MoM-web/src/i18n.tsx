@@ -1,0 +1,118 @@
+import { createContext, useContext, useState, type ReactNode } from 'react';
+
+// Lightweight i18n layer. Default language is English; the choice persists in
+// localStorage and is shared app-wide (like the theme).
+export type Lang = 'en' | 'es';
+const LANG_KEY = 'lumivox-lang';
+
+const DICT: Record<Lang, Record<string, string>> = {
+  en: {
+    'nav.home': 'home',
+    'common.example': 'EXAMPLE',
+    'common.days': 'days',
+    // home
+    'home.hero.l1': 'Where art',
+    'home.hero.l2': 'finds its',
+    'home.hero.accent': 'voice',
+    'home.artists': 'artists',
+    // artists page
+    'artists.back': 'home',
+    'artists.tagline': 'community artists',
+    // joz commissions
+    'joz.title': 'Commissions!',
+    'joz.subtitle': 'Build your quote — pick one option per step and watch your total live.',
+    'joz.step.style': 'Choose a style',
+    'joz.step.size': 'Choose a size',
+    'joz.step.look': 'Choose a look',
+    'joz.summary': 'Your quote',
+    'joz.line.style': '1 · Style',
+    'joz.line.size': '2 · Size',
+    'joz.line.look': '3 · Look',
+    'joz.total': 'Total',
+    'joz.mxn': 'In pesos (1 USD = 20 MXN)',
+    'joz.hint': 'Pick a style, size and look to complete your total.',
+    'joz.size.shoulders': 'Shoulders',
+    'joz.size.shoulders.desc': 'Portrait from the shoulders',
+    'joz.size.half': 'Half body',
+    'joz.size.half.desc': 'Down to the hips',
+    'joz.size.full': 'Full body',
+    'joz.size.full.desc': 'Full figure',
+    'joz.look.draft': 'Draft',
+    'joz.look.draft.desc': 'Pencil sketch',
+    'joz.look.lineart': 'Lineart',
+    'joz.look.lineart.desc': 'Clean line',
+    'joz.look.clean': 'Clean',
+    'joz.look.clean.desc': 'Flat color',
+    'joz.look.rendered': 'Rendered',
+    'joz.look.rendered.desc': 'Render with light and shadow',
+    // sam commissions (mockup)
+    'sam.tag': 'commissions',
+    'sam.note': 'Sample design — to be reworked later.',
+  },
+  es: {
+    'nav.home': 'inicio',
+    'common.example': 'EJEMPLO',
+    'common.days': 'días',
+    'home.hero.l1': 'Donde el arte',
+    'home.hero.l2': 'encuentra su',
+    'home.hero.accent': 'voz',
+    'home.artists': 'artistas',
+    'artists.back': 'inicio',
+    'artists.tagline': 'artistas de la comunidad',
+    'joz.title': '¡Comisiones!',
+    'joz.subtitle': 'Arma tu cotización — elige una opción en cada paso y mira tu total en vivo.',
+    'joz.step.style': 'Elige un estilo',
+    'joz.step.size': 'Elige un tamaño',
+    'joz.step.look': 'Elige un acabado',
+    'joz.summary': 'Tu cotización',
+    'joz.line.style': '1 · Estilo',
+    'joz.line.size': '2 · Tamaño',
+    'joz.line.look': '3 · Acabado',
+    'joz.total': 'Total',
+    'joz.mxn': 'En pesos (1 USD = 20 MXN)',
+    'joz.hint': 'Elige estilo, tamaño y acabado para completar tu total.',
+    'joz.size.shoulders': 'Hombros',
+    'joz.size.shoulders.desc': 'Retrato desde los hombros',
+    'joz.size.half': 'Medio cuerpo',
+    'joz.size.half.desc': 'Hasta la cadera',
+    'joz.size.full': 'Cuerpo completo',
+    'joz.size.full.desc': 'Figura completa',
+    'joz.look.draft': 'Draft',
+    'joz.look.draft.desc': 'Boceto a lápiz',
+    'joz.look.lineart': 'Lineart',
+    'joz.look.lineart.desc': 'Línea limpia',
+    'joz.look.clean': 'Limpio',
+    'joz.look.clean.desc': 'Color plano',
+    'joz.look.rendered': 'Renderizado',
+    'joz.look.rendered.desc': 'Render con luz y sombra',
+    'sam.tag': 'comisiones',
+    'sam.note': 'Diseño de muestra — se modificará más adelante.',
+  },
+};
+
+function readLang(): Lang {
+  const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(LANG_KEY) : null;
+  return saved === 'es' ? 'es' : 'en'; // default English
+}
+
+type LangContextValue = { lang: Lang; toggle: () => void; t: (key: string) => string };
+const LangContext = createContext<LangContextValue>({ lang: 'en', toggle: () => {}, t: (k) => k });
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [lang, setLang] = useState<Lang>(() => readLang());
+
+  const toggle = (): void =>
+    setLang((l) => {
+      const next: Lang = l === 'es' ? 'en' : 'es';
+      localStorage.setItem(LANG_KEY, next);
+      return next;
+    });
+
+  const t = (key: string): string => DICT[lang][key] ?? DICT.en[key] ?? key;
+
+  return <LangContext.Provider value={{ lang, toggle, t }}>{children}</LangContext.Provider>;
+}
+
+export function useLang(): LangContextValue {
+  return useContext(LangContext);
+}

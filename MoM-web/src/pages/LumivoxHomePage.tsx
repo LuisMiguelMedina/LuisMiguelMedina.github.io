@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DayMark, NightMark } from '../components/LumivoxLogo';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { LanguageToggle } from '../components/LanguageToggle';
 import { useTheme } from '../components/ThemeContext';
+import { useLang } from '../i18n';
 import { ArtistShowcase } from '../components/lumivox/ArtistShowcase';
 import { RosterStrip } from '../components/lumivox/RosterStrip';
 import { artists } from '../data/artists';
@@ -17,6 +19,7 @@ const panelIdFor = (handle: string) => `showcase-${handle}`;
 
 export function LumivoxHomePage() {
   const { theme } = useTheme();
+  const { t } = useLang();
   const [activeHandle, setActiveHandle] = useState<string>(artists[0]?.handle ?? '');
   const activeArtist = artists.find((a) => a.handle === activeHandle) ?? artists[0];
 
@@ -32,6 +35,7 @@ export function LumivoxHomePage() {
         </Link>
 
         <div className="lvx-actions">
+          <LanguageToggle />
           <ThemeToggle />
         </div>
       </header>
@@ -39,9 +43,9 @@ export function LumivoxHomePage() {
       <section className="lvx-hero">
         <div className="lvx-hero-text">
           <h1>
-            Donde el arte
+            {t('home.hero.l1')}
             <br />
-            encuentra su <span className="lvx-accent">voz</span>.
+            {t('home.hero.l2')} <span className="lvx-accent">{t('home.hero.accent')}</span>.
           </h1>
         </div>
 
@@ -52,7 +56,7 @@ export function LumivoxHomePage() {
       </section>
 
       <section className="lvx-artists" id="artistas">
-        <h2 className="lvx-section-title">artistas</h2>
+        <h2 className="lvx-section-title">{t('home.artists')}</h2>
         {activeArtist && (
           <div className="lvx-roster">
             <RosterStrip

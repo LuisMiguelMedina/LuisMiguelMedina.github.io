@@ -42,6 +42,13 @@
   .lvx-brand-logo {
     color: var(--cream);
   }
+
+  .sc-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--cream); // keep the EN/ES toggle legible on the dark bg
+  }
 }
 
 .sc-frame {
