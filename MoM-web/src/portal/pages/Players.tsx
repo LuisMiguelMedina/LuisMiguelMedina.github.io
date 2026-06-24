@@ -14,7 +14,7 @@ import type { JSX } from 'react';
 // PlayersService did (ref/onValue). Defaults are applied when nodes are empty
 // so the page degrades gracefully (no writes / no auto-seeding are performed).
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../firebase';
 import './Players.scss';
@@ -138,46 +138,18 @@ export function Players(): JSX.Element {
   const { players, dimensions, loading } = usePlayersData();
   const [selectedDimension, setSelectedDimension] = useState<1 | 2>(1);
 
-  const getPlayersByDimension = (dim: 1 | 2): LegacyPlayer[] =>
-    players.filter((p) => p.dimension === dim);
-
-  const getDimension = (dimNum: 1 | 2): Dimension | undefined => {
-    const id = dimNum === 1 ? 'dimension1' : 'dimension2';
-    return dimensions.find((d) => d.id === id);
-  };
-
-  const getActivePlayerCount = (dim: 1 | 2): number =>
-    getPlayersByDimension(dim).filter((p) => p.status === 1).length;
-
-  const currentPlayers = useMemo(
-    () => getPlayersByDimension(selectedDimension),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [players, selectedDimension],
-  );
-
-  const currentDimension = useMemo(
-    () => getDimension(selectedDimension),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [dimensions, selectedDimension],
+  // Cheap filters over a small roster — no memoization needed.
+  const currentPlayers = players.filter((p) => p.dimension === selectedDimension);
+  const currentDimension = dimensions.find(
+    (d) => d.id === (selectedDimension === 1 ? 'dimension1' : 'dimension2'),
   );
 
   const totalPlayers = currentPlayers.length;
   const activePlayers = currentPlayers.filter((p) => p.status === 1).length;
   const inactivePlayers = currentPlayers.filter((p) => p.status === 2).length;
 
-  const dimension1Players = useMemo(
-    () => getPlayersByDimension(1).length,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [players],
-  );
-  const dimension2Players = useMemo(
-    () => getPlayersByDimension(2).length,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [players],
-  );
-
-  // active counts are computed (parity with legacy) even if not rendered here
-  void getActivePlayerCount;
+  const dimension1Players = players.filter((p) => p.dimension === 1).length;
+  const dimension2Players = players.filter((p) => p.dimension === 2).length;
 
   const getStatusText = (): string => {
     const dim = currentDimension;

@@ -117,7 +117,6 @@ graph TD
     STYLES["styles.scss<br/>Bootstrap 5 + SCSS"]
     subgraph PAGES["pages/"]
       HP["LumivoxHomePage<br/>roster a /home"]
-      MOM["MultiverseOfMadnessPage<br/>landing portal MoM (placeholder hoy)"]
       JOZ["JozCommissionBuilderPage<br/>+ CommissionBuilder (planificado)"]
     end
     DIST[("dist/<br/>artefacto build a Pages")]
@@ -134,7 +133,6 @@ graph TD
 | `main.tsx` | Define el árbol de rutas y monta `RouterProvider`. Punto único donde se materializa la convención de rutas. |
 | `data/artists.ts` | Define los artistas. El campo `handle` es el **slug canónico del artista** (segmento `{artist}`). El módulo `portal` contiene la `route` que debe alinearse con la convención. |
 | `pages/LumivoxHomePage` | Renderiza el roster. Mapea a `/home`. |
-| `pages/MultiverseOfMadnessPage` | Landing del portal de Luis.M. Mapea a `/home/luis-m/multiverse-of-madness`. |
 
 ### 5.2 Nivel 2 — Subárbol del portal MoM (planificado)
 
@@ -155,7 +153,7 @@ La topología exacta de rutas es la tabla autoritativa del ADR-0001 (sección 9)
 
 1. El navegador pide `https://multiverseofmadness.me/home/luis-m/multiverse-of-madness`.
 2. GitHub Pages no encuentra ese path estático → sirve `404.html` (fallback SPA).
-3. El bundle arranca, `createBrowserRouter` resuelve el path actual y renderiza `MultiverseOfMadnessPage`.
+3. El bundle arranca y `createBrowserRouter` resuelve el path en el cliente (p. ej. el índice del portal `/home/luis-m/multiverse-of-madness` redirige a `.../login`).
 
 ### 6.2 Escenario: redirección de retrocompatibilidad
 
@@ -292,7 +290,7 @@ las redirecciones de retrocompatibilidad que siguen.
 |------|--------|------|--------|---------------------|-------|
 | `/` | (ninguno) | (redirect) | **implementado** | Redirect (replace) a `/home` | Raíz = redirect canónico, no página. Exento de `{artist}` por ser sólo redirección. |
 | `/home` | (ninguno) | Home | **implementado** | `LumivoxHomePage` (tira del roster) | El roster. Exento del segmento `{artist}` por ser el índice sobre todos los artistas. |
-| `/home/luis-m/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | Redirect (replace) a `.../login` | Base del portal. El índice redirige al gate de login (fiel al `/` → `/login` del Angular original). `MultiverseOfMadnessPage` queda como componente sin rutear (ver riesgos). La `route` del módulo `portal` en `artists.ts` apunta a este path. |
+| `/home/luis-m/multiverse-of-madness` | luis-m | Multiverse Of Madness | **implementado** | Redirect (replace) a `.../login` | Base del portal. El índice redirige al gate de login (fiel al `/` → `/login` del Angular original). La `route` del módulo `portal` en `artists.ts` apunta a este path. |
 | `/home/joz/commission-builder` | joz | Commission Builder | planificado | `JozCommissionBuilderPage` envolviendo `<CommissionBuilder/>` | Joz hoy NO tiene ruta dedicada (el builder es inline en el roster según `joz-commission-builder`). Slug de la página pendiente de confirmación — ver preguntas abiertas. |
 | `/home/luis-m/multiverse-of-madness/login` | luis-m | Multiverse Of Madness | **implementado** | `Login` (migrado a React) | PÚBLICA (gate de login, no auth-guarded). Antiguo `/login` Angular. Hermana de `register`. |
 | `/home/luis-m/multiverse-of-madness/register` | luis-m | Multiverse Of Madness | **implementado** | `Register` (migrado a React) | PÚBLICA. Antiguo `/register` Angular. |

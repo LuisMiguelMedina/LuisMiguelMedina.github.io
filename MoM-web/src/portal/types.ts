@@ -85,9 +85,3 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<AdminLevel, AdminPermissions> = {
     categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'articulos', 'anuncios', 'directorio', 'misiones', 'settings'],
   },
 };
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}

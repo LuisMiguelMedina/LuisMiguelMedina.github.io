@@ -28,7 +28,8 @@ interface SystemConfig {
   lastAttempt?: string;
 }
 
-// Hardcoded fallback admins (same as legacy login.ts constructor).
+// Hardcoded fallback admins (same as legacy login.ts constructor). Single
+// source of truth — the Firebase seed map below is derived from this list.
 const FALLBACK_ADMINS: AdminCredential[] = [
   { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
   { uuid: 'ADM-002-DELTA', username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
@@ -36,13 +37,10 @@ const FALLBACK_ADMINS: AdminCredential[] = [
   { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 },
 ];
 
-// Default admin set written to Firebase when system/admins is empty.
-const DEFAULT_ADMINS_MAP: Record<string, AdminCredential> = {
-  admin001: { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Super Admin', active: true, level: 3 },
-  admin002: { uuid: 'ADM-002-DELTA', username: 'admin002', password: 'madness2024', name: 'Manager', active: true, level: 2 },
-  admin003: { uuid: 'ADM-003-GAMMA', username: 'admin003', password: 'quantum2024', name: 'Viewer', active: true, level: 1 },
-  root: { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 },
-};
+// Default admin set written to Firebase when system/admins is empty (keyed by username).
+const DEFAULT_ADMINS_MAP: Record<string, AdminCredential> = Object.fromEntries(
+  FALLBACK_ADMINS.map((admin) => [admin.username, admin]),
+);
 
 const LOGIN_ERROR_MESSAGES = [
   'ACCESO DENEGADO - Credenciales inválidas',
@@ -164,10 +162,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       (error) => {
         console.error('Firebase admins error:', error);
-        adminsRef.current = [
-          { uuid: 'ADM-001-PRIME', username: 'admin001', password: 'dimension2024', name: 'Admin Principal', active: true, level: 3 },
-          { uuid: 'ROOT-SYS-0000', username: 'root', password: 'momadmin', name: 'Root Administrator', active: true, level: 3 },
-        ];
+        adminsRef.current = FALLBACK_ADMINS;
       },
     );
 

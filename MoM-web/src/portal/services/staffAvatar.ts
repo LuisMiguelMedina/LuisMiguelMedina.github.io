@@ -36,10 +36,3 @@ export function getStaffAvatar(key: string | null | undefined): string {
   const index = (hashString(key) % AVATAR_COUNT) + 1;
   return avatarUrl(index);
 }
-
-/** All available avatar URLs, in order. */
-export function listAvatars(): string[] {
-  return Array.from({ length: AVATAR_COUNT }, (_, i) => avatarUrl(i + 1));
-}
-
-export { FALLBACK_AVATAR, AVATAR_COUNT };

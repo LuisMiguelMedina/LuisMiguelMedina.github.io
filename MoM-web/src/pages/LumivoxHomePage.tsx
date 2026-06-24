@@ -15,7 +15,7 @@ export function LumivoxHomePage() {
     return (
       <div className="lumivox-shell">
         <div className="lumivox-topbar">
-          <LumivoxMark asLink={false} />
+          <LumivoxMark />
         </div>
         <p style={{ padding: '2rem', textAlign: 'center' }}>Roster vacío.</p>
       </div>
@@ -25,7 +25,7 @@ export function LumivoxHomePage() {
   return (
     <div className="lumivox-shell">
       <div className="lumivox-topbar">
-        <LumivoxMark asLink={false} />
+        <LumivoxMark />
         <span className="lumivox-tagline-top">
           comunidad de artistas y creadores
         </span>

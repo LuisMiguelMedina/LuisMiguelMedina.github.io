@@ -1,27 +1,10 @@
-import { Link } from 'react-router-dom';
-
-type LumivoxMarkProps = {
-  /** When true, render as a Link back to /home. When false, render as plain text. */
-  asLink?: boolean;
-};
-
-export function LumivoxMark({ asLink = true }: LumivoxMarkProps) {
-  const inner = (
-    <>
+export function LumivoxMark() {
+  return (
+    <span className="lumivox-mark">
       <LumivoxSun />
       <span>Lumivox</span>
-    </>
+    </span>
   );
-
-  if (asLink) {
-    return (
-      <Link className="lumivox-mark" to="/home" aria-label="Lumivox — home">
-        {inner}
-      </Link>
-    );
-  }
-
-  return <span className="lumivox-mark">{inner}</span>;
 }
 
 function LumivoxSun() {
