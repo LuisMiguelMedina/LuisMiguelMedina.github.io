@@ -294,3 +294,104 @@
   font-size: 0.75rem;
   text-align: center;
 }
+
+// --- Laptop / desktop: spread the poster across (almost) the full screen ----
+@media (min-width: 992px) {
+  .sam-commissions {
+    padding: 1.25rem clamp(1rem, 3vw, 3rem) 1.5rem;
+  }
+
+  .sc-back {
+    max-width: min(1700px, 95vw);
+  }
+
+  .sc-frame {
+    max-width: min(1700px, 95vw);
+    min-height: calc(100vh - 7rem);
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      'marquee marquee'
+      'hero    cards'
+      'menu    menu'
+      'random  random';
+    gap: 18px;
+  }
+
+  .sc-marquee {
+    grid-area: marquee;
+  }
+  .sc-hero {
+    grid-area: hero;
+    padding: 46px 38px 30px;
+  }
+  .sc-cards {
+    grid-area: cards;
+    align-content: start;
+    gap: 14px;
+    padding: 26px 16px 16px;
+  }
+  .sc-menu {
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+  }
+  .sc-random {
+    grid-area: random;
+  }
+
+  // Scale the contents up so they actually fill the wider canvas.
+  .sc-portrait {
+    width: 150px;
+    height: 150px;
+    font-size: 84px;
+  }
+  .sc-title h1 {
+    font-size: 4rem;
+  }
+  .sc-title .sc-tag {
+    font-size: 1.2rem;
+    padding: 3px 18px;
+  }
+
+  .sc-card ul {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .sc-card li {
+    margin-bottom: 6px;
+  }
+  .sc-plate .sc-plate-emoji {
+    font-size: 34px;
+  }
+  .sc-plate .sc-plate-label {
+    font-size: 1rem;
+  }
+
+  .sc-menu-head h2 {
+    font-size: 1.9rem;
+  }
+  .sc-menu-grid {
+    flex: 1;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 16px;
+  }
+  // Let dishes stretch to fill the menu's vertical space instead of staying square.
+  .sc-dish {
+    aspect-ratio: auto;
+  }
+  .sc-dish-emoji {
+    font-size: 48px;
+  }
+  .sc-dish-name {
+    font-size: 0.8rem;
+    padding: 2px 10px;
+  }
+
+  .sc-random {
+    font-size: 1.35rem;
+    padding: 22px;
+  }
+}
