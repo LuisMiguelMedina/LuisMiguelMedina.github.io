@@ -1,16 +1,16 @@
-// Joz commission quote builder — bright "commission sheet" theme.
+// Joz commission quote builder — Lumivox day palette (cream + warm ink) with the
+// original commission-sheet accents (teal panels, cyan prices, coral) kept.
 .joz-comm {
-  --jc-yellow: #fce05a;
-  --jc-yellow-deep: #f4cf3e;
   --jc-teal: #2fbfa8;
   --jc-teal-deep: #1f9d8a;
   --jc-cyan: #16b8de;
   --jc-coral: #ff6f59;
-  --jc-ink: #1f2b2b;
-  --jc-card: #ffffff;
+  --jc-ink: #2a1a12; // Lumivox day ink
+  --jc-card: #fffdf8;
 
   min-height: 100vh;
-  background: radial-gradient(circle at 50% -10%, #fff0a8 0%, var(--jc-yellow) 45%, var(--jc-yellow-deep) 100%);
+  // Lumivox day background (warm cream), not the old bright yellow.
+  background: radial-gradient(circle at 50% -10%, #fbf3e3 0%, #f4ece0 48%, #e8dcc0 100%);
   color: var(--jc-ink);
   padding: 1.5rem 1rem 4rem;
   font-family: 'Manrope', system-ui, sans-serif;
