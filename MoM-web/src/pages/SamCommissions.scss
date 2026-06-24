@@ -1,0 +1,296 @@
+// Mockup styles for Sam's commissions landing — retro diner "menu" poster.
+// Self-contained and scoped under .sam-commissions; safe to rework later.
+.sam-commissions {
+  --bg: #2c2926;
+  --red: #b14a3e;
+  --red-dk: #8f3a30;
+  --cream: #f3ecd7;
+  --blue: #a9d2d3;
+  --blue-dk: #7fb3b5;
+  --ink: #3a322d;
+
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 1.5rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+.sc-back {
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: 0.85rem;
+  color: var(--cream);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: var(--blue);
+  }
+}
+
+.sc-frame {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+// --- Marquee sign -----------------------------------------------------------
+.sc-marquee {
+  width: 150px;
+  height: 34px;
+  margin: 0 auto;
+  background: var(--red);
+  border-radius: 9px 9px 4px 4px;
+  box-shadow: inset 0 -5px 0 var(--red-dk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  span {
+    width: 11px;
+    height: 18px;
+    background: var(--cream);
+    border-radius: 2px;
+  }
+}
+
+// --- Hero -------------------------------------------------------------------
+.sc-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 52px 20px 22px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--blue);
+  background-image: radial-gradient(var(--blue-dk) 1.4px, transparent 1.6px);
+  background-size: 13px 13px;
+}
+
+.sc-hero-awning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--red) 0 24px,
+    var(--cream) 24px 48px
+  );
+  border-bottom: 3px solid var(--red-dk);
+}
+
+.sc-portrait {
+  flex: 0 0 auto;
+  width: 100px;
+  height: 100px;
+  display: grid;
+  place-items: center;
+  font-size: 54px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+}
+
+.sc-title {
+  h1 {
+    margin: 0;
+    font-size: 2.7rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: var(--cream);
+    text-shadow: 2px 2px 0 var(--red-dk);
+  }
+
+  .sc-tag {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 14px;
+    background: var(--red);
+    color: var(--cream);
+    border-radius: 6px;
+    font-weight: 700;
+    font-style: italic;
+    transform: rotate(-3deg);
+  }
+}
+
+// --- Info cards -------------------------------------------------------------
+.sc-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 22px 12px 12px;
+  border-radius: 16px;
+  background-color: var(--red);
+  background-image: repeating-conic-gradient(
+    var(--red) 0 25%,
+    var(--red-dk) 0 50%
+  );
+  background-size: 28px 28px;
+}
+
+.sc-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px 12px;
+  background: var(--cream);
+  border-radius: 10px;
+
+  ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  li {
+    margin-bottom: 3px;
+  }
+}
+
+.sc-plate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin: -18px auto 8px;
+
+  .sc-plate-emoji {
+    font-size: 28px;
+  }
+
+  .sc-plate-label {
+    padding: 1px 12px;
+    background: var(--cream);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-style: italic;
+  }
+}
+
+// --- Menu -------------------------------------------------------------------
+.sc-menu {
+  padding: 14px;
+  border-radius: 16px;
+  background-color: var(--blue);
+  background-image:
+    linear-gradient(var(--blue-dk) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blue-dk) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.sc-menu-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+
+  h2 {
+    margin: 0;
+    padding: 4px 18px;
+    background: var(--red);
+    color: var(--cream);
+    border-radius: 8px;
+    font-size: 1.45rem;
+    font-style: italic;
+    transform: rotate(-1.5deg);
+  }
+
+  .sc-chef {
+    font-size: 30px;
+  }
+}
+
+.sc-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+}
+
+.sc-dish {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+}
+
+.sc-dish-emoji {
+  font-size: 32px;
+}
+
+.sc-dish-name {
+  padding: 1px 7px;
+  background: var(--red);
+  color: var(--cream);
+  border-radius: 6px;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.sc-more {
+  display: block;
+  margin-top: 10px;
+  text-align: right;
+  font-style: italic;
+  font-weight: 700;
+}
+
+// --- Random OC --------------------------------------------------------------
+.sc-random {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--cream);
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-style: italic;
+  background-color: var(--red);
+  background-image: radial-gradient(var(--red-dk) 1.4px, transparent 1.6px);
+  background-size: 13px 13px;
+  box-shadow: inset 0 -5px 0 var(--red-dk);
+
+  &:hover {
+    filter: brightness(1.06);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 -3px 0 var(--red-dk);
+  }
+
+  .sc-random-icon {
+    font-size: 26px;
+  }
+}
+
+.sc-note {
+  margin-top: 1rem;
+  color: #8a817a;
+  font-size: 0.75rem;
+  text-align: center;
+}

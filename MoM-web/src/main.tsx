@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles.scss';
 import './portal/theme.scss';
 import { LumivoxHomePage } from './pages/LumivoxHomePage';
+import { SamCommissionsPage } from './pages/SamCommissionsPage';
 import { AuthProvider } from './portal/auth';
 import { ProtectedRoute } from './portal/ProtectedRoute';
 import { Layout } from './portal/Layout';
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: '/home/sam/comisiones', element: <SamCommissionsPage /> },
   // Back-compat: old flat route -> canonical home/{artist}/{page}
   { path: '/multiverse-of-madness', element: <Navigate to="/home/luis-m/multiverse-of-madness" replace /> },
   { path: '*', element: <Navigate to="/home" replace /> },
