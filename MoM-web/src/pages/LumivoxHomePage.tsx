@@ -131,9 +131,6 @@ export function LumivoxHomePage() {
           >
             <span className="lvx-knob">{night ? <MoonIcon /> : <SunIcon />}</span>
           </button>
-          <button className="lvx-cta" type="button">
-            unirse
-          </button>
         </div>
       </header>
 
@@ -144,13 +141,6 @@ export function LumivoxHomePage() {
             <br />
             encuentra su <span className="lvx-accent">voz</span>.
           </h1>
-          <p>
-            Una comunidad privada de artistas, solo por invitación. Un espacio cerrado para
-            mostrar tu obra, encontrar a tu gente y dejar que tu voz brille.
-          </p>
-          <Link className="lvx-cta lvx-cta-lg" to="/artistas">
-            explorar obras
-          </Link>
         </div>
 
         <div className="lvx-hero-mark markstack" aria-hidden="true">
