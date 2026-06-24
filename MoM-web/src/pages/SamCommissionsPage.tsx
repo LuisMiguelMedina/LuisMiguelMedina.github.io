@@ -3,38 +3,39 @@ import { Link } from 'react-router-dom';
 import './SamCommissions.scss';
 
 // Mockup landing for Sam's commissions — retro diner "menu" layout.
-// Placeholder content/art; this whole page is expected to be reworked later.
+// All copy is placeholder lorem ipsum (no real data — it must not bias any
+// negotiation) and there are no emojis; reworked later with real content/art.
 
 const ABOUT = [
-  'él / ella',
-  'veintitrés',
-  'texto de ejemplo sobre Sam y su trabajo',
-  'dibuja principalmente OCs humanoides',
+  'Lorem ipsum dolor sit',
+  'amet consectetur adipiscing',
+  'elit sed do eiusmod',
+  'tempor incididunt ut labore',
 ];
 
 const INFO = [
-  'acepta fuego amistoso',
-  'la revancha no está garantizada',
-  'sin cadenas de ataques',
-  '~10 ataques al año',
+  'Lorem ipsum dolor sit amet',
+  'consectetur adipiscing elit',
+  'sed do eiusmod tempor',
+  'ut labore et dolore magna',
 ];
 
-const SOCIALS = ['@sam en..', 'youtube', 'twitter', 'tiktok', 'instagram', 'toyhouse'];
+const SOCIALS = ['Lorem ipsum', 'Dolor sit', 'Amet', 'Consectetur', 'Adipiscing', 'Elit'];
 
 const MENU = [
-  { name: 'oc uno', dish: '🍔' },
-  { name: 'oc dos', dish: '🥞' },
-  { name: 'oc tres', dish: '🍳' },
-  { name: 'oc cuatro', dish: '🌭' },
-  { name: 'oc cinco', dish: '🍦' },
-  { name: 'oc seis', dish: '🥐' },
-  { name: 'oc siete', dish: '🍮' },
-  { name: 'oc ocho', dish: '🥪' },
+  'Lorem ipsum',
+  'Dolor sit',
+  'Amet nunc',
+  'Consectetur',
+  'Adipiscing',
+  'Elit sed',
+  'Eiusmod',
+  'Tempor',
 ];
 
 export function SamCommissionsPage() {
   const [pick, setPick] = useState<string | null>(null);
-  const randomOc = (): void => setPick(MENU[Math.floor(Math.random() * MENU.length)].name);
+  const randomOc = (): void => setPick(MENU[Math.floor(Math.random() * MENU.length)]);
 
   return (
     <div className="sam-commissions">
@@ -53,9 +54,7 @@ export function SamCommissionsPage() {
         {/* Hero */}
         <header className="sc-hero">
           <div className="sc-hero-awning" aria-hidden="true" />
-          <div className="sc-portrait" aria-hidden="true">
-            🧑‍🍳
-          </div>
+          <div className="sc-portrait" aria-hidden="true" />
           <div className="sc-title">
             <h1>Sam</h1>
             <span className="sc-tag">comisiones</span>
@@ -66,10 +65,7 @@ export function SamCommissionsPage() {
         <section className="sc-cards">
           <article className="sc-card">
             <div className="sc-plate">
-              <span className="sc-plate-emoji" aria-hidden="true">
-                🥐
-              </span>
-              <span className="sc-plate-label">sobre mí</span>
+              <span className="sc-plate-label">Lorem</span>
             </div>
             <ul>
               {ABOUT.map((line) => (
@@ -80,10 +76,7 @@ export function SamCommissionsPage() {
 
           <article className="sc-card">
             <div className="sc-plate">
-              <span className="sc-plate-emoji" aria-hidden="true">
-                🥞
-              </span>
-              <span className="sc-plate-label">info</span>
+              <span className="sc-plate-label">Ipsum</span>
             </div>
             <ul>
               {INFO.map((line) => (
@@ -94,10 +87,7 @@ export function SamCommissionsPage() {
 
           <article className="sc-card">
             <div className="sc-plate">
-              <span className="sc-plate-emoji" aria-hidden="true">
-                🥪
-              </span>
-              <span className="sc-plate-label">redes</span>
+              <span className="sc-plate-label">Dolor</span>
             </div>
             <ul>
               {SOCIALS.map((line) => (
@@ -110,30 +100,22 @@ export function SamCommissionsPage() {
         {/* Menu */}
         <section className="sc-menu">
           <div className="sc-menu-head">
-            <h2>el Menú</h2>
-            <span className="sc-chef" aria-hidden="true">
-              🧑‍🍳
-            </span>
+            <h2>Lorem ipsum</h2>
           </div>
           <div className="sc-menu-grid">
-            {MENU.map((item) => (
-              <div className="sc-dish" key={item.name}>
-                <span className="sc-dish-emoji" aria-hidden="true">
-                  {item.dish}
-                </span>
-                <span className="sc-dish-name">{item.name}</span>
+            {MENU.map((name) => (
+              <div className="sc-dish" key={name}>
+                <span className="sc-dish-ph" aria-hidden="true" />
+                <span className="sc-dish-name">{name}</span>
               </div>
             ))}
           </div>
-          <span className="sc-more">¡y más!</span>
+          <span className="sc-more">lorem ipsum</span>
         </section>
 
-        {/* Random OC */}
+        {/* Random pick */}
         <button className="sc-random" type="button" onClick={randomOc}>
-          <span className="sc-random-icon" aria-hidden="true">
-            🍽️
-          </span>
-          {pick ? `¡te tocó: ${pick}!` : 'click para un OC aleatorio'}
+          {pick ? `lorem: ${pick}` : 'lorem ipsum dolor sit amet'}
         </button>
       </div>
 
