@@ -1,0 +1,43 @@
+// Self-contained day/night switch (works on any page, themed via its own
+// data-theme so it doesn't depend on a surrounding themed wrapper).
+.lvx-theme-toggle {
+  position: relative;
+  width: 54px;
+  height: 28px;
+  flex: none;
+  border: none;
+  border-radius: 999px;
+  background: #e2d5c4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &[data-theme='night'] {
+    background: #2a2440;
+  }
+
+  .lvx-theme-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #c8861f;
+    transition: left 0.42s cubic-bezier(0.5, 1.5, 0.5, 1), background-color 0.3s, color 0.3s;
+
+    svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  &[data-theme='night'] .lvx-theme-knob {
+    left: 29px;
+    background: #ffe500;
+    color: #0c0b16;
+  }
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { LumivoxMark } from '../components/lumivox/LumivoxMark';
+import { ThemeToggle } from '../components/ThemeToggle';
 import './JozCommissions.scss';
 
 // Functional commission quote builder for Joz.
@@ -76,9 +76,7 @@ export function JozCommissionsPage() {
     <div className="joz-comm">
       <div className="jc-topbar">
         <LumivoxMark />
-        <Link className="jc-back" to="/home">
-          ← volver al roster
-        </Link>
+        <ThemeToggle />
       </div>
 
       <header className="jc-hero">

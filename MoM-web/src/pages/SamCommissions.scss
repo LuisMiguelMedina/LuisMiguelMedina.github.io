@@ -25,24 +25,12 @@
   margin: 0 auto 0.85rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 
   // light logo on the dark diner background (sun stays gold, visible on dark)
   .lumivox-mark {
     color: var(--cream);
-  }
-}
-
-.sc-back {
-  margin-left: auto; // push to the right of the logo
-  color: var(--cream);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  white-space: nowrap;
-
-  &:hover {
-    color: var(--blue);
   }
 }
 

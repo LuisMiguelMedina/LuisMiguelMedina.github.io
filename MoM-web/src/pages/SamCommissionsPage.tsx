@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { LumivoxMark } from '../components/lumivox/LumivoxMark';
+import { ThemeToggle } from '../components/ThemeToggle';
 import './SamCommissions.scss';
 
 // Mockup landing for Sam's commissions — retro diner "menu" layout.
@@ -42,9 +42,7 @@ export function SamCommissionsPage() {
     <div className="sam-commissions">
       <div className="sc-topbar">
         <LumivoxMark />
-        <Link className="sc-back" to="/home">
-          ← volver al roster
-        </Link>
+        <ThemeToggle />
       </div>
 
       <div className="sc-frame">
