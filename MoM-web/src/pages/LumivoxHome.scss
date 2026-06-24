@@ -261,6 +261,35 @@
     gap: 1.5rem;
   }
 
+  // The artist showcase uses its own warm palette (dark text), which is
+  // unreadable on the night background. In night mode, follow the home's
+  // day/night convention so the text stays legible. (Buttons carry their own
+  // background, so they're left untouched.)
+  &[data-theme='night'] {
+    .lumivox-display-name {
+      color: var(--ink);
+    }
+    .lumivox-tagline,
+    .lumivox-brief {
+      color: var(--muted);
+    }
+    .lumivox-roster-item,
+    .lumivox-roster-name {
+      color: var(--ink);
+    }
+    .lumivox-social {
+      color: var(--ink);
+      border-color: rgba(244, 239, 230, 0.22);
+      background: rgba(244, 239, 230, 0.08);
+    }
+    .lumivox-social:hover,
+    .lumivox-social:focus-visible {
+      color: var(--bg);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+  }
+
   .lvx-artist-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
