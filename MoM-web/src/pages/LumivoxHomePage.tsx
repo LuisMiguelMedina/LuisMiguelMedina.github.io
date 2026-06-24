@@ -46,11 +46,6 @@ export function LumivoxHomePage() {
       return next;
     });
 
-  const scrollToArtistas = (e: React.MouseEvent): void => {
-    e.preventDefault();
-    document.getElementById('artistas')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const night = theme === 'night';
 
   return (
@@ -63,18 +58,6 @@ export function LumivoxHomePage() {
           </div>
           <span className="lvx-word">lumivox</span>
         </Link>
-
-        <nav className="lvx-nav">
-          <a href="#artistas" onClick={scrollToArtistas}>
-            obras
-          </a>
-          <a href="#artistas" onClick={scrollToArtistas}>
-            artistas
-          </a>
-          <a href="#artistas" onClick={scrollToArtistas}>
-            comunidad
-          </a>
-        </nav>
 
         <div className="lvx-actions">
           <button
