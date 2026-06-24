@@ -24,7 +24,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'artists.tagline': 'community artists',
     // artist bios (only Luis.M is real; others fall back to their literal data)
     'artist.luis.hook': 'Do you like this page?',
-    'artist.luis.discipline': 'Design · Digital solutions',
+    'artist.luis.discipline': 'Software Engineer · Digital solutions',
     'artist.luis.bio':
       "Hi, I'm Luis.M. I designed this page to give my fellow artists a unique space for their commercial needs.",
     'artist.luis.brief':
@@ -74,7 +74,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'artists.back': 'inicio',
     'artists.tagline': 'artistas de la comunidad',
     'artist.luis.hook': '¿Te gusta esta página?',
-    'artist.luis.discipline': 'Diseño · Soluciones digitales',
+    'artist.luis.discipline': 'Ingeniero de Software · Soluciones digitales',
     'artist.luis.bio':
       'Hola, soy Luis.M y he diseñado esta página para ayudar a mis compañeros artistas a tener un espacio único para sus necesidades comerciales.',
     'artist.luis.brief':
