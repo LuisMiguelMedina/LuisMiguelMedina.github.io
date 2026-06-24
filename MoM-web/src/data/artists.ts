@@ -45,8 +45,8 @@ export const artists: Artist[] = [
     tagline: 'artist.luis.hook',
     discipline: 'artist.luis.discipline',
     bio: 'artist.luis.bio',
-    splash: '/lumivox-media/luis-m.svg',
-    icon: '/lumivox-media/luis-m.svg',
+    splash: '/lumivox-media/luis-m.jpg',
+    icon: '/lumivox-media/luis-m.jpg',
     accentColor: '#3B5673',
     modules: [
       {
