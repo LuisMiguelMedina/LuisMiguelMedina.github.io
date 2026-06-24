@@ -39,9 +39,16 @@ interface Dimension {
   description: string;
 }
 
-// Default placeholder image (simple avatar) — verbatim from legacy service.
+// Icono por defecto de actor: la silueta que usa el personaje Alerce. Se aplica a
+// todo jugador sin una referencia de imagen válida en Firebase.
 const DEFAULT_PLAYER_IMAGE =
   'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNTAiIGZpbGw9IiMzMzMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0iIzY2NiIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9Ijg1IiByeD0iMzAiIHJ5PSIyMCIgZmlsbD0iIzY2NiIvPjwvc3ZnPg==';
+
+// Una referencia de imagen sólo es válida si es un data URI, una URL http(s) o una
+// ruta absoluta. Valores basura como "x" o "lol" se tratan como "sin imagen".
+function isValidImageRef(img: string | null | undefined): img is string {
+  return !!img && (img.startsWith('data:') || img.startsWith('http') || img.startsWith('/'));
+}
 
 const FIREBASE_PLAYERS_PATH = 'players';
 const FIREBASE_DIMENSIONS_PATH = 'dimensions';
@@ -90,7 +97,7 @@ function usePlayersData(): {
             name: player.name || 'Unknown Player',
             dimension: (player.dimension || 1) as 1 | 2,
             status: (player.status || 1) as 1 | 2,
-            image: player.image || DEFAULT_PLAYER_IMAGE,
+            image: isValidImageRef(player.image) ? player.image : DEFAULT_PLAYER_IMAGE,
           }));
           setPlayers(list);
         } else {
@@ -182,7 +189,7 @@ export function Players(): JSX.Element {
   };
 
   const onImageError = (event: React.SyntheticEvent<HTMLImageElement>): void => {
-    event.currentTarget.src = '/favicon.ico';
+    event.currentTarget.src = DEFAULT_PLAYER_IMAGE;
   };
 
   return (
