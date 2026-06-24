@@ -371,4 +371,60 @@
     font-weight: 600;
     color: var(--jc-coral);
   }
+
+  // --- Night theme (toggled via data-theme on the root) ---
+  &[data-theme='night'] {
+    --jc-card: #241f30;
+    background: radial-gradient(circle at 50% -10%, #2a2545 0%, #15131f 55%, #0d0b14 100%);
+    color: #f1ece0;
+
+    .jc-topbar .lumivox-mark {
+      color: #f1ece0;
+      --lvx-sun: #e8b848;
+      --lvx-sun-deep: #c97f2a;
+    }
+
+    .jc-hero h1 {
+      color: #f1ece0;
+      text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45), 5px 5px 0 var(--jc-teal-deep);
+    }
+
+    .jc-card {
+      color: #f1ece0;
+    }
+
+    .jc-style-art {
+      background: repeating-linear-gradient(45deg, #2c2738, #2c2738 8px, #332e42 8px, #332e42 16px);
+      border-color: #46415a;
+
+      span {
+        color: #8a85a0;
+      }
+    }
+
+    .jc-fig .jc-fig-cut {
+      fill: #15131f;
+      opacity: 0.82;
+    }
+
+    .jc-summary {
+      background: var(--jc-card);
+      border-color: #46415a;
+      box-shadow: 0 10px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .jc-lines li {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    // Make the USD total pop as a light chip on the dark page.
+    .jc-total-usd {
+      background: #f1ece0;
+      color: #15131f;
+
+      strong {
+        color: #15131f;
+      }
+    }
+  }
 }

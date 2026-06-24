@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { DayMark, NightMark, readTheme, type Theme } from './LumivoxLogo';
+import { DayMark, NightMark } from './LumivoxLogo';
+import { useTheme } from './ThemeContext';
 import './PageTransition.scss';
 
 type Phase = 'idle' | 'cover' | 'reveal';
@@ -10,8 +11,8 @@ type Phase = 'idle' | 'cover' | 'reveal';
 // it paints before the new page is ever visible (no flash), then fades out.
 export function PageTransition() {
   const location = useLocation();
+  const { theme } = useTheme();
   const [phase, setPhase] = useState<Phase>('idle');
-  const [theme, setTheme] = useState<Theme>('day');
   const first = useRef(true);
 
   useLayoutEffect(() => {
@@ -19,7 +20,6 @@ export function PageTransition() {
       first.current = false; // no transition on initial load
       return;
     }
-    setTheme(readTheme());
     setPhase('cover');
     const toReveal = setTimeout(() => setPhase('reveal'), 430);
     const toIdle = setTimeout(() => setPhase('idle'), 850);

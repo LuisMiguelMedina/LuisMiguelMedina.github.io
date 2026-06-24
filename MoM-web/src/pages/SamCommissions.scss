@@ -19,6 +19,16 @@
   color: var(--ink);
 }
 
+// Night theme: cooler, deeper palette. Tokens cascade to every .sc-* child.
+.sam-commissions[data-theme='night'] {
+  --bg: #14110d;
+  --red: #9a3e34;
+  --red-dk: #6f2c24;
+  --cream: #ece4d0;
+  --blue: #8bb4b5;
+  --blue-dk: #66908f;
+}
+
 .sc-topbar {
   width: 100%;
   max-width: 560px;

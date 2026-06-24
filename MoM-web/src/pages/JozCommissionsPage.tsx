@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LumivoxMark } from '../components/lumivox/LumivoxMark';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { useTheme } from '../components/ThemeContext';
 import './JozCommissions.scss';
 
 // Functional commission quote builder for Joz.
@@ -61,6 +62,7 @@ function SizeFigure({ crop }: { crop: SizeCrop }) {
 }
 
 export function JozCommissionsPage() {
+  const { theme } = useTheme();
   const [styleId, setStyleId] = useState<string | null>(null);
   const [sizeId, setSizeId] = useState<string | null>(null);
   const [lookId, setLookId] = useState<string | null>(null);
@@ -73,7 +75,7 @@ export function JozCommissionsPage() {
   const complete = !!style && !!size && !!look;
 
   return (
-    <div className="joz-comm">
+    <div className="joz-comm" data-theme={theme}>
       <div className="jc-topbar">
         <LumivoxMark />
         <ThemeToggle />

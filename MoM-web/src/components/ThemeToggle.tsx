@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import { readTheme, THEME_KEY, type Theme } from './LumivoxLogo';
+import { useTheme } from './ThemeContext';
 import './ThemeToggle.scss';
 
-// Reusable day/night switch. Self-contained: persists the global theme to
-// localStorage (shared with the homepage and the page transition). Pages that
-// aren't themed still set the preference, which the home + transitions honor.
+// Day/night switch backed by the shared ThemeContext, so flipping it updates the
+// whole UI (home, themed pages, and the page transition) at once.
 
 function SunIcon() {
   return (
@@ -24,19 +22,7 @@ function MoonIcon() {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('day');
-
-  useEffect(() => {
-    setTheme(readTheme());
-  }, []);
-
-  const toggle = (): void =>
-    setTheme((t) => {
-      const next: Theme = t === 'night' ? 'day' : 'night';
-      localStorage.setItem(THEME_KEY, next);
-      return next;
-    });
-
+  const { theme, toggle } = useTheme();
   const night = theme === 'night';
 
   return (

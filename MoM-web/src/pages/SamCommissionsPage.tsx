@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LumivoxMark } from '../components/lumivox/LumivoxMark';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { useTheme } from '../components/ThemeContext';
 import './SamCommissions.scss';
 
 // Mockup landing for Sam's commissions — retro diner "menu" layout.
@@ -35,11 +36,12 @@ const MENU = [
 ];
 
 export function SamCommissionsPage() {
+  const { theme } = useTheme();
   const [pick, setPick] = useState<string | null>(null);
   const randomOc = (): void => setPick(MENU[Math.floor(Math.random() * MENU.length)]);
 
   return (
-    <div className="sam-commissions">
+    <div className="sam-commissions" data-theme={theme}>
       <div className="sc-topbar">
         <LumivoxMark />
         <ThemeToggle />
