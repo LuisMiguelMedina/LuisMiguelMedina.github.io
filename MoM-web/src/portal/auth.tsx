@@ -12,6 +12,9 @@ import {
   type ReactNode,
 } from 'react';
 import { ref, set, onValue, off, type DatabaseReference } from 'firebase/database';
+// Portal-only icon font: imported here (the portal's root provider) so it stays in
+// the lazy portal chunk instead of loading on the public landing.
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { db } from './firebase';
 import type { AdminCredential, AdminLevel, AdminSession } from './types';
 

@@ -6,7 +6,6 @@ import './Articulos.scss';
 interface ArticleFile {
   id: string;
   name: string;
-  path: string;
   type: 'folder' | 'file';
   children?: ArticleFile[];
   content?: string;
@@ -88,13 +87,11 @@ const INITIAL_FILES: ArticleFile[] = [
   {
     id: '1',
     name: 'Personal',
-    path: '/Personal',
     type: 'folder',
     children: [
       {
         id: '1-1',
         name: 'Katherine M.2 - HR File.md',
-        path: '/Personal/Katherine M.2 - HR File.md',
         type: 'file',
         lastModified: 'Ciclo 21.7',
         size: '4.2 KB',
@@ -105,13 +102,11 @@ const INITIAL_FILES: ArticleFile[] = [
   {
     id: '2',
     name: 'Proyectos',
-    path: '/Proyectos',
     type: 'folder',
     children: [
       {
         id: '2-1',
         name: 'Golden 21',
-        path: '/Proyectos/Golden 21',
         type: 'folder',
         children: [],
       },
@@ -120,7 +115,6 @@ const INITIAL_FILES: ArticleFile[] = [
   {
     id: '3',
     name: 'Protocolos',
-    path: '/Protocolos',
     type: 'folder',
     children: [],
   },

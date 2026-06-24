@@ -7,7 +7,6 @@ const LANG_KEY = 'lumivox-lang';
 
 const DICT: Record<Lang, Record<string, string>> = {
   en: {
-    'nav.home': 'home',
     'common.example': 'EXAMPLE',
     'common.days': 'days',
     // shared CTAs / chrome (artist module labels are i18n keys; proper nouns fall through)
@@ -23,6 +22,13 @@ const DICT: Record<Lang, Record<string, string>> = {
     // artists page
     'artists.back': 'home',
     'artists.tagline': 'community artists',
+    // artist bios (only Luis.M is real; others fall back to their literal data)
+    'artist.luis.hook': 'Do you like this page?',
+    'artist.luis.discipline': 'Design · Digital solutions',
+    'artist.luis.bio':
+      "Hi, I'm Luis.M — I designed this page to give my fellow artists a unique space for their commercial needs.",
+    'artist.luis.brief':
+      "We live in a time when digitalization makes spreading a digital brand remarkably easy. If you're looking to grow your brand through digital solutions, reach out!",
     // joz commissions
     'joz.title': 'Commissions!',
     'joz.subtitle': 'Build your quote — pick one option per step and watch your total live.',
@@ -55,7 +61,6 @@ const DICT: Record<Lang, Record<string, string>> = {
     'sam.note': 'Sample design — to be reworked later.',
   },
   es: {
-    'nav.home': 'inicio',
     'common.example': 'EJEMPLO',
     'common.days': 'días',
     'cta.commissions': 'Comisiones',
@@ -68,6 +73,12 @@ const DICT: Record<Lang, Record<string, string>> = {
     'home.artists': 'artistas',
     'artists.back': 'inicio',
     'artists.tagline': 'artistas de la comunidad',
+    'artist.luis.hook': '¿Te gusta esta página?',
+    'artist.luis.discipline': 'Diseño · Soluciones digitales',
+    'artist.luis.bio':
+      'Hola, soy Luis.M y he diseñado esta página para ayudar a mis compañeros artistas a tener un espacio único para sus necesidades comerciales.',
+    'artist.luis.brief':
+      'Estamos en un tiempo donde la facilidad que trae la digitalización a la propagación de una marca digital es bastante evidente. Si estás buscando impulsar tu marca mediante soluciones digitales, ¡puedes contactarme!',
     'joz.title': '¡Comisiones!',
     'joz.subtitle': 'Arma tu cotización — elige una opción en cada paso y mira tu total en vivo.',
     'joz.step.style': 'Elige un estilo',

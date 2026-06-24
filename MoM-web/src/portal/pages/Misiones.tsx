@@ -17,7 +17,6 @@ interface Mision {
   prioridad: PrioridadMision;
   dimension: string;
   fechaInicio: string;
-  fechaFin?: string;
   lider: string;
   equipoSize: number;
   objetivos: string[];
@@ -112,7 +111,6 @@ const MISIONES: Mision[] = [
     prioridad: 'critica',
     dimension: 'Ciudadela Zarek - Sector Médico',
     fechaInicio: '2026-01-28',
-    fechaFin: '2026-01-30',
     lider: 'Werner Heisenberg',
     equipoSize: 3,
     objetivos: [
@@ -132,7 +130,6 @@ const MISIONES: Mision[] = [
     prioridad: 'alta',
     dimension: 'Ciudadela Zarek - Nexo Central',
     fechaInicio: '2026-02-01',
-    fechaFin: '2026-02-03',
     lider: 'Michio Kaku',
     equipoSize: 8,
     objetivos: [

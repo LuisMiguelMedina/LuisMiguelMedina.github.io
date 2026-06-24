@@ -10,10 +10,8 @@ interface Personal {
   departamento: string;
   nivel: 1 | 2 | 3 | 4;
   estado: 'activo' | 'en-mision' | 'licencia' | 'inactivo';
-  imagen: string;
   ubicacion: string;
   especialidad: string;
-  fechaIngreso: string;
   variante: 'Original' | 'Ultra' | 'Anomalo' | 'Everett';
   proyecto?: string;
 }
@@ -27,10 +25,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Operaciones Dimensionales',
     nivel: 2,
     estado: 'activo',
-    imagen: '/assets/img/avatars/katherine.png',
     ubicacion: 'Nexo Central - Sector Alfa',
     especialidad: 'Comando Táctico / Ingeniería de Combate',
-    fechaIngreso: 'Ciclo 20.3',
     variante: 'Ultra',
     proyecto: 'Golden 21',
   },
@@ -42,10 +38,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Los Maquinistas',
     nivel: 4,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar1.jpg',
     ubicacion: 'Nexo Central - Sala de Gobierno',
     especialidad: 'Filosofía Fundacional / Administración',
-    fechaIngreso: 'Ciclo 12.1',
     variante: 'Original',
   },
   {
@@ -56,10 +50,8 @@ const PERSONAL: Personal[] = [
     departamento: 'División de Cosmología Aplicada',
     nivel: 3,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar2.jpg',
     ubicacion: 'El Observatorio',
     especialidad: 'Monitoreo Aeónico / Sendas',
-    fechaIngreso: 'Ciclo 18.7',
     variante: 'Original',
   },
   {
@@ -70,10 +62,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Operaciones Dimensionales',
     nivel: 2,
     estado: 'en-mision',
-    imagen: '/assets/img/avatars/avatar3.jpg',
     ubicacion: 'Dimensión ZRK-21 - Campo',
     especialidad: 'Reconocimiento / The Spark',
-    fechaIngreso: 'Ciclo 19.2',
     variante: 'Ultra',
   },
   {
@@ -84,10 +74,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Los Maquinistas',
     nivel: 3,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar4.jpg',
     ubicacion: 'Sala de Gobierno - Cámara de Consejo',
     especialidad: 'Filosofía Fundacional / Estrategia Multiversal',
-    fechaIngreso: 'Ciclo 20.8',
     variante: 'Everett',
   },
   {
@@ -98,10 +86,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Los Archivos',
     nivel: 3,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar5.jpg',
     ubicacion: 'Los Archivos - Conocimiento Unificado',
     especialidad: 'Síntesis de Conocimiento Multiversal',
-    fechaIngreso: 'Ciclo 15.5',
     variante: 'Original',
   },
   {
@@ -112,10 +98,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Operaciones Dimensionales',
     nivel: 2,
     estado: 'en-mision',
-    imagen: '/assets/img/avatars/avatar6.jpg',
     ubicacion: 'Frontera D1-D2 - Misión CONTAIN-BETA',
     especialidad: 'Barreras de Energía / Fisuras',
-    fechaIngreso: 'Ciclo 20.8',
     variante: 'Anomalo',
   },
   {
@@ -126,10 +110,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Sociedad de Genios',
     nivel: 4,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar7.jpg',
     ubicacion: 'Nexo Central - Comunión con Nous',
     especialidad: 'Consulta con Nous / Erudición',
-    fechaIngreso: 'Ciclo 10.2',
     variante: 'Original',
   },
   {
@@ -140,10 +122,8 @@ const PERSONAL: Personal[] = [
     departamento: 'División de Tránsito',
     nivel: 2,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar1.jpg',
     ubicacion: 'Nexo Central - Centro de Portales',
     especialidad: 'Navegación Interdimensional',
-    fechaIngreso: 'Ciclo 19.9',
     variante: 'Ultra',
   },
   {
@@ -154,10 +134,8 @@ const PERSONAL: Personal[] = [
     departamento: 'División de Cosmología Aplicada',
     nivel: 1,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar2.jpg',
     ubicacion: 'El Observatorio - Monitoreo',
     especialidad: 'Detección de Stellarons',
-    fechaIngreso: 'Ciclo 21.4',
     variante: 'Anomalo',
   },
   {
@@ -168,10 +146,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Operaciones Dimensionales',
     nivel: 1,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar3.jpg',
     ubicacion: 'Nexo Central - Sector Alfa',
     especialidad: 'Análisis de Datos / Apoyo Táctico',
-    fechaIngreso: 'Ciclo 20.3',
     variante: 'Ultra',
     proyecto: 'Golden 21',
   },
@@ -183,10 +159,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Los Maquinistas',
     nivel: 4,
     estado: 'inactivo',
-    imagen: '/assets/img/avatars/avatar4.jpg',
     ubicacion: 'Nexo Central - Sala de Gobierno',
     especialidad: 'Administración Multiversal / Dirección Estratégica',
-    fechaIngreso: 'Ciclo 14.2',
     variante: 'Everett',
     proyecto: 'Golden 21',
   },
@@ -198,10 +172,8 @@ const PERSONAL: Personal[] = [
     departamento: 'Control Cronotemporal',
     nivel: 3,
     estado: 'activo',
-    imagen: '/assets/img/avatars/avatar5.jpg',
     ubicacion: 'Nexo Central - División Temporal',
     especialidad: 'Paradojas Temporales / Líneas de Tiempo',
-    fechaIngreso: 'Ciclo 17.6',
     variante: 'Original',
     proyecto: 'Golden 21',
   },
@@ -418,6 +390,7 @@ export function Directorio() {
                 <img
                   src={getStaffAvatar(persona.id)}
                   alt={persona.nombre}
+                  loading="lazy"
                   onError={onImageError}
                 />
                 <div className={`estado-indicator ${persona.estado}`} />

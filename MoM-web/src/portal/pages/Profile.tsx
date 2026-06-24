@@ -168,6 +168,7 @@ export function Profile() {
               className="avatar-img"
               src={adminAvatar}
               alt={adminName}
+              loading="lazy"
               onError={onAvatarError}
             />
           </div>

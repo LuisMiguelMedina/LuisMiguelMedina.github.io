@@ -40,18 +40,18 @@ export type Artist = {
 export const artists: Artist[] = [
   {
     handle: 'luis-m',
-    // TODO confirm with Luis.M
     displayName: 'Luis.M',
-    tagline: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-    discipline: 'Lorem Ipsum · Dolor Sit',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
+    // i18n keys (see i18n.tsx → artist.luis.*); rendered through t()
+    tagline: 'artist.luis.hook',
+    discipline: 'artist.luis.discipline',
+    bio: 'artist.luis.bio',
     splash: '/lumivox-media/luis-m.svg',
     icon: '/lumivox-media/luis-m.svg',
     accentColor: '#3B5673',
     modules: [
       {
         kind: 'brief',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        body: 'artist.luis.brief',
       },
       {
         kind: 'socials',

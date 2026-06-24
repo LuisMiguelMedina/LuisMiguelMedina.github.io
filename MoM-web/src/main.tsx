@@ -1,8 +1,7 @@
-import { StrictMode } from 'react';
+import { StrictMode, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles.scss';
 import './portal/theme.scss';
 import { PageTransition } from './components/PageTransition';
@@ -12,28 +11,34 @@ import { LumivoxHomePage } from './pages/LumivoxHomePage';
 import { ArtistsPage } from './pages/ArtistsPage';
 import { SamCommissionsPage } from './pages/SamCommissionsPage';
 import { JozCommissionsPage } from './pages/JozCommissionsPage';
-import { AuthProvider } from './portal/auth';
-import { ProtectedRoute } from './portal/ProtectedRoute';
-import { Layout } from './portal/Layout';
-import { Login } from './portal/Login';
-import { Register } from './portal/pages/Register';
-import { Dashboard } from './portal/pages/Dashboard';
-import { Profile } from './portal/pages/Profile';
-import { Logs } from './portal/pages/Logs';
-import { Players } from './portal/pages/Players';
-import { Anuncios } from './portal/pages/Anuncios';
-import { Directorio } from './portal/pages/Directorio';
-import { Misiones } from './portal/pages/Misiones';
-import { Articulos } from './portal/pages/Articulos';
-import { Settings } from './portal/pages/Settings';
 
-// Root layout: mounts the page-transition overlay above every route.
+// The Multiverse-of-Madness portal is lazy-loaded: it drags in Firebase + FontAwesome,
+// which the public landing never touches. Splitting it keeps /home's first load lean.
+const AuthProvider = lazy(() => import('./portal/auth').then((m) => ({ default: m.AuthProvider })));
+const ProtectedRoute = lazy(() => import('./portal/ProtectedRoute').then((m) => ({ default: m.ProtectedRoute })));
+const Layout = lazy(() => import('./portal/Layout').then((m) => ({ default: m.Layout })));
+const Login = lazy(() => import('./portal/Login').then((m) => ({ default: m.Login })));
+const Register = lazy(() => import('./portal/pages/Register').then((m) => ({ default: m.Register })));
+const Dashboard = lazy(() => import('./portal/pages/Dashboard').then((m) => ({ default: m.Dashboard })));
+const Profile = lazy(() => import('./portal/pages/Profile').then((m) => ({ default: m.Profile })));
+const Logs = lazy(() => import('./portal/pages/Logs').then((m) => ({ default: m.Logs })));
+const Players = lazy(() => import('./portal/pages/Players').then((m) => ({ default: m.Players })));
+const Anuncios = lazy(() => import('./portal/pages/Anuncios').then((m) => ({ default: m.Anuncios })));
+const Directorio = lazy(() => import('./portal/pages/Directorio').then((m) => ({ default: m.Directorio })));
+const Misiones = lazy(() => import('./portal/pages/Misiones').then((m) => ({ default: m.Misiones })));
+const Articulos = lazy(() => import('./portal/pages/Articulos').then((m) => ({ default: m.Articulos })));
+const Settings = lazy(() => import('./portal/pages/Settings').then((m) => ({ default: m.Settings })));
+
+// Root layout: page-transition overlay above every route; Suspense catches the
+// lazy portal chunks (public routes are eager, so they never suspend here).
 function RootLayout() {
   return (
     <LanguageProvider>
       <ThemeProvider>
         <PageTransition />
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </ThemeProvider>
     </LanguageProvider>
   );

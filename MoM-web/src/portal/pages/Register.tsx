@@ -21,7 +21,6 @@ export function Register() {
   const [data, setData] = useState<RegisterData>(EMPTY);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
   function update<K extends keyof RegisterData>(key: K, value: RegisterData[K]) {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -30,8 +29,6 @@ export function Register() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (isLoading) return;
-
-    setSuccessMessage('');
 
     // Validate passwords match (faithful to legacy register.ts)
     if (data.password !== data.confirmPassword) {
@@ -147,9 +144,6 @@ export function Register() {
 
           {errorMessage && (
             <div className="terminal-error">{errorMessage}</div>
-          )}
-          {successMessage && (
-            <div className="terminal-success">{successMessage}</div>
           )}
 
           <button

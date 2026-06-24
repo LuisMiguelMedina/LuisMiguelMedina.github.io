@@ -34,7 +34,6 @@ interface LegacyPlayer {
 interface Dimension {
   id: string;
   name: string;
-  color: 'amber' | 'cyan';
   status: 'online' | 'offline' | 'maintenance';
   description: string;
 }
@@ -57,14 +56,12 @@ const DEFAULT_DIMENSIONS: Dimension[] = [
   {
     id: 'dimension1',
     name: 'Dimension 1',
-    color: 'amber',
     status: 'online',
     description: 'Mundo Principal',
   },
   {
     id: 'dimension2',
     name: 'Dimension 2',
-    color: 'cyan',
     status: 'online',
     description: 'Mundo Secundario',
   },
@@ -118,7 +115,6 @@ function usePlayersData(): {
         const list = Object.entries(data).map(([id, dim]) => ({
           id,
           name: dim.name ?? '',
-          color: (dim.color ?? 'cyan') as 'amber' | 'cyan',
           status: (dim.status ?? 'online') as Dimension['status'],
           description: dim.description ?? '',
         }));
@@ -262,7 +258,7 @@ export function Players(): JSX.Element {
                       className={`player-card${player.status === 2 ? ' inactive' : ''}`}
                     >
                       <div className="player-avatar">
-                        <img src={player.image} alt={player.name} onError={onImageError} />
+                        <img src={player.image} alt={player.name} loading="lazy" onError={onImageError} />
                         {player.status === 2 && (
                           <div className="inactive-overlay">
                             <i className="fas fa-times" />

@@ -32,7 +32,6 @@ export interface AdminPermissions {
   canViewDirectorio: boolean;
   canViewMisiones: boolean;
   canAccessSettings: boolean;
-  categories: string[];
 }
 
 export const ADMIN_LEVEL_PERMISSIONS: Record<AdminLevel, AdminPermissions> = {
@@ -46,7 +45,6 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<AdminLevel, AdminPermissions> = {
     canViewDirectorio: false,
     canViewMisiones: false,
     canAccessSettings: false,
-    categories: ['dashboard', 'profile', 'logs', 'anuncios'],
   },
   2: {
     canViewDashboard: true,
@@ -58,7 +56,6 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<AdminLevel, AdminPermissions> = {
     canViewDirectorio: true,
     canViewMisiones: false,
     canAccessSettings: false,
-    categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'anuncios', 'directorio'],
   },
   3: {
     canViewDashboard: true,
@@ -70,7 +67,6 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<AdminLevel, AdminPermissions> = {
     canViewDirectorio: true,
     canViewMisiones: true,
     canAccessSettings: false,
-    categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'articulos', 'anuncios', 'directorio', 'misiones'],
   },
   4: {
     canViewDashboard: true,
@@ -82,6 +78,5 @@ export const ADMIN_LEVEL_PERMISSIONS: Record<AdminLevel, AdminPermissions> = {
     canViewDirectorio: true,
     canViewMisiones: true,
     canAccessSettings: true,
-    categories: ['dashboard', 'profile', 'logs', 'monitoreo', 'articulos', 'anuncios', 'directorio', 'misiones', 'settings'],
   },
 };

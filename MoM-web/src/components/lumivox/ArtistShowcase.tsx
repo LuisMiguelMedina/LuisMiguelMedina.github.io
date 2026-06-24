@@ -1,4 +1,5 @@
 import type { Artist, ArtistModule } from '../../data/artists';
+import { useLang } from '../../i18n';
 import { BriefModule } from './modules/BriefModule';
 import { PortalModule } from './modules/PortalModule';
 import { SocialsModule } from './modules/SocialsModule';
@@ -11,6 +12,7 @@ type ArtistShowcaseProps = {
 };
 
 export function ArtistShowcase({ artist, panelId, labelledBy }: ArtistShowcaseProps) {
+  const { t } = useLang();
   const briefModule = artist.modules.find(
     (m): m is Extract<ArtistModule, { kind: 'brief' }> => m.kind === 'brief',
   );
@@ -29,12 +31,12 @@ export function ArtistShowcase({ artist, panelId, labelledBy }: ArtistShowcasePr
       </div>
 
       <div className="lumivox-identity">
-        <span className="lumivox-discipline">{artist.discipline}</span>
+        <span className="lumivox-discipline">{t(artist.discipline)}</span>
         <h1 className="lumivox-display-name" id={labelledBy}>
           {artist.displayName}
         </h1>
-        <p className="lumivox-tagline">{artist.tagline}</p>
-        <p className="lumivox-brief">{artist.bio}</p>
+        <p className="lumivox-tagline">{t(artist.tagline)}</p>
+        <p className="lumivox-brief">{t(artist.bio)}</p>
 
         {briefModule ? <BriefModule body={briefModule.body} /> : null}
 
