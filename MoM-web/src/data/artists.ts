@@ -68,7 +68,7 @@ export const artists: Artist[] = [
       {
         kind: 'portal',
         label: 'Multiverse Of Madness',
-        route: '/home/luis-m/multiverse-of-madness',
+        route: 'https://multiverseofmadness.me',
       },
     ],
   },

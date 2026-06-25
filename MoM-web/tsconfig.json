@@ -24,8 +24,6 @@
     "src/main.tsx",
     "src/pages/**/*.tsx",
     "src/components/**/*.tsx",
-    "src/portal/**/*.ts",
-    "src/portal/**/*.tsx",
     "src/data/**/*.ts",
     "src/vite-env.d.ts",
     "vite.config.ts"
