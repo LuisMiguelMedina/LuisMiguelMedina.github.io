@@ -65,11 +65,6 @@ export const artists: Artist[] = [
         kind: 'email',
         address: 'luis.mm91836@gmail.com',
       },
-      {
-        kind: 'portal',
-        label: 'Multiverse Of Madness',
-        route: 'https://multiverseofmadness.me',
-      },
     ],
   },
   {
